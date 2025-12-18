@@ -1,0 +1,30 @@
+// locales/en/common.json
+{
+  "title": "sannata.me",
+  "subtitle": "Silence gives birth to inspiration",
+  "intro": "A space where pause becomes the beginning of creativity. Legends, drawings, and stories born in silence.",
+  "enter": "Enter the silence",
+
+  "legend_title": "Legend of Sannata",
+  "legend_p1": "They say that when the world learned to distinguish noise from rest, a spirit named Sannata appeared.",
+  "legend_p2": "He did not speak or sing, yet his presence filled space with a unique sound — silence in which the heart can be heard.",
+  "legend_p3": "Since then people believe: Sannata is not emptiness, but a space where inspiration is born.",
+
+  "creativity_title": "Silence and creativity",
+  "creativity_p1": "In silence, images arise. When noise leaves, a space appears where words and lines gain strength.",
+  "creativity_p2": "Artists find the first stroke, writers — the first phrase, musicians — the first note.",
+  "creativity_p3": "Sannata.me is a portal where silence becomes creativity.",
+
+  "images_title": "Images",
+  "images_p1": "In silence, not only words are born, but lines. Each stroke is a breath.",
+  "img1": "First stroke",
+  "img2": "Silence in line",
+  "img3": "Image of inspiration",
+
+  "space_title": "Space",
+  "space_p1": "Sannata.me is not just a site but a community born in silence.",
+  "space_p2": "It unites legends, drawings, and stories.",
+  "space_p3": "For those who believe: a pause is not emptiness, but a beginning.",
+
+  "footer": "sannata.me © 2025"
+}

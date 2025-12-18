@@ -1,0 +1,99 @@
+/* styles/globals.css */
+:root {
+  --color-text: #222;
+  --color-bg: #fff;
+  --color-accent: #555;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+main {
+  display: block;
+}
+
+section {
+  padding: 100px 20px;
+  text-align: center;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+p {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  font-size: 1.06rem;
+}
+
+.btn-enter {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1px solid currentColor;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: all .25s ease;
+}
+.btn-enter:hover {
+  background-color: var(--color-text);
+  color: #fff;
+}
+
+.lang-switcher {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+.lang-switcher a {
+  color: var(--color-text);
+  text-decoration: none;
+  margin-left: 10px;
+}
+.lang-switcher a.active {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+.gallery figure { max-width: 260px; }
+.gallery img {
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+figcaption {
+  margin-top: 8px;
+  font-size: .9rem;
+  color: #555;
+}
+
+footer {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: .9rem;
+  color: #888;
+  border-top: 1px solid #eee;
+}
