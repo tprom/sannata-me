@@ -1,0 +1,22 @@
+{
+  "ketti": {
+    "title": "Ketti",
+    "pages": [
+      {
+        "type": "page",
+        "elements": [
+          { "type": "title", "text": "Chapter 1" },
+          { "type": "paragraph", "text": "Ketti woke up early that morning..." },
+          { "type": "image", "src": "/images/ketti/01.png" }
+        ]
+      },
+      {
+        "type": "page",
+        "elements": [
+          { "type": "paragraph", "text": "She looked out the window and saw the first snow." },
+          { "type": "image", "src": "/images/ketti/02.png" }
+        ]
+      }
+    ]
+  }
+}

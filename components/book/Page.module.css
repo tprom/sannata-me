@@ -1,0 +1,28 @@
+/* /components/book/Page.module.css */
+
+.page {
+  width: 45vw;              /* половина экрана */
+  height: 90vh;; /* ← высота страницы = экран минус отступы */
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.inner {
+  width: 90%;
+  height: 90%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  overflow: hidden;         /* убираем скролл */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
