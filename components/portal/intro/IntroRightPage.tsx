@@ -1,12 +1,13 @@
-'use client';
+import Page from '@/components/book/Page';
+import { useTranslations } from 'next-intl';
 
-import React from 'react';
+export default function IntroRightPage() {
+  const t = useTranslations('intro');
 
-export function IntroRightPage() {
   return (
-    <div style={{ padding: 40 }}>
-      <h2>Chapter 1</h2>
-      <p>This is the right intro page of the book.</p>
-    </div>
+    <Page>
+      <p>{t('rightPageText')}</p>
+    </Page>
   );
 }
+

@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0 30px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.left a,
+.right a {
+  margin-right: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #333;
+}
+
+.right a:last-child {
+  margin-right: 0;
+}
+
+.left a:hover,
+.right a:hover {
+  color: #000;
+}

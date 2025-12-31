@@ -1,6 +1,7 @@
 .flipbook {
   flex: 1;
   display: flex;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: flex-start; /* ← приподнимаем страницы вверх */
 
@@ -8,14 +9,17 @@
   padding-bottom: 10vh;     /* ← нижний отступ */
 
   gap: 40px;
-  overflow: hidden;
+  overflow: auto;
   box-sizing: border-box;
 }
 
 
 .pageContainer {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .controls {

@@ -1,56 +1,45 @@
-'use client';
-
-import React from 'react';
+import Page from '@/components/book/Page';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import typography from '../typography.module.css';
+import styles from './IntroLeftPage.module.css';
 
-import castle from '/images/castle.jpeg';     // Рис. 1
-import divider from '/images/divider.png';    // Рис. 2
+export default function IntroLeftPage() {
+  const t = useTranslations('intro');
 
-export function IntroLeftPage() {
   return (
-    <div style={{
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '40px',
-      textAlign: 'center',
-      position: 'relative',
-    }}>
-      {/* Слоган */}
-      <h2 style={{ fontSize: '1.8rem', marginBottom: '20px' }}>
-        Раскрасьте свой город — и история оживёт.
-      </h2>
+    <Page>
+      <div className={styles.container}>
+        <h2 className={typography.title}>{t('slogan')}</h2>
 
-      {/* Рис. 1 */}
-      <Image src={castle} alt="Sannata Castle" width={300} height={200} style={{ marginBottom: '12px' }} />
+        <div className={styles.illustration}>
+          <Image
+            src="/images/castle.png"
+            alt="Sannata Castle"
+            width={260}
+            height={160}
+          />
+        </div>
 
-      {/* Текст SANNATA.me */}
-      <div style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '12px' }}>
-        SANNATA.me
+        <div className={typography.brand}>
+          SANNATA.me
+        </div>
+
+        <div className={styles.divider}>
+          <Image
+            src="/images/divider.png"
+            alt="Decorative Divider"
+            width={220}
+            height={32}
+          />
+        </div>
+
+        <p className={typography.subtitle}>{t('subtitle')}</p>
+
+        <div className={styles.footer}>
+          <span className={typography.note}>{t('footer')}</span>
+        </div>
       </div>
-
-      {/* Рис. 2 */}
-      <Image src={divider} alt="Decorative Divider" width={240} height={40} style={{ marginBottom: '24px' }} />
-
-      {/* Подзаголовок */}
-      <p style={{ fontSize: '1.2rem', marginBottom: '40px' }}>
-        Приключенческие раскраски для детей и взрослых...
-      </p>
-
-      {/* Финальная подпись внизу справа */}
-      <div style={{
-        position: 'absolute',
-        bottom: '20px',
-        right: '30px',
-        fontSize: '1rem',
-        fontStyle: 'italic',
-        opacity: 0.8,
-      }}>
-        ... вдохновлённые путешествиями Кетти — SANNATA
-      </div>
-    </div>
+    </Page>
   );
 }
-

@@ -1,28 +1,27 @@
-/* /components/book/Page.module.css */
-
 .page {
-  width: 45vw;              /* половина экрана */
-  height: 90vh;; /* ← высота страницы = экран минус отступы */
+  width: 1024px;
+  height: calc(100vh - 60px); /* экран минус Header */
   background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  overflow: hidden;
+  position: relative;
   box-sizing: border-box;
-  padding: 20px;
+
+  /* визуальная граница страницы */
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+
+  overflow: visible; /* временно, чтобы убрать скролл */
+  padding: 0;
 }
 
 .inner {
-  width: 90%;
-  height: 90%;
-  padding: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 30px 40px; /* уменьшили */
+  padding-bottom: 40px;
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
-  gap: 24px;
-
-  overflow: hidden;         /* убираем скролл */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  justify-content: flex-start;
+  gap: 10px; /* уменьшили */
 }
+

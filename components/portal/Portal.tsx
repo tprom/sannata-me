@@ -1,20 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import Flipbook from './Flipbook.tsx';
-import GlobalNavigation from './GlobalNavigation.tsx';
-import ModuleHost from './ModuleHost.tsx';
-import IntroSpread from './intro/IntroSpread.tsx';
+import Flipbook from './Flipbook';
+import GlobalNavigation from './GlobalNavigation';
+import ModuleHost from './ModuleHost';
+import IntroSpread from './intro/IntroSpread';
 
 export default function Portal() {
   const [activeModule, setActiveModule] = useState<
-  'books' | 'insights' | 'landmarks' | 'studio' | null
->(null);
-
+    'books' | 'insights' | 'landmarks' | 'studio' | null
+  >(null);
 
   // Если модуль не выбран → показываем IntroSpread
   if (!activeModule) {
-    const introPages = IntroSpread();
+    const introPages = [<IntroSpread key="intro-spread" />];
     return (
       <div className="portal">
         <GlobalNavigation onSelect={setActiveModule} active={null} />
@@ -31,5 +30,6 @@ export default function Portal() {
     </div>
   );
 }
+
 
 
