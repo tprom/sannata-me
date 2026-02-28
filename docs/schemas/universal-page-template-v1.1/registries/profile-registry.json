@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.1.0",
+  "profiles": [
+    {
+      "id": "landmarks-module-home",
+      "moduleKey": "landmarks",
+      "pageKind": "module-home",
+      "recommendedOrder": [
+        "hero",
+        "summary",
+        "highlights",
+        "links-grid",
+        "cta"
+      ],
+      "requiredSections": ["summary", "links-grid"],
+      "forbiddenSections": [],
+      "styleVariants": {
+        "hero": "postcard-main",
+        "links-grid": "tiles"
+      }
+    },
+    {
+      "id": "landmarks-collection-home",
+      "moduleKey": "landmarks",
+      "pageKind": "collection-home",
+      "recommendedOrder": [
+        "hero",
+        "summary",
+        "highlights",
+        "links-grid",
+        "gallery"
+      ],
+      "requiredSections": ["summary", "links-grid"],
+      "forbiddenSections": [],
+      "styleVariants": {
+        "gallery": "filmstrip"
+      }
+    },
+    {
+      "id": "landmarks-item",
+      "moduleKey": "landmarks",
+      "pageKind": "item",
+      "recommendedOrder": ["hero", "summary", "gallery", "facts", "cta"],
+      "requiredSections": ["summary", "facts"],
+      "forbiddenSections": [],
+      "styleVariants": {
+        "facts": "passport"
+      }
+    }
+  ]
+}

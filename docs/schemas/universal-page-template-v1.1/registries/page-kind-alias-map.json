@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.1.0",
+  "aliases": {
+    "landmarks": {
+      "city-home": "collection-home",
+      "landmark": "item"
+    },
+    "diary-kutty": {
+      "diary-entry": "entry"
+    },
+    "diary-parents": {
+      "diary-entry": "entry"
+    }
+  }
+}

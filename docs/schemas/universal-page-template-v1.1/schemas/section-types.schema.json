@@ -1,0 +1,423 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sannata.local/schemas/universal-page-template/v1.1/section-types.schema.json",
+  "title": "Universal Page Template - Section Types v1.1",
+  "type": "object",
+  "$defs": {
+    "SectionBase": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^sec_[A-Za-z0-9_-]+$"
+        },
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "styleVariant": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "payload": {
+          "type": "object"
+        }
+      },
+      "required": ["id", "type", "payload"],
+      "additionalProperties": false
+    },
+    "HeroSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "hero" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "headline": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 180
+                },
+                "subheadline": { "type": "string", "maxLength": 240 },
+                "mediaIds": {
+                  "type": "array",
+                  "items": { "type": "string", "minLength": 1 },
+                  "uniqueItems": true
+                }
+              },
+              "required": ["headline"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "SummarySection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "summary" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string", "minLength": 1, "maxLength": 5000 }
+              },
+              "required": ["text"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "HighlightsSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "highlights" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 12,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 220
+                  }
+                }
+              },
+              "required": ["items"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "GallerySection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "gallery" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "mediaIds": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "type": "string", "minLength": 1 },
+                  "uniqueItems": true
+                },
+                "layout": {
+                  "type": "string",
+                  "enum": ["grid", "filmstrip", "masonry"]
+                }
+              },
+              "required": ["mediaIds"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "FactsSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "facts" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 20,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120
+                      },
+                      "value": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500
+                      }
+                    },
+                    "required": ["label", "value"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["items"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "LinksGridSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "links-grid" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 24,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 140
+                      },
+                      "slug": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      },
+                      "pageId": { "type": "string", "format": "uuid" },
+                      "description": { "type": "string", "maxLength": 280 }
+                    },
+                    "required": ["title"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["items"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "CtaSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "cta" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                "targetSlug": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                },
+                "targetPageId": { "type": "string", "format": "uuid" },
+                "variant": {
+                  "type": "string",
+                  "enum": ["primary", "secondary", "ghost"]
+                }
+              },
+              "required": ["label"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "TimelineSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "timeline" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "events": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": { "type": "string" },
+                      "title": { "type": "string", "minLength": 1 },
+                      "text": { "type": "string" }
+                    },
+                    "required": ["title"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["events"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "EntryCardSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "entry-card" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "entries": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": { "type": "string", "minLength": 1 },
+                      "excerpt": { "type": "string" },
+                      "slug": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      }
+                    },
+                    "required": ["title"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["entries"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "MoodStripSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "mood-strip" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "moods": {
+                  "type": "array",
+                  "items": { "type": "string", "minLength": 1, "maxLength": 80 }
+                }
+              },
+              "required": ["moods"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "DialogueSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "dialogue" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "speaker": { "type": "string", "minLength": 1 },
+                      "text": { "type": "string", "minLength": 1 }
+                    },
+                    "required": ["speaker", "text"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["lines"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "MemoryLinksSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": { "const": "memory-links" },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": { "type": "string", "minLength": 1 },
+                      "slug": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      },
+                      "note": { "type": "string" }
+                    },
+                    "required": ["title"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["links"],
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+    "CustomSection": {
+      "allOf": [
+        { "$ref": "#/$defs/SectionBase" },
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "pattern": "^custom:[a-z0-9-]+$"
+            },
+            "payload": {
+              "type": "object"
+            }
+          }
+        }
+      ]
+    },
+    "Section": {
+      "oneOf": [
+        { "$ref": "#/$defs/HeroSection" },
+        { "$ref": "#/$defs/SummarySection" },
+        { "$ref": "#/$defs/HighlightsSection" },
+        { "$ref": "#/$defs/GallerySection" },
+        { "$ref": "#/$defs/FactsSection" },
+        { "$ref": "#/$defs/LinksGridSection" },
+        { "$ref": "#/$defs/CtaSection" },
+        { "$ref": "#/$defs/TimelineSection" },
+        { "$ref": "#/$defs/EntryCardSection" },
+        { "$ref": "#/$defs/MoodStripSection" },
+        { "$ref": "#/$defs/DialogueSection" },
+        { "$ref": "#/$defs/MemoryLinksSection" },
+        { "$ref": "#/$defs/CustomSection" }
+      ]
+    }
+  }
+}

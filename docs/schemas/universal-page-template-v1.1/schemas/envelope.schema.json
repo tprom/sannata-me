@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sannata.local/schemas/universal-page-template/v1.1/envelope.schema.json",
+  "title": "Universal Page Template - Envelope v1.1",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "moduleKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "pageKind": {
+      "type": "string",
+      "enum": ["module-home", "collection-home", "item", "entry"]
+    },
+    "pageId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$"
+    },
+    "translationGroupId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{6,}$"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 180 },
+        "subtitle": { "type": "string", "maxLength": 240 },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 60 },
+          "uniqueItems": true
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "review", "published", "archived"]
+        }
+      },
+      "required": ["title", "status"],
+      "additionalProperties": false
+    },
+    "hero": {
+      "type": "object",
+      "properties": {
+        "headline": { "type": "string", "minLength": 1, "maxLength": 180 },
+        "subheadline": { "type": "string", "maxLength": 240 },
+        "kicker": { "type": "string", "maxLength": 80 },
+        "theme": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["headline"],
+      "additionalProperties": false
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "./section-types.schema.json#/$defs/Section"
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "properties": {
+        "parentId": {
+          "oneOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }]
+        },
+        "childrenIds": {
+          "type": "array",
+          "items": { "type": "string", "format": "uuid" },
+          "uniqueItems": true
+        },
+        "siblings": {
+          "type": "array",
+          "items": { "type": "string", "format": "uuid" },
+          "uniqueItems": true
+        },
+        "breadcrumbs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pageId": { "type": "string", "format": "uuid" },
+              "title": { "type": "string", "minLength": 1, "maxLength": 180 },
+              "slug": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              }
+            },
+            "required": ["pageId", "title", "slug"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["childrenIds"],
+      "additionalProperties": false
+    },
+    "mediaRefs": {
+      "type": "object",
+      "properties": {
+        "hero": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "sections": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "updatedBy": { "type": "string", "minLength": 1, "maxLength": 120 }
+      },
+      "required": ["createdAt", "updatedAt", "updatedBy"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "moduleKey",
+    "pageKind",
+    "pageId",
+    "slug",
+    "locale",
+    "translationGroupId",
+    "meta",
+    "sections",
+    "navigation",
+    "audit"
+  ],
+  "additionalProperties": false
+}

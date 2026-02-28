@@ -1,0 +1,10 @@
+Issue ID,Issue Type,Summary,Status,Priority,Story Points,Description,Definition of Done
+STAGE3-EPIC-01,Epic,Agent Form — Envelope + Sections (MVP),In Progress,P0,21,Перевести форму агента на редактирование envelope + sections[] с schema-валидацией preview и publish flow.,Epic создан и связан со всеми задачами STAGE3-01..08
+STAGE3-01,Story,Form model migration,Done (MVP),P0,3,Переход формы с плоских полей на модель envelope + sections[].,Форма читает и сохраняет документ в формате envelope без потери текущих данных
+STAGE3-02,Story,Section operations (CRUD + reorder),Done (MVP),P0,3,Операции add remove reorder toggle visible для секций.,Редактор секций полностью управляет порядком и видимостью без ручного JSON-редактирования
+STAGE3-03,Story,Hero block isolation,Done (MVP),P1,2,Выделить hero в отдельный блок формы вне массива секций.,Изменение hero не влияет на порядок sections[] и корректно отражается в preview
+STAGE3-04,Story,Registry validation gates,In Progress (MVP server-side gates done),P0,3,Проверки moduleKey pageKind sections[].type по registry v1.1.,Недопустимые значения блокируют сохранение и показывают понятную ошибку
+STAGE3-05,Story,Payload schema validation,In Progress (section + envelope structural validation done),P0,3,Валидация payload по типу секции required типы длины строк.,Ошибки payload подсвечиваются на уровне конкретной секции и поля
+STAGE3-06,Story,Live preview pipeline,Done (renderer parity for module/collection/item),P0,3,Preview draft envelope -> renderer для module-home collection-home item.,Preview структурно совпадает с production-рендером и не вызывает layout shift
+STAGE3-07,Story,Publish workflow & audit,Done (transitions + audit + UI + archived nav filtering),P0,2,Статусы draft review published archived и фиксация audit.updatedAt/updatedBy.,Переходы статусов работают по правилам и сохраняются в документе
+STAGE3-08,Story,Acceptance & regression pass,Done (checklist 15.5 closed; schema-pass + smoke forms/UI + build),P1,2,E2E-приёмка Этапа 3 schema-pass preview parity и создание/редактирование 6 секций MVP.,Чеклист 15.5 закрыт результаты зафиксированы в рабочих документах и handoff note

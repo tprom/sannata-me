@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.1.0",
+  "modules": [
+    {
+      "key": "landmarks",
+      "title": "Landmarks Module",
+      "enabled": true
+    },
+    {
+      "key": "diary-kutty",
+      "title": "Kutty Diary",
+      "enabled": true
+    },
+    {
+      "key": "diary-parents",
+      "title": "Ketty Parents Diary",
+      "enabled": true
+    }
+  ]
+}

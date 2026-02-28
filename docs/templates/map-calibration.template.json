@@ -1,0 +1,51 @@
+{
+  "mapId": "de-outline-v1",
+  "countryId": "country_de",
+  "image": {
+    "width": 1200,
+    "height": 900,
+    "src": "/maps/de-outline-v1.svg"
+  },
+  "transform": {
+    "type": "affine",
+    "version": "de-affine-v1"
+  },
+  "calibrationPoints": [
+    {
+      "id": "north_ref",
+      "lat": 53.5511,
+      "lng": 9.9937,
+      "x": 365,
+      "y": 180
+    },
+    {
+      "id": "west_ref",
+      "lat": 50.9375,
+      "lng": 6.9603,
+      "x": 250,
+      "y": 360
+    },
+    {
+      "id": "south_ref",
+      "lat": 48.1351,
+      "lng": 11.582,
+      "x": 465,
+      "y": 600
+    },
+    {
+      "id": "east_ref",
+      "lat": 52.52,
+      "lng": 13.405,
+      "x": 560,
+      "y": 320
+    },
+    {
+      "id": "southwest_ref",
+      "lat": 49.0069,
+      "lng": 8.4037,
+      "x": 330,
+      "y": 560
+    }
+  ],
+  "updatedAt": "2026-02-24T12:00:00.000Z"
+}

@@ -1,0 +1,25 @@
+{
+  "landmarkId": "landmark_rathaus_perlachturm",
+  "slug": "rathaus-perlachturm",
+  "cityId": "city_augsburg",
+  "title": {
+    "ru": "Ратуша и Перлахтурм",
+    "en": "Rathaus and Perlachturm",
+    "de": "Rathaus und Perlachturm",
+    "uk": "Ратуша та Перлахтурм"
+  },
+  "content": {
+    "description": "",
+    "history": "",
+    "facts": [],
+    "blocks": []
+  },
+  "geo": {
+    "lat": 48.3665,
+    "lng": 10.8985,
+    "source": "manual"
+  },
+  "mapVisibility": "city-only",
+  "sortOrder": 10,
+  "updatedAt": "2026-02-24T12:00:00.000Z"
+}

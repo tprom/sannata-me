@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "collection-home",
+  "pageId": "176dc6ee-5f2e-40ef-b46f-b6873ea2f201",
+  "slug": "augsburg",
+  "locale": "ru",
+  "translationGroupId": "tg_landmarks_city_augsburg",
+  "meta": {
+    "title": "Augsburg",
+    "subtitle": "Городской профиль",
+    "tags": ["city", "augsburg"],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Augsburg: история и маршруты",
+    "subheadline": "Выберите объект в меню или в карточках ниже",
+    "theme": "city"
+  },
+  "sections": [
+    {
+      "id": "sec_summary_city",
+      "type": "summary",
+      "title": "О городе",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Augsburg — городской узел с историческими объектами и разнообразными маршрутами."
+      }
+    },
+    {
+      "id": "sec_highlights_city",
+      "type": "highlights",
+      "title": "Ключевые акценты",
+      "visible": true,
+      "styleVariant": "bullets",
+      "payload": {
+        "items": [
+          "Достопримечательностей: 12",
+          "Доступен режим предпросмотра",
+          "Поддерживаются мультиязычные версии"
+        ]
+      }
+    },
+    {
+      "id": "sec_links_landmarks",
+      "type": "links-grid",
+      "title": "Объекты города",
+      "visible": true,
+      "styleVariant": "tiles",
+      "payload": {
+        "items": [
+          {
+            "title": "Rathaus-Perlachturm",
+            "slug": "rathaus-perlachturm",
+            "description": "Исторический центр города"
+          },
+          {
+            "title": "Fuggerei",
+            "slug": "fuggerei",
+            "description": "Квартал с уникальной историей"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_gallery_city",
+      "type": "gallery",
+      "title": "Галерея города",
+      "visible": true,
+      "styleVariant": "filmstrip",
+      "payload": {
+        "mediaIds": ["media_augsburg_001", "media_augsburg_002"],
+        "layout": "filmstrip"
+      }
+    }
+  ],
+  "navigation": {
+    "parentId": "7d67f90d-0d64-4d73-b6e7-b6decc2fd001",
+    "childrenIds": [
+      "76a8dc9f-2533-4fd6-b587-f5f17f7dd101",
+      "76a8dc9f-2533-4fd6-b587-f5f17f7dd102"
+    ],
+    "siblings": ["176dc6ee-5f2e-40ef-b46f-b6873ea2f202"],
+    "breadcrumbs": [
+      {
+        "pageId": "7d67f90d-0d64-4d73-b6e7-b6decc2fd001",
+        "title": "Атлас достопримечательностей",
+        "slug": "landmarks"
+      },
+      {
+        "pageId": "176dc6ee-5f2e-40ef-b46f-b6873ea2f201",
+        "title": "Augsburg",
+        "slug": "augsburg"
+      }
+    ]
+  },
+  "mediaRefs": {
+    "hero": ["media_city_augsburg_hero"],
+    "sections": ["media_augsburg_001", "media_augsburg_002"]
+  },
+  "audit": {
+    "createdAt": "2026-02-26T10:05:00Z",
+    "updatedAt": "2026-02-26T10:35:00Z",
+    "updatedBy": "agent"
+  }
+}

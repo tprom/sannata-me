@@ -1,0 +1,41 @@
+{
+  "cityId": "city_augsburg",
+  "slug": "augsburg",
+  "countryId": "country_de",
+  "name": {
+    "ru": "Аугсбург",
+    "en": "Augsburg",
+    "de": "Augsburg",
+    "uk": "Аугсбург"
+  },
+  "geo": {
+    "lat": 48.3705,
+    "lng": 10.8978,
+    "source": "manual"
+  },
+  "menu": {
+    "hasMapOption": true,
+    "mapLabel": {
+      "ru": "Показать на карте",
+      "en": "Show on map",
+      "de": "Auf der Karte anzeigen",
+      "uk": "Показати на мапі"
+    }
+  },
+  "status": {
+    "geoReady": true,
+    "isActive": true
+  },
+  "mapAnchor": {
+    "x": 412,
+    "y": 265,
+    "transformVersion": "de-affine-v1",
+    "confidence": 0.82
+  },
+  "geoMeta": {
+    "accuracyClass": "approx",
+    "lastCheckedAt": "2026-02-24T12:00:00.000Z",
+    "checkedBy": "agent"
+  },
+  "updatedAt": "2026-02-24T12:00:00.000Z"
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "module-home",
+  "pageId": "7d67f90d-0d64-4d73-b6e7-b6decc2fd001",
+  "slug": "landmarks",
+  "locale": "ru",
+  "translationGroupId": "tg_landmarks_module_home",
+  "meta": {
+    "title": "Атлас достопримечательностей",
+    "subtitle": "Главная страница модуля",
+    "tags": ["landmarks", "atlas"],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Путешествие по городам и местам",
+    "subheadline": "Выбирайте город и открывайте его маршруты",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_summary_main",
+      "type": "summary",
+      "title": "О модуле",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Модуль объединяет города и достопримечательности в единую навигационную структуру."
+      }
+    },
+    {
+      "id": "sec_highlights_main",
+      "type": "highlights",
+      "title": "Что доступно",
+      "visible": true,
+      "styleVariant": "chips",
+      "payload": {
+        "items": [
+          "Иерархия: город → объект",
+          "Поддержка локализаций",
+          "Режим reduced-motion"
+        ]
+      }
+    },
+    {
+      "id": "sec_links_cities",
+      "type": "links-grid",
+      "title": "Города",
+      "visible": true,
+      "styleVariant": "tiles",
+      "payload": {
+        "items": [
+          {
+            "title": "Augsburg",
+            "slug": "augsburg",
+            "description": "Профиль города и объекты"
+          },
+          {
+            "title": "Munich",
+            "slug": "munich",
+            "description": "Профиль города и объекты"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_cta_start",
+      "type": "cta",
+      "title": "Начать",
+      "visible": true,
+      "styleVariant": "primary",
+      "payload": {
+        "label": "Открыть первый город",
+        "targetSlug": "augsburg",
+        "variant": "primary"
+      }
+    }
+  ],
+  "navigation": {
+    "parentId": null,
+    "childrenIds": [
+      "176dc6ee-5f2e-40ef-b46f-b6873ea2f201",
+      "176dc6ee-5f2e-40ef-b46f-b6873ea2f202"
+    ],
+    "siblings": [],
+    "breadcrumbs": [
+      {
+        "pageId": "7d67f90d-0d64-4d73-b6e7-b6decc2fd001",
+        "title": "Атлас достопримечательностей",
+        "slug": "landmarks"
+      }
+    ]
+  },
+  "mediaRefs": {
+    "hero": ["media_landmarks_hero_001"],
+    "sections": []
+  },
+  "audit": {
+    "createdAt": "2026-02-26T10:00:00Z",
+    "updatedAt": "2026-02-26T10:30:00Z",
+    "updatedBy": "agent"
+  }
+}

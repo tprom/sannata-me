@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sannata.local/schemas/universal-page-template/v1.1/profile-registry.schema.json",
+  "title": "Universal Page Template - Profile Registry v1.1",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "moduleKey": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "pageKind": {
+            "type": "string",
+            "enum": ["module-home", "collection-home", "item", "entry"]
+          },
+          "recommendedOrder": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "requiredSections": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "forbiddenSections": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "styleVariants": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        },
+        "required": ["id", "moduleKey", "pageKind", "recommendedOrder"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["schemaVersion", "profiles"],
+  "additionalProperties": false
+}
