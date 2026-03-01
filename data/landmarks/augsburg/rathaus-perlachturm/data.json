@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "city": {
+      "en": "Augsburg",
+      "de": "Augsburg",
+      "ru": "Аугсбург",
+      "uk": "Аугсбург"
+    },
+    "landmark": "Rathaus-Perlachturm",
+    "citySlug": "augsburg",
+    "landmarkSlug": "rathaus-perlachturm",
+    "alias": "augsburg-rathaus-perlachturm",
+    "updatedAt": "2026-02-19T19:46:10.750Z"
+  },
+  "content": {
+    "ru": "Сегодня мы с мамой и папой были на площади, где стоит самый высокий дом, который я когда нибудь видела. Папа сказал, что это ратуша, но я сразу поняла, что это почти дворец. Он такой большой и светлый, будто его построили для королей, только королей там нет, а город — есть.\nРядом с ратушей стоит башня. Она такая высокая, что я долго смотрела вверх, и у меня закружилась голова. Башня называется Перлах. Мне показалось, что она очень старая и всё про город знает. Мама сказала, что раньше она следила, чтобы не было пожаров. Я думаю, что сейчас она просто смотрит, чтобы все люди были в безопасности.\nКогда солнце светило на купол башни, он блестел и как будто подмигивал мне. Я решила, что башня живая. Папа рассказал, что внутри иногда появляется маленький ангел и сражается с чёртом. Я очень внимательно смотрела на окна, но, наверное, ангел сегодня был занят.\nНа площади было слышно шаги, голоса и колокола. Звук колоколов был такой, будто время само разговаривает. Я представила, что здесь много лет назад тоже ходили люди, дети бегали, и башня смотрела на них так же, как на меня.\nКогда мы уходили, я несколько раз обернулась. Мне не хотелось прощаться с башней. Я думаю, если я приеду сюда ещё раз, она меня узнает.\n",
+    "en": "Today my mom, dad, and I were on a square where the tallest house I have ever seen stands. Dad said it’s called a town hall, but I immediately thought it looks almost like a palace. It is so big and bright, as if it was built for kings. Only there are no kings there — just the city.\nNext to the town hall stands a tower. It is so tall that I felt dizzy after looking up for a long time. The tower is called Perlach. It felt to me like it is very old and knows everything about the city. Mom said that long ago it watched out for fires. I think now it just watches over people.\nWhen the sun shone on the dome of the tower, it sparkled and almost winked at me. I decided the tower must be alive. Dad told me that sometimes a little angel appears inside and fights the devil. I looked very carefully at the windows, but maybe the angel was busy today.\nOn the square I could hear footsteps, voices, and bells. The bells sounded as if time itself was talking. I imagined that many years ago people also walked here, children ran around, and the tower looked at them the same way it looked at me.\nWhen we left, I turned around several times. I didn’t want to say goodbye to the tower. I think if I come here again one day, it will recognize me.\n",
+    "de": "Heute waren Mama, Papa und ich auf einem Platz, auf dem das höchste Haus steht, das ich je gesehen habe. Papa sagte, es heißt Rathaus, aber ich habe sofort gedacht, dass es fast ein Palast ist. Es ist so groß und hell, als wäre es für Könige gebaut worden. Nur dass dort keine Könige wohnen, sondern die Stadt.\nNeben dem Rathaus steht ein Turm. Er ist so hoch, dass mir schwindelig wurde, als ich lange nach oben geschaut habe. Der Turm heißt Perlach. Mir kam es so vor, als wäre er sehr alt und wüsste alles über die Stadt. Mama sagte, früher hat er aufgepasst, damit es keine Brände gibt. Ich glaube, heute passt er einfach auf die Menschen auf.\nAls die Sonne auf die Kuppel schien, hat sie geglänzt und mir fast zugezwinkert. Da habe ich beschlossen, dass der Turm lebt. Papa erzählte, dass dort manchmal ein kleiner Engel erscheint und mit dem Teufel kämpft. Ich habe ganz genau zu den Fenstern geschaut, aber vielleicht hatte der Engel heute keine Zeit.\nAuf dem Platz hörte man Schritte, Stimmen und Glocken. Die Glocken klangen so, als würde die Zeit selbst sprechen. Ich stellte mir vor, dass hier vor vielen Jahren auch Menschen gegangen sind, Kinder gelaufen sind und der Turm sie genauso angesehen hat wie mich.\nAls wir gingen, habe ich mich mehrmals umgedreht. Ich wollte mich nicht vom Turm verabschieden. Ich glaube, wenn ich noch einmal hierherkomme, wird er mich wiedererkennen.\n",
+    "uk": "Сьогодні ми з мамою і татом були на площі, де стоїть найвищий будинок, який я коли небудь бачила. Тато сказав, що це ратуша, але я одразу подумала, що це майже палац. Він такий великий і світлий, ніби його збудували для королів. Тільки королів там немає, а місто — є.\nПоруч із ратушею стоїть вежа. Вона така висока, що в мене закрутилася голова, коли я довго дивилася вгору. Вежа називається Перлах. Мені здалося, що вона дуже стара і знає все про місто. Мама сказала, що раніше вона стежила, щоб не було пожеж. Я думаю, що тепер вона просто пильнує людей.\nКоли сонце світило на купол вежі, він блищав і ніби підморгнув мені. Я вирішила, що вежа жива. Тато розповів, що всередині іноді з’являється маленький ангел і бореться з чортом. Я дуже уважно дивилася на вікна, але, мабуть, ангел сьогодні був зайнятий.\nНа площі було чути кроки, голоси і дзвони. Дзвони звучали так, ніби сама година розмовляє. Я уявила, що багато років тому тут теж ходили люди, бігали діти, і вежа дивилася на них так само, як на мене.\nКоли ми йшли, я кілька разів озирнулася. Мені не хотілося прощатися з вежею. Я думаю, якщо я приїду сюди ще раз, вона мене впізнає.\n"
+  },
+  "prompts": {
+    "greeting": {
+      "ru": "Привет, мой друг!",
+      "en": "Hello, my friend!",
+      "de": "Hallo, mein Freund!",
+      "uk": "Привіт, мій друже!"
+    },
+    "footer": {
+      "ru": "Твоя Кетти 💛",
+      "en": "Yours, Ketty 💛",
+      "de": "Deine Ketty 💛",
+      "uk": "Твоя Кетті 💛"
+    },
+    "bookInvite": {
+      "ru": "",
+      "en": "",
+      "de": "",
+      "uk": ""
+    },
+    "bookLink": {
+      "ru": "",
+      "en": "",
+      "de": "",
+      "uk": ""
+    }
+  },
+  "postcardGraphics": {
+    "stamp": {
+      "isActive": true,
+      "fileName": "Марка.png",
+      "savedFile": "stamp/stamp.png",
+      "mime": "image/png"
+    },
+    "illustrations": {
+      "2L": {
+        "isActive": true,
+        "fileName": "Илл-1.jpg",
+        "savedFile": "illustrations/2l.jpg",
+        "mime": "image/jpeg"
+      },
+      "2R": {
+        "isActive": false,
+        "fileName": "",
+        "savedFile": "",
+        "mime": ""
+      },
+      "4L": {
+        "isActive": false,
+        "fileName": "",
+        "savedFile": "",
+        "mime": ""
+      },
+      "4R": {
+        "isActive": true,
+        "fileName": "Илл-4.jpg",
+        "savedFile": "illustrations/4r.jpg",
+        "mime": "image/jpeg"
+      }
+    }
+  },
+  "gallery": {
+    "globalPrompt": "Фотокопия с легким карандашным акцентом",
+    "items": [
+      {
+        "index": 0,
+        "isActive": true,
+        "fileName": "pic-1.jpg",
+        "savedFile": "images/image-01.jpg",
+        "mime": "image/jpeg"
+      },
+      {
+        "index": 1,
+        "isActive": true,
+        "fileName": "pic-2.jpg",
+        "savedFile": "images/image-02.jpg",
+        "mime": "image/jpeg"
+      },
+      {
+        "index": 2,
+        "isActive": true,
+        "fileName": "pic-3.jpg",
+        "savedFile": "images/image-03.jpg",
+        "mime": "image/jpeg"
+      },
+      {
+        "index": 3,
+        "isActive": true,
+        "fileName": "pic-4.jpg",
+        "savedFile": "images/image-04.jpg",
+        "mime": "image/jpeg"
+      },
+      {
+        "index": 4,
+        "isActive": true,
+        "fileName": "pic-5.jpg",
+        "savedFile": "images/image-05.jpg",
+        "mime": "image/jpeg"
+      },
+      {
+        "index": 5,
+        "isActive": true,
+        "fileName": "pic-6.jpg",
+        "savedFile": "images/image-06.jpg",
+        "mime": "image/jpeg"
+      },
+      {
+        "index": 6,
+        "isActive": true,
+        "fileName": "pic-7.jpg",
+        "savedFile": "images/image-07.jpg",
+        "mime": "image/jpeg"
+      },
+      {
+        "index": 7,
+        "isActive": false
+      }
+    ]
+  }
+}

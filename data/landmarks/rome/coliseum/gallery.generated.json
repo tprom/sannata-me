@@ -1,0 +1,258 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-02-23T19:36:50.082Z",
+  "mode": "generated",
+  "providerPolicy": "quality-first",
+  "stylePresetVersion": "1.0.0",
+  "promptBuilderVersion": "1.0.0",
+  "items": [
+    {
+      "taskId": "gallery-01",
+      "index": 0,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-01.jpg",
+      "sourceImageChecksum": "5a0081de086ee94d1718c0fc9d81cafcee1527233d0995f864f55e605ca40e0c",
+      "taskChecksum": "07d40e719e6458c351a51a7296e75ee0414985325ae50f8f8e62196af23206c2",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-01.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-02",
+      "index": 1,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-02.jpg",
+      "sourceImageChecksum": "5a9433bfad4e61f51846ac2346c06a4e5240665caf50e39bbf734e7190271e74",
+      "taskChecksum": "1e53fd28415db073c3b99aba6a977dcbb920cf843e747c04aa2b1edabbd95f78",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: portrait. size: 1024x1325. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-02.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1024,
+        "height": 1325,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "portrait",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-03",
+      "index": 2,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-03.jpg",
+      "sourceImageChecksum": "ec1461e5b7e678fc194d504608d3e4d37c2c8f2b115b0c076bf581418a3afb3f",
+      "taskChecksum": "d95432b76f0957eb65bdd79460449b4dd09f75c735c703828664d33db2444ebb",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: portrait. size: 1024x1325. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-03.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1024,
+        "height": 1325,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "portrait",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-04",
+      "index": 3,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-04.jpg",
+      "sourceImageChecksum": "2377262c894e70f62a816bcf7429f63748e9e23f9400674b4baef6004d754226",
+      "taskChecksum": "5a10218a7a12083198605d71d3feb6bae97a3c1e6086fec6996fa8c1b44cc206",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: portrait. size: 1024x1325. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-04.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1024,
+        "height": 1325,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "portrait",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-05",
+      "index": 4,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-05.jpg",
+      "sourceImageChecksum": "c5f22b92c72d5b7acf063270fef018ff5ca6365f4421787b6d4ddac1f9662610",
+      "taskChecksum": "50aeba0d66d625f9fd19ddc39c91835acde20c5cd6225fc420524a513c20df2f",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-05.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-06",
+      "index": 5,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-06.jpg",
+      "sourceImageChecksum": "28dbcc062f1cbc1d4b85b2cc9aaf3c2efb2e97d3ada7420c5a29b59144bbed0f",
+      "taskChecksum": "b6ad5e80da42ada121482c9e89a21760440776824f876f78b6c6d5db65ef2488",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: portrait. size: 1024x1325. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-06.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1024,
+        "height": 1325,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "portrait",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-07",
+      "index": 6,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-07.jpg",
+      "sourceImageChecksum": "ade63ede3c98d65ad5fa4854b954e4632849a41bb84b42fae6cbdb52ffc1918b",
+      "taskChecksum": "659427c7e3df946155ff27005b66fe62ae148d30e9298674cf593a758cae3996",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: portrait. size: 1024x1325. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-07.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1024,
+        "height": 1325,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "portrait",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-08",
+      "index": 7,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\rome\\coliseum\\images\\image-08.jpg",
+      "sourceImageChecksum": "4b93d2bac8ed10f2d9cba1f3df1edaa53cb3023bbdc8fe338b1991322fa7478f",
+      "taskChecksum": "8266c3443085c9bbbf7c66427d0c4b581829c844897f60a3ddfc0ed28d691f57",
+      "basePrompt": "Фотореалистическая копия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотореалистическая копия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: portrait. size: 1024x1325. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-08.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1024,
+        "height": 1325,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "portrait",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    }
+  ]
+}

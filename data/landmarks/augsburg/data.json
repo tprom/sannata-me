@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "city": {
+      "en": "",
+      "de": "",
+      "ru": "",
+      "uk": ""
+    },
+    "landmark": "",
+    "citySlug": "",
+    "landmarkSlug": "",
+    "alias": "-",
+    "updatedAt": "2026-02-16T11:34:47.674Z"
+  },
+  "content": {
+    "ru": "",
+    "en": "",
+    "de": "",
+    "uk": ""
+  },
+  "prompts": {
+    "greeting": "",
+    "footer": ""
+  },
+  "postcardGraphics": {
+    "stamp": {
+      "isActive": false,
+      "fileName": "",
+      "savedFile": "",
+      "mime": ""
+    },
+    "illustrations": {
+      "2L": {
+        "isActive": false,
+        "fileName": "",
+        "savedFile": "",
+        "mime": ""
+      },
+      "2R": {
+        "isActive": false,
+        "fileName": "",
+        "savedFile": "",
+        "mime": ""
+      },
+      "4L": {
+        "isActive": false,
+        "fileName": "",
+        "savedFile": "",
+        "mime": ""
+      },
+      "4R": {
+        "isActive": false,
+        "fileName": "",
+        "savedFile": "",
+        "mime": ""
+      }
+    }
+  },
+  "gallery": {
+    "globalPrompt": "",
+    "items": []
+  }
+}

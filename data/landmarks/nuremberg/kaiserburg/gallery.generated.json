@@ -1,0 +1,138 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-02-23T19:58:22.355Z",
+  "mode": "hybrid",
+  "providerPolicy": "quality-first",
+  "stylePresetVersion": "1.0.0",
+  "promptBuilderVersion": "1.0.0",
+  "items": [
+    {
+      "taskId": "gallery-01",
+      "index": 0,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\nuremberg\\kaiserburg\\images\\image-01.jpg",
+      "sourceImageChecksum": "17eb183f4b4b15f2d9efb42b59892bf2791d62ebaea00762537c60008e3117e5",
+      "taskChecksum": "dd4753c80d15f9e3532de371d8f63f199b759f1c9525ea464b582402fa4c11d3",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "pollinations",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-01.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 3,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033"
+    },
+    {
+      "taskId": "gallery-02",
+      "index": 1,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\nuremberg\\kaiserburg\\images\\image-02.jpg",
+      "sourceImageChecksum": "049caea43f201aa58b82c04388bb8dfcab4a7a753a5a0abb254b5d62ff0cb45c",
+      "taskChecksum": "d149701074c45337ca9fd0ee0c706c2230505024ac55bd42b217fd7372e1b1bd",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "pollinations",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-02.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 3,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033"
+    },
+    {
+      "taskId": "gallery-03",
+      "index": 2,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\nuremberg\\kaiserburg\\images\\image-03.jpg",
+      "sourceImageChecksum": "da5a3dc8fdb29474186d86bd1a44db8f6f380442fb52a664f2318ac1a45fe09a",
+      "taskChecksum": "5643e3f9191f19fdcc8542998e68e3ad2f3c85d41ca1b0382726f4f6c85934d2",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "pollinations",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-03.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 3,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033"
+    },
+    {
+      "taskId": "gallery-04",
+      "index": 3,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\nuremberg\\kaiserburg\\images\\image-04.jpg",
+      "sourceImageChecksum": "6c13ed9e45d4ebc71f1e6aa6eb2973ece6a4ee33961658501d1ccc87ce38940d",
+      "taskChecksum": "e9866d2ecfdf067b29ead00d3527f22002cd4d5f4aed98ab71b7171033ca3379",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "Добавить изображение девочки семи лет, в синих джинсах и желтой футболке, гуляет на лужайке и смотрит на завток",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Добавить изображение девочки семи лет, в синих джинсах и желтой футболке, гуляет на лужайке и смотрит на завток. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "pollinations",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-04.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 3,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image | pollinations: pollinations_http_530: error code: 1033"
+    }
+  ]
+}

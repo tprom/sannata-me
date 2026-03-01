@@ -1,0 +1,227 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-02-23T19:36:08.173Z",
+  "mode": "generated",
+  "providerPolicy": "quality-first",
+  "stylePresetVersion": "1.0.0",
+  "promptBuilderVersion": "1.0.0",
+  "items": [
+    {
+      "taskId": "gallery-01",
+      "index": 0,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\munich\\frauenkirche\\images\\image-01.jpg",
+      "sourceImageChecksum": "0377933c48cf40e85c7da65220b672f9ba99fe65a863649115dd1bd914e8d310",
+      "taskChecksum": "8196f1914fbf0f26803241fdba3a733cfd65c246c64dd2ca789b8ea11d4562ed",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-01.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-02",
+      "index": 1,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\munich\\frauenkirche\\images\\image-02.jpg",
+      "sourceImageChecksum": "4344c68856010a4a0623472af9876c0a9be2889952a0b01ca02bb2fea3fc28b2",
+      "taskChecksum": "35bb1ea5ff7883b55e0393fd1a1bf69456ed9962bb8ae0d5760c5ebbae0c785e",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-02.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-03",
+      "index": 2,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\munich\\frauenkirche\\images\\image-03.jpg",
+      "sourceImageChecksum": "8a10f586cd9a29f3c940941eaf11dd291bc06de883359b3a6b37b7656e1bd6ad",
+      "taskChecksum": "ca20e0e0b58b8a46a7f7bf124f583de5957c7142f63287f01b586c5b4803810f",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: portrait. size: 1024x1325. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-03.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1024,
+        "height": 1325,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "portrait",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-04",
+      "index": 3,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\munich\\frauenkirche\\images\\image-04.jpg",
+      "sourceImageChecksum": "818b55a2ef90aff765d6004673f13dab24bb52ac498c89c67a567e8156f79101",
+      "taskChecksum": "ad9f9b0e1f248ac5458c23db8b0b575712d86224495b42e9703f076d0b51be08",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-04.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-05",
+      "index": 4,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\munich\\frauenkirche\\images\\image-05.jpg",
+      "sourceImageChecksum": "30ea4e46c97758c16c7d12362daf0e32c6da645db6d29101aa86cba8698a0637",
+      "taskChecksum": "4ab6d8537ce43274946c299d1c342e485e56efaac330f7c6393a7ed0acefa8bf",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-05.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-06",
+      "index": 5,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\munich\\frauenkirche\\images\\image-06.jpg",
+      "sourceImageChecksum": "fef3b9df7659fae297546ef8e3467a93add6040bfe6aee65e2611025436b874d",
+      "taskChecksum": "ba0faee345d7eb945a9eebc6922615f1b5488754b9e9fbefdce8fe12b272d58e",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-06.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    },
+    {
+      "taskId": "gallery-07",
+      "index": 6,
+      "status": "waiting_manual",
+      "sourceImagePath": "C:\\Users\\tprom\\Documents\\sannata-me\\data\\landmarks\\munich\\frauenkirche\\images\\image-07.jpg",
+      "sourceImageChecksum": "2308196b5628dfd6bf310ea031d550b8f7483e36f13ea008e54299284dbf7962",
+      "taskChecksum": "1d077406ae3f29c6c7e5b504dd8ec12e8548d5e2b8b55daba812ca00efd30e32",
+      "basePrompt": "Фотокопия с легким карандашным акцентом",
+      "extraPrompt": "",
+      "finalPrompt": "Фотокопия с легким карандашным акцентом. Ketty style, warm travel diary mood, photorealistic look, clean details, natural daylight, book-illustration friendly composition. orientation: landscape. size: 1325x1024. format: jpg. color profile: sRGB. no transparency",
+      "providerUsed": "manual",
+      "fallbackChain": [
+        "subnp",
+        "manual"
+      ],
+      "outputPath": "gallery/gallery-07.jpg",
+      "outputSpec": {
+        "format": "jpg",
+        "width": 1325,
+        "height": 1024,
+        "transparent": false,
+        "quality": 92,
+        "colorProfile": "sRGB"
+      },
+      "orientation": "landscape",
+      "attempt": 2,
+      "durationMs": 0,
+      "error": "subnp: Failed to generate image",
+      "manualRequired": true,
+      "note": "User provided file manually; fallback from subnp: Failed to generate image"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "city": "Augsburg",
+    "slug": "augsburg",
+    "count": 3
+  },
+  {
+    "city": "Berlin",
+    "slug": "berlin",
+    "count": 0
+  },
+  {
+    "city": "Rome",
+    "slug": "rome",
+    "count": 1
+  }
+]

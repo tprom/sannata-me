@@ -1,0 +1,21 @@
+[
+  {
+    "slug": "perlachturm",
+    "title": "Perlachturm",
+    "thumbnail": "/landmarks/augsburg/perlachturm/gallery/01.jpg"
+  },
+  {
+    "slug": "rathausplatz",
+    "title": "Rathausplatz",
+    "thumbnail": "/landmarks/augsburg/rathausplatz/gallery/01.jpg"
+  },
+  {
+    "slug": "fuggerei",
+    "title": "Fuggerei",
+    "thumbnail": "/landmarks/augsburg/fuggerei/gallery/01.jpg"
+  },
+  {
+    "slug": "dom",
+    "title": "Cathedral"
+  }
+]
