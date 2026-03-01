@@ -1,41 +1,50 @@
 # Next session start
 
-Дата фиксации: 01.03.2026
+Дата фиксации: 01.03.2026 (полдень — после утренних STAGE3-08 и дневных STAGE4)
 
 **Базовый контракт:** RFC `universal-page-template` Approved v1.1 ✅
 
 ## Текущий контекст
 
 - Этап 2 (`landmarks`): завершён (`module-home`, `collection-home`, `item`).
-- Этап 3: завершён (включая STAGE3-08 `final acceptance` — подтверждено сегодня).
-- Активный фокус: Этап 4 — перенос контента и расширенный regression pass.
+- Этап 3: завершён (включая STAGE3-08 `final acceptance` — подтверждено утром).
+- Этап 4: завершён — перенос контента из старого формата в новый envelope+sections.
+- Активный фокус: Этап 5 — расширение на дневниковые модули.
 - Проверка сборки: `npm run build` проходит ✅
 
-## Чекпоинт на сегодня (01.03.2026)
+## STAGE3-08: Закрыт (утро 01.03.2026)
 
 - **STAGE3-08: ПОЛНОСТЬЮ ЗАКРЫТ** (чеклист 15.5 = Done).
-- **Доказательства schema-pass/parity переподтверждены:**
+- **Доказательства schema-pass/parity:**
   - ✅ AJV schema-pass: `module-home.ru.json` — valid
   - ✅ AJV schema-pass: `collection-home.ru.json` — valid
-  - ✅ Regression smoke:forms: все 3 теста (city-form-valid, landmark-form-valid, landmark-form-invalid-city) пройдены
+  - ✅ Regression smoke:forms: все 3 теста пройдены
   - ✅ Regression smoke:agent-ui: оба теста пройдены
-  - ✅ Production build: скомпилирован успешно (all pages, chunks, middleware)
-- Документация и backlog синхронизированы под статус `Done`.
+  - ✅ Production build: успешен
+- Коммит: `785a89d` ("STAGE3-08: final acceptance...")
+
+## STAGE4: Закрыт (полдень 01.03.2026)
+
+- **STAGE4: МИГРАЦИЯ КОНТЕНТА ЗАВЕРШЕНА**
+- **Объём:**
+  - 5 достопримечательностей (Augsburg, Munich, Nuremberg, Rome, Test; Berlin — пусто)
+  - 4 языка (ru, en, de, uk)
+  - **20 файлов конвертировано** из старого формата в новый envelope+sections
+  - **214 файлов коммичено** (включая изображения, галереи, иллюстрации)
+- **Скрипт миграции:** `scripts/migrate-landmarks-stage4.ts`
+  - Автоматически генерирует UUID для pageId
+  - Разбивает многоязычный контент на отдельные локальные версии
+  - Конвертирует старую структуру (narrative, greeting, gallery, postcard-graphics) в envelope+sections
+- **Регрессия перепроверена:**
+  - ✅ smoke:forms — all passed
+  - ✅ smoke:agent-ui — all passed
+  - ✅ npm run build — успешен, никаких новых ошибок
+- Коммит: `dbcff21` ("STAGE4: landmark content migration...")
+- **Статус:** Pushed to origin/main ✅
 
 ## Приоритетная задача на следующую сессию
 
-Запустить Этап 4 для `landmarks`: перенос контента и расширенный regression pass.
-
-### Что нужно сделать
-
-1. Подготовить план миграции текущих страниц `landmarks` в новый формат.
-2. Выполнить regression pass (визуал + навигация + локализация) на мигрированных страницах.
-3. Зафиксировать результаты в handoff note и backlog Этапа 4.
-
-### Критерии готовности
-
-- Миграционные шаги Этапа 4 зафиксированы и согласованы.
-- `npm run build` проходит без новых ошибок.
+Запустить Этап 5: расширение envelope на дневниковые модули (`diary-ketty`, `diary-parents`).
 
 ## Быстрые ссылки
 
