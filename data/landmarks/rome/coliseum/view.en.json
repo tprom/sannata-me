@@ -1,0 +1,8 @@
+{
+  "greeting": "Hi there!",
+  "stampImage": "stamp/stamp.png",
+  "contentFile": "I’m in Rome right now, and today we went to see the real Colosseum! It’s so huge that my hat almost fell off when I looked up. Dad said it’s almost two thousand years old — that’s more than a thousand grandpas put together!\n\nWhen we walked inside, it was very quiet. Only our footsteps echoed, like someone invisible was walking next to us. I thought maybe the old gladiators were coming back to see who was visiting. Mom said it was just the sound, but I still listened… just in case.\n\n[[illustration:illustrations/2l.png|left]]\n\nThe arches of the Colosseum are so big they feel like doors made for giants. Dad told me that long ago animals used to come up into the arena on special lifts. I imagined a lion rising from the floor… and it gave me goosebumps! Then I laughed because everything is peaceful now.\n\nMy favorite part was the broken piece of the wall. It looks like the Colosseum is smiling. Maybe it’s happy that people still come to see it and take pictures.\n\n[[illustration:illustrations/4r.png|right]]\n\nWhen we stood at the very top, the wind played with my hair, and I thought: if you close your eyes, you can hear what the old amphitheater whispers. Maybe it tells its stories only to those who listen very carefully.\n\nI hope I can come back someday and ask it what it saw first. Maybe it will tell me… just a little.",
+  "footer": "Hugs!  Your Ketty 🌟",
+  "bookInvite": "Ну что… шагаем дальше? Книга ждёт",
+  "bookLink": "http://localhost:3000/en/books"
+}

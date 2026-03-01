@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "b7296e39-57f0-4dfa-91db-f07253c2baa4",
+  "slug": "kaiserburg",
+  "locale": "uk",
+  "translationGroupId": "tg_nuremberg-kaiserburg",
+  "meta": {
+    "title": "Kaiserburg",
+    "subtitle": "Нюрнберг",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "nuremberg"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Kaiserburg",
+    "subheadline": "Нюрнберг",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Сьогодні ми з мамою і татом були в справжньому замку. Він називається Kaiserburg, і стоїть так високо, ніби стежить за всім містом. Поки ми піднімалися кам’яною дорогою, я постійно озиралася — будинки внизу ставали маленькими, як іграшкові.\nЗамок виявився величезним. Стіни в нього дуже-дуже товсті, ніби їх спеціально зробили, щоб усередині було тихо й безпечно. Мої кроки гучно лунали, і мені здавалося, що замок мені відповідає. Тато сказав, що цим стінам понад тисячу років, і я одразу уявила лицарів у важких чоботях.\nНайбільше мені сподобався глибокий колодязь. Він такий темний, що здається — там завжди ніч, навіть удень. Екскурсовод розповідав, що колись у нього кидали смолоскипи, і вони падали дуже-дуже довго. Я подумала, що якщо туди впустити секрет, його вже ніхто ніколи не знайде.\nЩе ми піднімалися на круглу вежу. Вона називається Sinwell, і це означає «ідеально кругла». Я перевірила очима — і справді, жодного кута! Нагорі дув сильний вітер, він грався з моїм волоссям, ніби замок хотів зі мною подружитися. Звідти видно весь Нюрнберг: червоні дахи, як у казках, і вузькі вулички, якими хочеться бігти.\nМама сказала, що раніше тут жили імператори. Я намагалася йти тихо, бо раптом вони ще тут? Може, вночі вони виходять і перевіряють, чи все гаразд. Мені стало трохи моторошно, але водночас приємно — ніби я потрапила в дуже стару історію.\nКоли ми йшли, я ще раз озирнулася. Замок стояв нерухомо, але мені здалося, що він мене запам’ятав. Я дуже хочу повернутися сюди знову. Можливо, коли виросту. Або коли знову захочу відчути себе маленькою і сміливою.\n"
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Привіт, мій друже!",
+        "attribution": "Твоя подруга із замку 🌬️🏰"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-01.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-02.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-03.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-04.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/nuremberg/kaiserburg/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-23T19:50:05.413Z",
+    "updatedAt": "2026-02-23T19:50:05.413Z"
+  }
+}

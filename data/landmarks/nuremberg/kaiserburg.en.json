@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "25e41f9b-37c0-4386-8a82-822de366e853",
+  "slug": "kaiserburg",
+  "locale": "en",
+  "translationGroupId": "tg_nuremberg-kaiserburg",
+  "meta": {
+    "title": "Kaiserburg",
+    "subtitle": "Nuremberg",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "nuremberg"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Kaiserburg",
+    "subheadline": "Nuremberg",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Today Mom, Dad and I visited a real castle. It’s called Kaiserburg, and it stands so high that it feels like it’s watching over the whole city. While we were walking up the stone road, I kept turning around — the houses below became tiny, like toy houses.\nThe castle was huge. Its walls are super thick, as if they were made to keep everything quiet and safe inside. My footsteps echoed loudly, and it felt like the castle was answering me. Dad said the walls are more than a thousand years old, and I immediately imagined knights walking there in heavy boots.\nMy favorite part was the deep well. It’s so dark that it looks like nighttime inside, even during the day. The guide said that long ago they threw burning torches into it, and they fell for a very, very long time. I thought that if you dropped a secret down there, it would never be found again.\nWe also climbed a round tower. It’s called Sinwell, which means “perfectly round”. I checked carefully — not a single corner! At the top, the wind was very strong and played with my hair, like the castle wanted to be my friend. From up there you can see all of Nuremberg: red roofs like in fairy tales and narrow streets you want to run through.\nMom said emperors used to live here. I tried to walk very quietly, just in case they are still around. Maybe at night they come out and make sure everything is okay. It made me feel a little scared, but in a nice way — like I had stepped into a very old story.\nWhen we were leaving, I turned around one more time. The castle didn’t move, but I felt like it remembered me. I really want to come back here again. Maybe when I grow up. Or when I want to feel small and brave again.\n"
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Hi, my friend!",
+        "attribution": "Bye! Your friend from the castle 🌬️🏰"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-01.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-02.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-03.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-04.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/nuremberg/kaiserburg/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-23T19:50:05.413Z",
+    "updatedAt": "2026-02-23T19:50:05.413Z"
+  }
+}

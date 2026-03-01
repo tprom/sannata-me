@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "2ae13041-f447-4923-9f4a-0721f3c12bc6",
+  "slug": "coliseum",
+  "locale": "uk",
+  "translationGroupId": "tg_rome-coliseum",
+  "meta": {
+    "title": "Coliseum",
+    "subtitle": "Рим",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "rome"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Coliseum",
+    "subheadline": "Рим",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Я зараз у Римі, і сьогодні ми ходили дивитися справжній Колізей! Він такий величезний, що коли я задерла голову, мій капелюшок ледве не злетів. Тато сказав, що йому майже дві тисячі років — це більше, ніж тисяча дідусів разом!\nКоли ми зайшли всередину, там було дуже тихо. Лише наші кроки відлунювали, ніби хтось невидимий іде поруч. Я подумала, що це, можливо, давні гладіатори повертаються подивитися, хто прийшов у гості. Мама сказала, що це просто звук. Але я все одно прислухалася… а раптом вони справді там живуть?\nАрки Колізею такі великі, ніби це двері для велетнів. А ще тато розповів, що колись звірів піднімали на арену спеціальними ліфтами. Я уявила, як із підлоги з’являється лев… аж мурашки пробігли по ногах! Але потім усе навколо було так спокійно, що я навіть засміялася з власного переляку.\nНайбільше мені сподобалася зруйнована частина стіни. Вона виглядає так, ніби Колізей усміхається. Мабуть, він радіє, що люди й досі приходять до нього в гості.\nКоли ми стояли найвище й дивилися вниз, вітер грався моїм волоссям, і я подумала: якщо заплющити очі, можна почути, про що шепоче старий амфітеатр. Може, він розповідає свої історії тільки тим, хто вміє тихо слухати.\nХочу колись повернутися й запитати його, що він побачив уперше. Можливо, він відповість… хоч трішечки.\n"
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Привіт!",
+        "attribution": "Обіймаю!  Твоя Кетті 🌟"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-01.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-02.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-03.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-04.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-05.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-06.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-07.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/rome/coliseum/images/image-08.jpg",
+            "caption": "Фотореалистическая копия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "2L",
+            "src": "/public/landmarks/rome/coliseum/illustrations/2l.png"
+          },
+          {
+            "position": "4R",
+            "src": "/public/landmarks/rome/coliseum/illustrations/4r.png"
+          },
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/rome/coliseum/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-17T11:33:02.690Z",
+    "updatedAt": "2026-02-17T11:33:02.690Z"
+  }
+}

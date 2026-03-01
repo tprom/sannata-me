@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "406223cd-5190-4c6b-b536-1b242520b026",
+  "slug": "rathaus-perlachturm",
+  "locale": "de",
+  "translationGroupId": "tg_augsburg-rathaus-perlachturm",
+  "meta": {
+    "title": "Rathaus-Perlachturm",
+    "subtitle": "Augsburg",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "augsburg"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Rathaus-Perlachturm",
+    "subheadline": "Augsburg",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Heute waren Mama, Papa und ich auf einem Platz, auf dem das höchste Haus steht, das ich je gesehen habe. Papa sagte, es heißt Rathaus, aber ich habe sofort gedacht, dass es fast ein Palast ist. Es ist so groß und hell, als wäre es für Könige gebaut worden. Nur dass dort keine Könige wohnen, sondern die Stadt.\nNeben dem Rathaus steht ein Turm. Er ist so hoch, dass mir schwindelig wurde, als ich lange nach oben geschaut habe. Der Turm heißt Perlach. Mir kam es so vor, als wäre er sehr alt und wüsste alles über die Stadt. Mama sagte, früher hat er aufgepasst, damit es keine Brände gibt. Ich glaube, heute passt er einfach auf die Menschen auf.\nAls die Sonne auf die Kuppel schien, hat sie geglänzt und mir fast zugezwinkert. Da habe ich beschlossen, dass der Turm lebt. Papa erzählte, dass dort manchmal ein kleiner Engel erscheint und mit dem Teufel kämpft. Ich habe ganz genau zu den Fenstern geschaut, aber vielleicht hatte der Engel heute keine Zeit.\nAuf dem Platz hörte man Schritte, Stimmen und Glocken. Die Glocken klangen so, als würde die Zeit selbst sprechen. Ich stellte mir vor, dass hier vor vielen Jahren auch Menschen gegangen sind, Kinder gelaufen sind und der Turm sie genauso angesehen hat wie mich.\nAls wir gingen, habe ich mich mehrmals umgedreht. Ich wollte mich nicht vom Turm verabschieden. Ich glaube, wenn ich noch einmal hierherkomme, wird er mich wiedererkennen.\n"
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Hallo, mein Freund!",
+        "attribution": "Deine Ketty 💛"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-01.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-02.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-03.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-04.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-05.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-06.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-07.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "2L",
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/illustrations/2l.jpg"
+          },
+          {
+            "position": "4R",
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/illustrations/4r.jpg"
+          },
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-19T19:46:10.750Z",
+    "updatedAt": "2026-02-19T19:46:10.750Z"
+  }
+}

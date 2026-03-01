@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "6408093f-554f-4e53-9828-d1ed44b36bee",
+  "slug": "cologne-cathedral",
+  "locale": "en",
+  "translationGroupId": "tg_cologne-cologne-cathedral",
+  "meta": {
+    "title": "Кёльнский собор",
+    "subtitle": "Cologne",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "cologne"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Кёльнский собор",
+    "subheadline": "Cologne",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [],
+  "audit": {
+    "createdAt": "2026-02-16T00:00:00.000Z",
+    "updatedAt": "2026-02-16T00:00:00.000Z"
+  }
+}

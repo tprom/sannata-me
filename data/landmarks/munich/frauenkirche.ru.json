@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "06ec0442-280a-4a9e-a6b4-e7f03d75a406",
+  "slug": "frauenkirche",
+  "locale": "ru",
+  "translationGroupId": "tg_munich-frauenkirche",
+  "meta": {
+    "title": "Frauenkirche",
+    "subtitle": "Мюнхен",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "munich"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Frauenkirche",
+    "subheadline": "Мюнхен",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Сегодня мы с мамой и папой ходили в Frauenkirche — это такой огромный-преогромный собор в Мюнхене. Я сначала подумала, что это замок для великанов, потому что у него две башни, как у сказочного стража. Они такие высокие, что я всё время задирала голову, и папа сказал, что если бы башни умели разговаривать, они бы видели облака каждый день.\nКогда мы вошли внутрь, там было очень тихо, и шаги звучали, как будто кто то шепчется с камнем. Колонны были такие толстые, что мне показалось, будто они держат потолок, чтобы он не улетел. Свет был странный — вроде бы светло, но окна сразу не видно, и я подумала, что собор специально играет со зрением, как фокусник.\nСамое удивительное было у входа. Там на полу есть след дьявола! Настоящий, чёрный, как будто кто то наступил и забыл стереть. Мама сказала, что по легенде дьявол разозлился, потому что его обманули. А я подумала, что, может, он просто очень громко топнул ногой, как дети, когда им что то не разрешили. Я встала на этот след и попробовала найти окна — и правда, их не видно! Мне стало немного щекотно и смешно одновременно.\nПотом мы долго стояли и слушали тишину. Иногда где то далеко звучал колокол, и он был такой глубокий, будто у собора есть сердце. Я решила, что Frauenkirche — это не просто здание, а большой каменный друг, который помнит очень много историй и любит, когда к нему приходят тихо и с открытыми глазами.\nЯ бы хотела, чтобы ты тоже сюда приехал. Мы бы вместе искали след дьявола и считали шаги эха."
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Привет, мой друг!",
+        "attribution": "Твоя подруга из Мюнхена 🌷"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-01.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-02.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-03.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-04.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-05.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-06.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-07.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/munich/frauenkirche/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-19T20:17:36.029Z",
+    "updatedAt": "2026-02-19T20:17:36.029Z"
+  }
+}

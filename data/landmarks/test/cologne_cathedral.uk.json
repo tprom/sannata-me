@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "a9cc61be-ff2d-4fa6-a87c-87008fdf884b",
+  "slug": "cologne-cathedral",
+  "locale": "uk",
+  "translationGroupId": "tg_cologne-cologne-cathedral",
+  "meta": {
+    "title": "Кёльнский собор",
+    "subtitle": "Кельн",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "cologne"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Кёльнский собор",
+    "subheadline": "Кельн",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [],
+  "audit": {
+    "createdAt": "2026-02-16T00:00:00.000Z",
+    "updatedAt": "2026-02-16T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "c2ad2d18-2a1b-46f0-af39-7abcdb56dcae",
+  "slug": "frauenkirche",
+  "locale": "de",
+  "translationGroupId": "tg_munich-frauenkirche",
+  "meta": {
+    "title": "Frauenkirche",
+    "subtitle": "München",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "munich"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Frauenkirche",
+    "subheadline": "München",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Heute bin ich mit Mama und Papa in der Frauenkirche gewesen. Das ist eine riesengroße Kirche in München. Zuerst dachte ich, sie sei ein Schloss für Riesen, weil sie zwei Türme hat, wie ein Märchenwächter. Sie sind so hoch, dass ich den Kopf ganz in den Nacken legen musste, und Papa sagte, wenn die Türme sprechen könnten, würden sie jeden Tag die Wolken sehen.\nDrinnen war es ganz still, und unsere Schritte klangen, als würden sie mit dem Stein flüstern. Die Säulen waren so dick, dass ich dachte, sie halten die Decke fest, damit sie nicht wegfliegt. Das Licht war seltsam – es war hell, aber man konnte die Fenster nicht gleich sehen. Ich dachte, die Kirche spielt mit den Augen, wie ein Zauberer.\nAm spannendsten war gleich am Eingang. Dort gibt es den Teufelstritt! Einen echten, dunklen Fußabdruck im Boden. Mama erzählte, dass der Teufel wütend wurde, weil man ihn hereingelegt hat. Ich dachte, vielleicht hat er einfach ganz fest aufgestampft, so wie Kinder, wenn sie sauer sind. Ich stellte mich auf den Abdruck und suchte nach Fenstern – und wirklich, man sieht keine! Das war kitzelig und lustig zugleich.\nWir standen lange da und hörten der Stille zu. Manchmal läutete irgendwo eine Glocke, ganz tief, als hätte die Kirche ein Herz. Ich glaube, die Frauenkirche ist nicht nur ein Gebäude, sondern ein großer steinerner Freund, der viele Geschichten kennt und es mag, wenn man leise und mit offenen Augen kommt.\nIch wünschte, du wärst auch hier. Wir würden zusammen den Teufelstritt suchen und die Schritte im Echo zählen."
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Hallo, mein Freund!",
+        "attribution": "Deine Freundin aus München 🌷"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-01.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-02.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-03.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-04.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-05.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-06.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/munich/frauenkirche/images/image-07.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/munich/frauenkirche/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-19T20:17:36.029Z",
+    "updatedAt": "2026-02-19T20:17:36.029Z"
+  }
+}

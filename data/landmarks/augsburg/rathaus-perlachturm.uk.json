@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "30784aa7-563a-4d9d-a274-98c1657e2fe0",
+  "slug": "rathaus-perlachturm",
+  "locale": "uk",
+  "translationGroupId": "tg_augsburg-rathaus-perlachturm",
+  "meta": {
+    "title": "Rathaus-Perlachturm",
+    "subtitle": "Аугсбург",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "augsburg"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Rathaus-Perlachturm",
+    "subheadline": "Аугсбург",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Сьогодні ми з мамою і татом були на площі, де стоїть найвищий будинок, який я коли небудь бачила. Тато сказав, що це ратуша, але я одразу подумала, що це майже палац. Він такий великий і світлий, ніби його збудували для королів. Тільки королів там немає, а місто — є.\nПоруч із ратушею стоїть вежа. Вона така висока, що в мене закрутилася голова, коли я довго дивилася вгору. Вежа називається Перлах. Мені здалося, що вона дуже стара і знає все про місто. Мама сказала, що раніше вона стежила, щоб не було пожеж. Я думаю, що тепер вона просто пильнує людей.\nКоли сонце світило на купол вежі, він блищав і ніби підморгнув мені. Я вирішила, що вежа жива. Тато розповів, що всередині іноді з’являється маленький ангел і бореться з чортом. Я дуже уважно дивилася на вікна, але, мабуть, ангел сьогодні був зайнятий.\nНа площі було чути кроки, голоси і дзвони. Дзвони звучали так, ніби сама година розмовляє. Я уявила, що багато років тому тут теж ходили люди, бігали діти, і вежа дивилася на них так само, як на мене.\nКоли ми йшли, я кілька разів озирнулася. Мені не хотілося прощатися з вежею. Я думаю, якщо я приїду сюди ще раз, вона мене впізнає.\n"
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Привіт, мій друже!",
+        "attribution": "Твоя Кетті 💛"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-01.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-02.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-03.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-04.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-05.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-06.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-07.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "2L",
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/illustrations/2l.jpg"
+          },
+          {
+            "position": "4R",
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/illustrations/4r.jpg"
+          },
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/augsburg/rathaus-perlachturm/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-19T19:46:10.750Z",
+    "updatedAt": "2026-02-19T19:46:10.750Z"
+  }
+}

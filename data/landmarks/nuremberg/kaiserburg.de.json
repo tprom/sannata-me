@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "landmark-item",
+  "pageId": "3d694c27-425f-4c47-9349-d1603569cc86",
+  "slug": "kaiserburg",
+  "locale": "de",
+  "translationGroupId": "tg_nuremberg-kaiserburg",
+  "meta": {
+    "title": "Kaiserburg",
+    "subtitle": "Nürnberg",
+    "tags": [
+      "landmarks",
+      "landmark-item",
+      "nuremberg"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Kaiserburg",
+    "subheadline": "Nürnberg",
+    "kicker": "Sannata",
+    "theme": "postcard"
+  },
+  "sections": [
+    {
+      "id": "sec_narrative_main",
+      "type": "narrative",
+      "title": "История",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Heute waren Mama, Papa und ich in einem echten Schloss. Es heißt Kaiserburg, und es steht so hoch, dass es aussieht, als würde es über die ganze Stadt wachen. Während wir den steinernen Weg hinaufgingen, habe ich mich immer wieder umgedreht — die Häuser unten wurden ganz klein, wie Spielzeug.\nDas Schloss war riesig. Die Mauern sind sooo dick, als hätte man sie extra gebaut, damit es drinnen ruhig und sicher ist. Meine Schritte hallten laut, und es fühlte sich an, als würde das Schloss mir antworten. Papa sagte, dass diese Mauern über tausend Jahre alt sind, und ich stellte mir sofort Ritter in schweren Stiefeln vor.\nAm allermeisten mochte ich den tiefen Brunnen. Er ist so dunkel, dass es aussieht, als wäre dort immer Nacht, sogar am Tag. Der Führer erzählte, dass man früher Fackeln hineingeworfen hat, und sie fielen ganz, ganz lange. Ich dachte: Wenn man dort ein Geheimnis fallen lässt, findet es bestimmt niemand wieder.\nDann sind wir auf einen runden Turm gestiegen. Er heißt Sinwell, das bedeutet „ganz rund“. Ich habe genau geschaut — wirklich keine einzige Ecke! Oben war starker Wind, er spielte mit meinen Haaren, als wollte das Schloss mit mir befreundet sein. Von dort sieht man ganz Nürnberg: rote Dächer wie aus einem Märchen und schmale Gassen, durch die man rennen möchte.\nMama sagte, dass hier früher Kaiser gelebt haben. Ich ging extra leise, weil sie vielleicht noch da sind? Vielleicht kommen sie nachts heraus und schauen, ob alles in Ordnung ist. Das war ein bisschen gruselig, aber auch schön — als wäre ich in eine sehr alte Geschichte geraten.\nAls wir gingen, habe ich mich noch einmal umgedreht. Das Schloss stand still, aber mir kam es vor, als hätte es mich sich gemerkt. Ich möchte unbedingt wiederkommen. Vielleicht, wenn ich groß bin. Oder wenn ich mich wieder klein und mutig fühlen will.\n"
+      }
+    },
+    {
+      "id": "sec_greeting",
+      "type": "quote",
+      "title": "Приветствие",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Hallo, mein Freund!",
+        "attribution": "Tschüss! Deine Freundin aus dem Schloss 🌬️🏰"
+      }
+    },
+    {
+      "id": "sec_gallery",
+      "type": "gallery",
+      "title": "Фотоматериалы",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-01.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-02.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-03.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          },
+          {
+            "src": "/public/landmarks/nuremberg/kaiserburg/images/image-04.jpg",
+            "caption": "Фотокопия с легким карандашным акцентом"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_postcard_graphics",
+      "type": "postcard-graphics",
+      "title": "Оформление открытки",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "position": "stamp",
+            "src": "/public/landmarks/nuremberg/kaiserburg/stamp/stamp.png"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-23T19:50:05.413Z",
+    "updatedAt": "2026-02-23T19:50:05.413Z"
+  }
+}
