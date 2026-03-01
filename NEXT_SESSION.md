@@ -1,21 +1,26 @@
 # Next session start
 
-Дата фиксации: 27.02.2026
+Дата фиксации: 01.03.2026
 
 **Базовый контракт:** RFC `universal-page-template` Approved v1.1 ✅
 
 ## Текущий контекст
 
 - Этап 2 (`landmarks`): завершён (`module-home`, `collection-home`, `item`).
-- Этап 3: завершён (включая STAGE3-08 `final acceptance`).
+- Этап 3: завершён (включая STAGE3-08 `final acceptance` — подтверждено сегодня).
 - Активный фокус: Этап 4 — перенос контента и расширенный regression pass.
-- Проверка сборки: `npm run build` проходит.
+- Проверка сборки: `npm run build` проходит ✅
 
-## Чекпоинт на паузу
+## Чекпоинт на сегодня (01.03.2026)
 
-- STAGE3-08 зафиксирован как `Done` (чеклист 15.5 закрыт).
-- Зафиксированы доказательства: AJV schema-pass для `module-home.ru.json` и `collection-home.ru.json`; `npm run smoke:forms`; `npm run smoke:agent-ui`; `npm run build`.
-- Документация и backlog синхронизированы под статус `Done` для STAGE3-08.
+- **STAGE3-08: ПОЛНОСТЬЮ ЗАКРЫТ** (чеклист 15.5 = Done).
+- **Доказательства schema-pass/parity переподтверждены:**
+  - ✅ AJV schema-pass: `module-home.ru.json` — valid
+  - ✅ AJV schema-pass: `collection-home.ru.json` — valid
+  - ✅ Regression smoke:forms: все 3 теста (city-form-valid, landmark-form-valid, landmark-form-invalid-city) пройдены
+  - ✅ Regression smoke:agent-ui: оба теста пройдены
+  - ✅ Production build: скомпилирован успешно (all pages, chunks, middleware)
+- Документация и backlog синхронизированы под статус `Done`.
 
 ## Приоритетная задача на следующую сессию
 
