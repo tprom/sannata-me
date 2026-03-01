@@ -1,0 +1,18 @@
+{
+  "moduleKey": "diary-parents",
+  "title": {
+    "ru": "Дневник родителей",
+    "en": "Parents' Diary",
+    "de": "Tagebuch der Eltern",
+    "uk": "Щоденник батьків"
+  },
+  "subtitle": {
+    "ru": "Размышления о пути",
+    "en": "Reflections on the Journey",
+    "de": "Überlegungen zur Reise",
+    "uk": "Роздуми про дорогу"
+  },
+  "persona": "Parents",
+  "entryCount": 2,
+  "createdAt": "2026-03-01T09:56:57.602Z"
+}

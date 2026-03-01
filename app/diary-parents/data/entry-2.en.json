@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "entry",
+  "pageId": "e57e5751-04ea-47a7-a988-f49dfac99d85",
+  "slug": "entry-2",
+  "locale": "en",
+  "translationGroupId": "tg_diary-parents_entry_2",
+  "meta": {
+    "title": "2026-03-01",
+    "subtitle": "Entry #2",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-03-01",
+    "subheadline": "Parents",
+    "kicker": "Mom & Dad 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-03-01",
+        "text": "The day was full of discoveries. We visited an old quarter where every stone holds a story. In every corner — memory."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Mood",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-03-01",
+            "mood": "pensive",
+            "intensity": 6
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.600Z",
+    "updatedAt": "2026-03-01T09:56:57.600Z"
+  }
+}

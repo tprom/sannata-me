@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "entry",
+  "pageId": "783af8c9-29f8-4fb4-bd74-9a2ffd046e2f",
+  "slug": "entry-1",
+  "locale": "ru",
+  "translationGroupId": "tg_diary-ketty_entry_1",
+  "meta": {
+    "title": "2026-02-27",
+    "subtitle": "Запись #1",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-02-27",
+    "subheadline": "Ketty",
+    "kicker": "Кетти 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-02-27",
+        "text": "Сегодня мы прибыли в новый город. Первые впечатления полны света и новых ароматов. Люди встречают нас с улыбками, и я чувствую, здесь нас ждали."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Настроение",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-27",
+            "mood": "happy",
+            "intensity": 8
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-27T09:56:57.579Z",
+    "updatedAt": "2026-02-27T09:56:57.579Z"
+  }
+}

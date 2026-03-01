@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "module-home",
+  "pageId": "e10694c8-ad32-4e8b-b357-1e4dd6a45039",
+  "slug": "diary-parents",
+  "locale": "en",
+  "translationGroupId": "tg_diary-parents_home",
+  "meta": {
+    "title": "Parents' Diary",
+    "subtitle": "Reflections on the Journey",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Parents' Diary",
+    "subheadline": "Reflections on the Journey",
+    "kicker": "Mom & Dad 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_summary_main",
+      "type": "summary",
+      "title": "About this Diary",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Here are the entries of Parents from the journey. Each entry reflects moments, impressions and thoughts."
+      }
+    },
+    {
+      "id": "sec_timeline_main",
+      "type": "timeline",
+      "title": "Entries",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "id": "entry-1",
+            "date": "2026-02-27",
+            "title": "Entry #1",
+            "slug": "entry-1"
+          },
+          {
+            "id": "entry-2",
+            "date": "2026-02-28",
+            "title": "Entry #2",
+            "slug": "entry-2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_mood_stats",
+      "type": "mood-strip",
+      "title": "Mood",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-27",
+            "mood": "happy",
+            "intensity": 8
+          },
+          {
+            "date": "2026-02-28",
+            "mood": "pensive",
+            "intensity": 6
+          },
+          {
+            "date": "2026-03-01",
+            "mood": "grateful",
+            "intensity": 9
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.594Z",
+    "updatedAt": "2026-03-01T09:56:57.594Z"
+  }
+}

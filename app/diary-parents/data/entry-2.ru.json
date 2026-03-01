@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "entry",
+  "pageId": "93fd6b53-ceac-4c52-9b81-104a1d8f6219",
+  "slug": "entry-2",
+  "locale": "ru",
+  "translationGroupId": "tg_diary-parents_entry_2",
+  "meta": {
+    "title": "2026-03-01",
+    "subtitle": "Запись #2",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-03-01",
+    "subheadline": "Parents",
+    "kicker": "Мама & Папа 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-03-01",
+        "text": "День был наполнен открытиями. Мы посетили старый квартал, где каждый камень хранит историю. В каждом углу — память."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Настроение",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-03-01",
+            "mood": "pensive",
+            "intensity": 6
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.599Z",
+    "updatedAt": "2026-03-01T09:56:57.599Z"
+  }
+}

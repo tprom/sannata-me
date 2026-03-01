@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "entry",
+  "pageId": "cae2578a-1d49-4927-b201-854094227f3c",
+  "slug": "entry-1",
+  "locale": "ru",
+  "translationGroupId": "tg_diary-parents_entry_1",
+  "meta": {
+    "title": "2026-02-28",
+    "subtitle": "Запись #1",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-02-28",
+    "subheadline": "Parents",
+    "kicker": "Мама & Папа 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-02-28",
+        "text": "Сегодня мы прибыли в новый город. Первые впечатления полны света и новых ароматов. Люди встречают нас с улыбками, и я чувствую, здесь нас ждали."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Настроение",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-28",
+            "mood": "happy",
+            "intensity": 8
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-28T09:56:57.597Z",
+    "updatedAt": "2026-02-28T09:56:57.597Z"
+  }
+}

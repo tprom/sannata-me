@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "module-home",
+  "pageId": "e3109f4a-5b63-4802-bffb-d27265b315ea",
+  "slug": "diary-parents",
+  "locale": "uk",
+  "translationGroupId": "tg_diary-parents_home",
+  "meta": {
+    "title": "Щоденник батьків",
+    "subtitle": "Роздуми про дорогу",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Щоденник батьків",
+    "subheadline": "Роздуми про дорогу",
+    "kicker": "Мама & Тато 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_summary_main",
+      "type": "summary",
+      "title": "Про щоденник",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Тут зібрані записи Parents про подорож. Кожна запис — відображення моментів, вражень та роздумів."
+      }
+    },
+    {
+      "id": "sec_timeline_main",
+      "type": "timeline",
+      "title": "Записи",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "id": "entry-1",
+            "date": "2026-02-27",
+            "title": "Запис #1",
+            "slug": "entry-1"
+          },
+          {
+            "id": "entry-2",
+            "date": "2026-02-28",
+            "title": "Запис #2",
+            "slug": "entry-2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_mood_stats",
+      "type": "mood-strip",
+      "title": "Настрій",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-27",
+            "mood": "happy",
+            "intensity": 8
+          },
+          {
+            "date": "2026-02-28",
+            "mood": "pensive",
+            "intensity": 6
+          },
+          {
+            "date": "2026-03-01",
+            "mood": "grateful",
+            "intensity": 9
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.596Z",
+    "updatedAt": "2026-03-01T09:56:57.596Z"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "module-home",
+  "pageId": "746234f8-6554-4cf9-a251-0191fbfb05f8",
+  "slug": "diary-ketty",
+  "locale": "ru",
+  "translationGroupId": "tg_diary-ketty_home",
+  "meta": {
+    "title": "Дневник Кетти",
+    "subtitle": "Истории из пути",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Дневник Кетти",
+    "subheadline": "Истории из пути",
+    "kicker": "Кетти 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_summary_main",
+      "type": "summary",
+      "title": "О дневнике",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Здесь собраны записи Ketty о путешествии. Каждая запись — отражение моментов, впечатлений и размышлений."
+      }
+    },
+    {
+      "id": "sec_timeline_main",
+      "type": "timeline",
+      "title": "Записи",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "id": "entry-1",
+            "date": "2026-02-26",
+            "title": "Запись #1",
+            "slug": "entry-1"
+          },
+          {
+            "id": "entry-2",
+            "date": "2026-02-27",
+            "title": "Запись #2",
+            "slug": "entry-2"
+          },
+          {
+            "id": "entry-3",
+            "date": "2026-02-28",
+            "title": "Запись #3",
+            "slug": "entry-3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_mood_stats",
+      "type": "mood-strip",
+      "title": "Настроение",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-27",
+            "mood": "happy",
+            "intensity": 8
+          },
+          {
+            "date": "2026-02-28",
+            "mood": "pensive",
+            "intensity": 6
+          },
+          {
+            "date": "2026-03-01",
+            "mood": "grateful",
+            "intensity": 9
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.574Z",
+    "updatedAt": "2026-03-01T09:56:57.574Z"
+  }
+}

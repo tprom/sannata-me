@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "entry",
+  "pageId": "0a93c243-8886-4dec-bf18-2d07281365f7",
+  "slug": "entry-1",
+  "locale": "uk",
+  "translationGroupId": "tg_diary-parents_entry_1",
+  "meta": {
+    "title": "2026-02-28",
+    "subtitle": "Запис #1",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-02-28",
+    "subheadline": "Parents",
+    "kicker": "Мама & Тато 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-02-28",
+        "text": "Сьогодні ми прибули в нове місто. Перші враження повні світла і нових запахів. Люди зустрічають нас з посмішками, і я відчуваю, що тут нас чекали."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Настрій",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-28",
+            "mood": "happy",
+            "intensity": 8
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-28T09:56:57.599Z",
+    "updatedAt": "2026-02-28T09:56:57.599Z"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "entry",
+  "pageId": "f81a7c73-31a5-4b6b-8523-dcc48c9e1052",
+  "slug": "entry-3",
+  "locale": "ru",
+  "translationGroupId": "tg_diary-ketty_entry_3",
+  "meta": {
+    "title": "2026-03-01",
+    "subtitle": "Запись #3",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-03-01",
+    "subheadline": "Ketty",
+    "kicker": "Кетти 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-03-01",
+        "text": "Пришло время отдыха, но мысли ещё бродят по улицам. Я благодарна за каждый момент этого путешествия."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Настроение",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-03-01",
+            "mood": "grateful",
+            "intensity": 9
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.587Z",
+    "updatedAt": "2026-03-01T09:56:57.587Z"
+  }
+}

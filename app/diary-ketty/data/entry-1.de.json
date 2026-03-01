@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "entry",
+  "pageId": "003084e5-8efc-40b4-a05e-6d3da3cf3eae",
+  "slug": "entry-1",
+  "locale": "de",
+  "translationGroupId": "tg_diary-ketty_entry_1",
+  "meta": {
+    "title": "2026-02-27",
+    "subtitle": "Eintrag #1",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-02-27",
+    "subheadline": "Ketty",
+    "kicker": "Ketty 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-02-27",
+        "text": "Heute kamen wir in einer neuen Stadt an. Die ersten Eindrücke sind voller Licht und neuer Düfte. Menschen begrüßen uns mit Lächeln, und ich spüre, dass wir hier erwartet wurden."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Stimmung",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-27",
+            "mood": "happy",
+            "intensity": 8
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-27T09:56:57.581Z",
+    "updatedAt": "2026-02-27T09:56:57.581Z"
+  }
+}

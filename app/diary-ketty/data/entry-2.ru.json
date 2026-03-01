@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "entry",
+  "pageId": "e92b9d0a-59e9-4094-b875-95e78336d03a",
+  "slug": "entry-2",
+  "locale": "ru",
+  "translationGroupId": "tg_diary-ketty_entry_2",
+  "meta": {
+    "title": "2026-02-28",
+    "subtitle": "Запись #2",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-02-28",
+    "subheadline": "Ketty",
+    "kicker": "Кетти 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-02-28",
+        "text": "День был наполнен открытиями. Мы посетили старый квартал, где каждый камень хранит историю. В каждом углу — память."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Настроение",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-28",
+            "mood": "pensive",
+            "intensity": 6
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-28T09:56:57.584Z",
+    "updatedAt": "2026-02-28T09:56:57.584Z"
+  }
+}

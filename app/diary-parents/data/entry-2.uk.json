@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "entry",
+  "pageId": "4f707dea-c675-4391-a3f2-19250eb149ee",
+  "slug": "entry-2",
+  "locale": "uk",
+  "translationGroupId": "tg_diary-parents_entry_2",
+  "meta": {
+    "title": "2026-03-01",
+    "subtitle": "Запис #2",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-03-01",
+    "subheadline": "Parents",
+    "kicker": "Мама & Тато 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-03-01",
+        "text": "День був сповнений відкриттів. Ми відвідали старий квартал, де кожен камінь зберігає історію. У кожному куті — пам'ять."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Настрій",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-03-01",
+            "mood": "pensive",
+            "intensity": 6
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.601Z",
+    "updatedAt": "2026-03-01T09:56:57.601Z"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "entry",
+  "pageId": "bd57a180-ce27-4fc9-a331-a726a7664880",
+  "slug": "entry-2",
+  "locale": "de",
+  "translationGroupId": "tg_diary-parents_entry_2",
+  "meta": {
+    "title": "2026-03-01",
+    "subtitle": "Eintrag #2",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-03-01",
+    "subheadline": "Parents",
+    "kicker": "Mama & Papa 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-03-01",
+        "text": "Der Tag war voller Entdeckungen. Wir besuchten ein altes Viertel, in dem jeder Stein eine Geschichte birgt. In jeder Ecke — Erinnerung."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Stimmung",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-03-01",
+            "mood": "pensive",
+            "intensity": 6
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.601Z",
+    "updatedAt": "2026-03-01T09:56:57.601Z"
+  }
+}

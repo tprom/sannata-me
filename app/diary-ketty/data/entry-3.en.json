@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "entry",
+  "pageId": "b26fc11b-b24d-42fc-8c9e-7ed93235f08f",
+  "slug": "entry-3",
+  "locale": "en",
+  "translationGroupId": "tg_diary-ketty_entry_3",
+  "meta": {
+    "title": "2026-03-01",
+    "subtitle": "Entry #3",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-03-01",
+    "subheadline": "Ketty",
+    "kicker": "Ketty 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-03-01",
+        "text": "Rest is coming, but thoughts still wander the streets. I am grateful for every moment of this journey."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Mood",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-03-01",
+            "mood": "grateful",
+            "intensity": 9
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.588Z",
+    "updatedAt": "2026-03-01T09:56:57.588Z"
+  }
+}

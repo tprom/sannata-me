@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "entry",
+  "pageId": "384a4aa6-9ecb-46fb-8fd4-a8bba5228df3",
+  "slug": "entry-3",
+  "locale": "de",
+  "translationGroupId": "tg_diary-ketty_entry_3",
+  "meta": {
+    "title": "2026-03-01",
+    "subtitle": "Eintrag #3",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-03-01",
+    "subheadline": "Ketty",
+    "kicker": "Ketty 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-03-01",
+        "text": "Die Ruhe naht, aber die Gedanken wandern noch durch die Straßen. Ich bin dankbar für jeden Moment dieser Reise."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Stimmung",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-03-01",
+            "mood": "grateful",
+            "intensity": 9
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.589Z",
+    "updatedAt": "2026-03-01T09:56:57.589Z"
+  }
+}

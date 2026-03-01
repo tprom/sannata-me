@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-parents",
+  "pageKind": "entry",
+  "pageId": "332a3d26-2892-42a4-b3db-dd215d80baee",
+  "slug": "entry-1",
+  "locale": "en",
+  "translationGroupId": "tg_diary-parents_entry_1",
+  "meta": {
+    "title": "2026-02-28",
+    "subtitle": "Entry #1",
+    "tags": [
+      "diary-parents",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-02-28",
+    "subheadline": "Parents",
+    "kicker": "Mom & Dad 💚",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-02-28",
+        "text": "Today we arrived in a new city. First impressions are full of light and new scents. People greet us with smiles, and I feel we were expected here."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Mood",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-28",
+            "mood": "happy",
+            "intensity": 8
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-28T09:56:57.598Z",
+    "updatedAt": "2026-02-28T09:56:57.598Z"
+  }
+}

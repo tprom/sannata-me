@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "entry",
+  "pageId": "69330267-91fc-4dd1-bc5b-a1541acf288c",
+  "slug": "entry-2",
+  "locale": "de",
+  "translationGroupId": "tg_diary-ketty_entry_2",
+  "meta": {
+    "title": "2026-02-28",
+    "subtitle": "Eintrag #2",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "entry"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "2026-02-28",
+    "subheadline": "Ketty",
+    "kicker": "Ketty 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_entry_narrative",
+      "type": "entry-card",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "date": "2026-02-28",
+        "text": "Der Tag war voller Entdeckungen. Wir besuchten ein altes Viertel, in dem jeder Stein eine Geschichte birgt. In jeder Ecke — Erinnerung."
+      }
+    },
+    {
+      "id": "sec_entry_mood",
+      "type": "mood-strip",
+      "title": "Stimmung",
+      "visible": true,
+      "styleVariant": "compact",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-28",
+            "mood": "pensive",
+            "intensity": 6
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-02-28T09:56:57.585Z",
+    "updatedAt": "2026-02-28T09:56:57.585Z"
+  }
+}

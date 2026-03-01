@@ -1,0 +1,18 @@
+{
+  "moduleKey": "diary-ketty",
+  "title": {
+    "ru": "Дневник Кетти",
+    "en": "Ketty's Diary",
+    "de": "Kettys Tagebuch",
+    "uk": "Щоденник Кеті"
+  },
+  "subtitle": {
+    "ru": "Истории из пути",
+    "en": "Stories from the Journey",
+    "de": "Geschichten aus der Reise",
+    "uk": "Історії з дороги"
+  },
+  "persona": "Ketty",
+  "entryCount": 3,
+  "createdAt": "2026-03-01T09:56:57.591Z"
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "diary-ketty",
+  "pageKind": "module-home",
+  "pageId": "5a8efef8-0b46-4c04-abc4-493e1b3d2186",
+  "slug": "diary-ketty",
+  "locale": "de",
+  "translationGroupId": "tg_diary-ketty_home",
+  "meta": {
+    "title": "Kettys Tagebuch",
+    "subtitle": "Geschichten aus der Reise",
+    "tags": [
+      "diary-ketty",
+      "diary",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Kettys Tagebuch",
+    "subheadline": "Geschichten aus der Reise",
+    "kicker": "Ketty 💛",
+    "theme": "diary"
+  },
+  "sections": [
+    {
+      "id": "sec_summary_main",
+      "type": "summary",
+      "title": "Über das Tagebuch",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "text": "Hier sind die Einträge von Ketty aus der Reise gesammelt. Jeder Eintrag ist eine Widerspiegelung von Momenten, Eindrücken und Gedanken."
+      }
+    },
+    {
+      "id": "sec_timeline_main",
+      "type": "timeline",
+      "title": "Einträge",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "id": "entry-1",
+            "date": "2026-02-26",
+            "title": "Eintrag #1",
+            "slug": "entry-1"
+          },
+          {
+            "id": "entry-2",
+            "date": "2026-02-27",
+            "title": "Eintrag #2",
+            "slug": "entry-2"
+          },
+          {
+            "id": "entry-3",
+            "date": "2026-02-28",
+            "title": "Eintrag #3",
+            "slug": "entry-3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_mood_stats",
+      "type": "mood-strip",
+      "title": "Stimmung",
+      "visible": true,
+      "styleVariant": "default",
+      "payload": {
+        "items": [
+          {
+            "date": "2026-02-27",
+            "mood": "happy",
+            "intensity": 8
+          },
+          {
+            "date": "2026-02-28",
+            "mood": "pensive",
+            "intensity": 6
+          },
+          {
+            "date": "2026-03-01",
+            "mood": "grateful",
+            "intensity": 9
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "createdAt": "2026-03-01T09:56:57.577Z",
+    "updatedAt": "2026-03-01T09:56:57.577Z"
+  }
+}
