@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "title": "Roma DE"
+  },
+  "pageContent": {
+    "greeting": {
+      "ru": "",
+      "en": "",
+      "de": "Hallo Rom",
+      "uk": ""
+    },
+    "description": {
+      "ru": "",
+      "en": "",
+      "de": "",
+      "uk": ""
+    },
+    "invitation": {
+      "ru": "",
+      "en": "",
+      "de": "",
+      "uk": ""
+    },
+    "illustrations": []
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#cfe7ff"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <rect y="420" width="800" height="180" fill="#efe7da"/>
+  <rect x="140" y="220" width="520" height="180" fill="#d1c2a6"/>
+  <rect x="180" y="180" width="160" height="80" fill="#c2b08d"/>
+  <rect x="460" y="180" width="160" height="80" fill="#c2b08d"/>
+  <rect x="370" y="150" width="60" height="250" fill="#b59f7a"/>
+  <text x="40" y="560" font-family="Arial, sans-serif" font-size="28" fill="#4b5563">Rathausplatz • Augsburg</text>
+</svg>

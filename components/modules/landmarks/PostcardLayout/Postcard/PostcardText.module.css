@@ -1,0 +1,71 @@
+.text {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #3e2f24;
+  position: relative;
+}
+
+.text::before {
+  content: "";
+  float: right;
+  width: 126px;
+  height: 126px;
+  margin: 2px 0 12px 16px;
+}
+
+.text::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.text p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.illustration {
+  width: 240px;
+  display: inline-block;
+  margin: 8px 14px;
+  transform: rotate(-2deg);
+}
+
+.illustration img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(60, 48, 34, 0.2);
+  display: block;
+}
+
+.left {
+  float: left;
+  margin-left: -34px;
+}
+
+.right {
+  float: right;
+  margin-right: -34px;
+  transform: rotate(2deg);
+}
+
+@media (max-width: 900px) {
+  .text::before {
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
+
+  .illustration {
+    width: 192px;
+  }
+
+  .left,
+  .right {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

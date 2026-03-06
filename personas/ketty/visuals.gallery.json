@@ -1,0 +1,17 @@
+{
+  "style": {
+    "base": "фотореалистичное изображение",
+    "overlay": "лёгкий карандашный контур или штриховка",
+    "colors": "естественные, мягкие",
+    "composition": "аккуратная, чистая",
+    "detail": "акцент на деталях без гиперреализма",
+    "atmosphere": "спокойная, тёплая"
+  },
+  "constraints": [
+    "никакого детского стиля",
+    "никаких мультяшных элементов",
+    "никаких сильных фильтров",
+    "никаких резких контрастов"
+  ],
+  "promptTemplate": "photorealistic image of {scene}, soft natural lighting, subtle pencil outline, gentle texture, clean composition, warm and calm atmosphere"
+}

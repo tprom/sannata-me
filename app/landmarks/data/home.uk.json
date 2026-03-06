@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "module-home",
+  "pageId": "landmarks:module-home:uk",
+  "slug": "landmarks",
+  "locale": "uk",
+  "translationGroupId": "landmarks:module-home",
+  "meta": {
+    "title": "Landmarks",
+    "tags": [
+      "landmarks",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Привіт. Це я, Кетті.",
+    "kicker": "Sannata",
+    "image": "/uploads/module-home/stampImage-1772449138482.png"
+  },
+  "sections": [
+    {
+      "id": "block-1",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "Я не знаю, де ти зараз,\nале я вирішила написати тобі.\n\nЯ люблю ходити містами.\nІноді — довго.\nІноді — зовсім трішки.\nЯ не завжди знаю, куди йду.\nІноді я обираю місце,\nбо в нього гарне ім’я.\nІноді — бо там дивні сходи.\nІноді — бо пішов дощ,\nі здалося, що він мене покликав.\nЯ дивлюся не так, як дорослі.\nЯ дивлюся на тріщини, на тіні,\nна вікна, які ніби щось знають.\nЯ слухаю, як звучить місце.\nДеякі місця шепочуть.\nДеякі мовчать.\nА деякі починають розповідати одразу.\nКоли я приходжу в дуже гарне місце,\nя спершу стою.\nПотім обходжу навколо.\nПотім торкаюся його поглядом.\nІноді мені нічого сказати.\nТоді я просто запам’ятовую,\nяк пахнув ранок\nі якого кольору було небо між будинками.\nА потім я пишу листівку.\nНе довгу.\nНе про все.\nЛише про те,\nщо залишилося зі мною.\nІноді це слова.\nІноді — майже вірш.\nІноді — просто відчуття,\nяке я не хочу загубити.\nЯ подорожуватиму далі.\nБез маршруту.\nБез правильних відповідей.\nІ щоразу,\nколи місце торкнеться мене,\nти отримаєш від мене листівку.",
+        "illustrationLeft": "## D. Иллюстрация блока 1 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
+      }
+    },
+    {
+      "id": "block-2",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "/uploads/module-home/illustration2L-1772566391266.png",
+        "illustrationRight": "## D. Иллюстрация блока 3 - Слева"
+      }
+    },
+    {
+      "id": "block-3",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "## D. Иллюстрация блока 3 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration3R-1772566444610.png"
+      }
+    },
+    {
+      "id": "closing",
+      "type": "module-home-closing",
+      "visible": true,
+      "payload": {
+        "text": "Листівки приходять не за розкладом."
+      }
+    }
+  ],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/stampImage-1772449138482.png"
+    ],
+    "sections": [
+      "## D. Иллюстрация блока 1 - Справа",
+      "/uploads/module-home/illustration1R-1772566361555.png",
+      "/uploads/module-home/illustration2L-1772566391266.png",
+      "## D. Иллюстрация блока 3 - Слева",
+      "## D. Иллюстрация блока 3 - Справа",
+      "/uploads/module-home/illustration3R-1772566444610.png"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-03-03T20:05:56.463Z",
+    "updatedAt": "2026-03-03T20:05:56.463Z",
+    "updatedBy": "agent-form"
+  }
+}
