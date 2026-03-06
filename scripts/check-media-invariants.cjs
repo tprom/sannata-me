@@ -12,8 +12,20 @@ const APP_HOME_FILES = [
 
 const LANDMARKS_DATA_DIR = path.join(root, "data", "landmarks");
 const LOCALE_FILE_RE = /\.(ru|en|de|uk)\.json$/i;
+const MEDIA_EXT_RE = /\.(png|jpe?g|webp|gif|svg|avif)$/i;
+const STRICT_MODE = process.env.CHECK_MEDIA_STRICT === "1";
+const LEGACY_DATA_PREFIX = `${path.join(root, "data", "landmarks")}${path.sep}`;
+const APP_DATA_PREFIX = `${path.join(root, "app", "landmarks", "data")}${path.sep}`;
+const MEDIA_PAGE_KINDS = new Set([
+  "module-home",
+  "collection-home",
+  "item",
+  "landmark-item",
+]);
 
 const issues = [];
+const warnings = [];
+const MAX_PRINTED_WARNINGS = 40;
 
 const isObject = (value) =>
   value !== null && typeof value === "object" && !Array.isArray(value);
@@ -35,6 +47,10 @@ const isPlaceholder = (value) => {
 
 const addIssue = (filePath, message) => {
   issues.push({ filePath, message });
+};
+
+const addWarning = (filePath, message) => {
+  warnings.push({ filePath, message });
 };
 
 const readJson = (filePath) => {
@@ -100,6 +116,70 @@ const ensureUniqueStringArray = (arr, fieldPath, filePath) => {
   }
 };
 
+const fileExists = (filePath) => {
+  try {
+    fs.accessSync(filePath, fs.constants.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const isLocalMediaPath = (value) => {
+  const v = normalize(value);
+  if (!v.startsWith("/")) return false;
+  if (!MEDIA_EXT_RE.test(v)) return false;
+  return true;
+};
+
+const resolveLocalMediaPath = (mediaPath) => {
+  const normalized = normalize(mediaPath);
+  const withoutSlash = normalized.replace(/^\//, "");
+  if (withoutSlash.toLowerCase().startsWith("public/")) {
+    return path.join(root, withoutSlash);
+  }
+  return path.join(root, "public", withoutSlash);
+};
+
+const collectPayloadMediaPaths = (value, output) => {
+  if (typeof value === "string") {
+    const v = normalize(value);
+    if (isLocalMediaPath(v) && !isPlaceholder(v)) {
+      output.add(v);
+    }
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      collectPayloadMediaPaths(item, output);
+    }
+    return;
+  }
+
+  if (!isObject(value)) return;
+
+  for (const nested of Object.values(value)) {
+    collectPayloadMediaPaths(nested, output);
+  }
+};
+
+const checkLocalMediaPathExists = (mediaPath, fieldPath, filePath) => {
+  if (!isLocalMediaPath(mediaPath)) return;
+  const resolved = resolveLocalMediaPath(mediaPath);
+  if (!fileExists(resolved)) {
+    const message = `${fieldPath} references missing local media file: ${mediaPath}`;
+    const isLegacyDataFile = filePath.startsWith(LEGACY_DATA_PREFIX);
+    const isAppDataFile = filePath.startsWith(APP_DATA_PREFIX);
+
+    if (isAppDataFile || STRICT_MODE || !isLegacyDataFile) {
+      addIssue(filePath, message);
+    } else {
+      addWarning(filePath, message);
+    }
+  }
+};
+
 const checkModuleHomeSpecifics = (envelope, filePath) => {
   if (envelope.pageKind !== "module-home") return;
 
@@ -146,7 +226,7 @@ const checkModuleHomeSpecifics = (envelope, filePath) => {
 };
 
 const checkUniversalMediaSpecifics = (envelope, filePath) => {
-  if (!["module-home", "collection-home", "item"].includes(envelope.pageKind)) {
+  if (!MEDIA_PAGE_KINDS.has(envelope.pageKind)) {
     return;
   }
 
@@ -159,6 +239,31 @@ const checkUniversalMediaSpecifics = (envelope, filePath) => {
       "hero.image must not exist (use mediaRefs.hero[]) in v1.1 envelope",
     );
   }
+
+  const mediaRefs = isObject(envelope.mediaRefs) ? envelope.mediaRefs : {};
+  const heroRefs = Array.isArray(mediaRefs.hero) ? mediaRefs.hero : [];
+  const sectionRefs = Array.isArray(mediaRefs.sections)
+    ? mediaRefs.sections
+    : [];
+
+  heroRefs.forEach((ref) => {
+    checkLocalMediaPathExists(ref, "mediaRefs.hero", filePath);
+  });
+
+  sectionRefs.forEach((ref) => {
+    checkLocalMediaPathExists(ref, "mediaRefs.sections", filePath);
+  });
+
+  const payloadMediaPaths = new Set();
+  const sections = Array.isArray(envelope.sections) ? envelope.sections : [];
+  sections.forEach((section) => {
+    if (!isObject(section) || !isObject(section.payload)) return;
+    collectPayloadMediaPaths(section.payload, payloadMediaPaths);
+  });
+
+  payloadMediaPaths.forEach((mediaPath) => {
+    checkLocalMediaPathExists(mediaPath, "sections.payload", filePath);
+  });
 };
 
 const validateEnvelope = (filePath) => {
@@ -184,7 +289,7 @@ const validateEnvelope = (filePath) => {
   }
 
   if (envelope.schemaVersion !== "1.1.0") return;
-  if (!["module-home", "collection-home", "item"].includes(envelope.pageKind)) {
+  if (!MEDIA_PAGE_KINDS.has(envelope.pageKind)) {
     return;
   }
 
@@ -222,7 +327,34 @@ if (issues.length > 0) {
   for (const issue of issues) {
     console.log(`- ${path.relative(root, issue.filePath)}: ${issue.message}`);
   }
+  if (warnings.length > 0) {
+    console.log("MEDIA_INVARIANTS_WARNINGS");
+    for (const warning of warnings.slice(0, MAX_PRINTED_WARNINGS)) {
+      console.log(
+        `- ${path.relative(root, warning.filePath)}: ${warning.message}`,
+      );
+    }
+    if (warnings.length > MAX_PRINTED_WARNINGS) {
+      console.log(
+        `- ... and ${warnings.length - MAX_PRINTED_WARNINGS} more warning(s)`,
+      );
+    }
+  }
   process.exit(1);
+}
+
+if (warnings.length > 0) {
+  console.log("MEDIA_INVARIANTS_WARNINGS");
+  for (const warning of warnings.slice(0, MAX_PRINTED_WARNINGS)) {
+    console.log(
+      `- ${path.relative(root, warning.filePath)}: ${warning.message}`,
+    );
+  }
+  if (warnings.length > MAX_PRINTED_WARNINGS) {
+    console.log(
+      `- ... and ${warnings.length - MAX_PRINTED_WARNINGS} more warning(s)`,
+    );
+  }
 }
 
 console.log("MEDIA_INVARIANTS_OK");
