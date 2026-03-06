@@ -19,6 +19,7 @@ This document describes the current CI behavior for `sannata-me`.
 ### Security / Runtime Controls
 
 - `permissions: contents: read`
+- `permissions: pull-requests: read` (for PR path filtering)
 - `concurrency` enabled:
   - `group: ${{ github.workflow }}-${{ github.ref }}`
   - `cancel-in-progress: true`
@@ -30,6 +31,7 @@ This document describes the current CI behavior for `sannata-me`.
 - Purpose: detect writer-related diffs via `dorny/paths-filter@v3`
 - Timeout: `5` minutes
 - Output: `writers` (`true` / `false`)
+- Checkout uses `fetch-depth: 0` for reliable diff detection
 
 2. `build`
 
