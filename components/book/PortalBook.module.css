@@ -1,9 +1,17 @@
-.book {
-  height: 100%;
+/* Внешний контейнер — просто занимает всю область */
+.wrapper {
   width: 100%;
+  height: 100%;
+  display: block;        /* ← убираем flex */
   overflow: hidden;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
 }
+
+/* Внутренний контейнер — тоже просто область */
+.inner {
+  width: 100%;
+  height: 100%;
+  display: block;        /* ← убираем flex */
+  position: relative;
+}
+

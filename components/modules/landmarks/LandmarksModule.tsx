@@ -1,55 +1,43 @@
 // /components/modules/landmarks/LandmarksModule.tsx
 
-'use client';
+"use client";
 
-import React from 'react';
+import CityList from "./CityList";
+import CityMenu from "./CityMenu";
+import cities from "../../../data/landmarks/index.json";
+import "./styles.css";
+import type { PortalModuleGenerator } from "@/components/portal/types";
 
-// Временные страницы (позже заменим на JSON)
-function LandmarkIntroLeft() {
-  return (
-    <div style={{ padding: 40 }}>
-      <h1>Landmarks</h1>
-      <p>Welcome to the Landmarks module.</p>
-    </div>
-  );
-}
-
-function LandmarkIntroRight() {
-  return (
-    <div style={{ padding: 40 }}>
-      <h2>Augsburg</h2>
-      <p>A city of history, architecture, and quiet beauty.</p>
-    </div>
-  );
-}
-
-const LandmarksModule = {
+const LandmarksModule: PortalModuleGenerator = {
   generate() {
-    // 1. Навигация модуля
+    // 1. Навигация модуля (заглушка под будущую логику)
     const navigation = {
-  title: 'Landmarks',
-  active: 'map',
-  items: [
-    { id: 'map', label: 'Map' }
-  ]
-};
+      title: "Landmarks",
+      active: "cities",
+      items: [{ id: "cities", label: "Cities" }],
+    };
 
-
-    // 2. Страницы (пока статично)
+    // 2. Контент модуля: меню + рабочая зона
     const pages = [
-      <LandmarkIntroLeft key="landmark-left" />,
-      <LandmarkIntroRight key="landmark-right" />
+      <div key="landmarks-layout" className="landmarks-layout">
+        <CityMenu cities={cities} />
+        <CityList
+          title="Landmarks"
+          description="Выберите город в левом меню, чтобы увидеть список достопримечательностей."
+          note="Меню работает как аккордеон и управляет состоянием модуля."
+        />
+      </div>,
     ];
 
     // 3. Управление модулем (пока заглушка)
     const controls = {
       onSelect: (id: string) => {
-        console.log('Selected landmark:', id);
-      }
+        console.log("Selected landmark:", id);
+      },
     };
 
     return { navigation, pages, controls };
-  }
+  },
 };
 
 export default LandmarksModule;

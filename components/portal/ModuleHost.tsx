@@ -1,47 +1,38 @@
-// /components/portal/ModuleHost.tsx
+"use client";
 
-'use client';
+import styles from "./ModuleHost.module.css";
 
-import styles from './ModuleHost.module.css';
+import InsightsModule from "../modules/insights/InsightsModule";
+import LandmarksModule from "../modules/landmarks/LandmarksModule";
+import StudioModule from "../modules/studio/StudioModule";
 
-// Модули
-import BooksModule from '../modules/books/BooksModule';
-import InsightsModule from '../modules/insights/InsightsModule';
-import LandmarksModule from '../modules/landmarks/LandmarksModule';
-import StudioModule from '../modules/studio/StudioModule';
-
-// Компоненты портала
-import ModuleNavigation from './ModuleNavigation';
-import PortalBook from '../book/PortalBook';
+import ModuleNavigation from "./ModuleNavigation";
+import PortalBook from "../book/PortalBook";
+import type { PortalModuleGenerator } from "./types";
 
 type Props = {
-  activeModule: 'books' | 'insights' | 'landmarks' | 'studio';
+  activeModule: "insights" | "landmarks" | "studio";
+  lang?: string;
 };
 
-export default function ModuleHost({ activeModule }: Props) {
-  // 1. Выбираем модуль
-  const moduleMap = {
-    books: BooksModule,
+export default function ModuleHost({ activeModule, lang = "ru" }: Props) {
+  console.log("⚠️ ModuleHost is rendering"); // ← сюда
+  const moduleMap: Record<Props["activeModule"], PortalModuleGenerator> = {
     insights: InsightsModule,
     landmarks: LandmarksModule,
     studio: StudioModule,
   };
 
   const ActiveModule = moduleMap[activeModule];
-
-  // 2. Получаем данные модуля
   const { navigation, pages, controls } = ActiveModule.generate();
 
   return (
     <div className={styles.host}>
-      {/* Левая зона — навигация модуля */}
       <ModuleNavigation
         navigation={navigation}
-        controls={controls}
+        controls={{ onSelect: () => {} }}
       />
-
-      {/* Правая зона — книга */}
-      <PortalBook pages={pages} />
+      <PortalBook pages={pages} lang={lang} hideControls={false} />
     </div>
   );
 }

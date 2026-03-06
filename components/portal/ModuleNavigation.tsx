@@ -14,6 +14,7 @@ type Props = {
 };
 
 export default function ModuleNavigation({ navigation, controls }: Props) {
+  console.log("🔥 ModuleNavigation is rendering");
   return (
     <aside className={styles.nav}>
       {navigation.title && (

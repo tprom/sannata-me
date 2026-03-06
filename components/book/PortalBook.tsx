@@ -1,19 +1,19 @@
-// /components/book/PortalBook.tsx
-
 'use client';
 
 import Flipbook from './Flipbook';
 import styles from './PortalBook.module.css';
 
 type Props = {
-  pages: React.ReactNode[];
+  pages: any[];
+  lang: string;
+  hideControls?: boolean;
 };
 
-export default function PortalBook({ pages }: Props) {
+export default function PortalBook({ pages, lang, hideControls = false }: Props) {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.bookShadow}>
-        <Flipbook pages={pages} />
+      <div className={styles.inner}>
+        <Flipbook pages={pages} lang={lang} hideControls={hideControls} />
       </div>
     </div>
   );
