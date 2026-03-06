@@ -17,6 +17,7 @@ const STRICT_MODE = process.env.CHECK_MEDIA_STRICT === "1";
 const UPDATE_WARNING_BASELINE = process.env.CHECK_MEDIA_UPDATE_BASELINE === "1";
 const FAIL_ON_NEW_WARNINGS =
   process.env.CHECK_MEDIA_FAIL_ON_NEW_WARNINGS === "1";
+const COMPACT_OUTPUT = process.env.CHECK_MEDIA_COMPACT === "1";
 const LEGACY_DATA_PREFIX = `${path.join(root, "data", "landmarks")}${path.sep}`;
 const APP_DATA_PREFIX = `${path.join(root, "app", "landmarks", "data")}${path.sep}`;
 const WARNING_BASELINE_PATH = path.join(
@@ -124,6 +125,28 @@ const printGroupedWarningSummary = (title, keys, maxGroups = 20) => {
   }
   if (rows.length > maxGroups) {
     console.log(`- ... and ${rows.length - maxGroups} more group(s)`);
+  }
+};
+
+const printWarningDetails = (warningList) => {
+  if (warningList.length === 0) return;
+
+  if (COMPACT_OUTPUT) {
+    console.log(
+      `- warning details hidden in compact mode (${warningList.length} total)`,
+    );
+    return;
+  }
+
+  for (const warning of warningList.slice(0, MAX_PRINTED_WARNINGS)) {
+    console.log(
+      `- ${path.relative(root, warning.filePath)}: ${warning.message}`,
+    );
+  }
+  if (warningList.length > MAX_PRINTED_WARNINGS) {
+    console.log(
+      `- ... and ${warningList.length - MAX_PRINTED_WARNINGS} more warning(s)`,
+    );
   }
 };
 
@@ -426,16 +449,7 @@ if (issues.length > 0) {
   }
   if (warnings.length > 0) {
     console.log("MEDIA_INVARIANTS_WARNINGS");
-    for (const warning of warnings.slice(0, MAX_PRINTED_WARNINGS)) {
-      console.log(
-        `- ${path.relative(root, warning.filePath)}: ${warning.message}`,
-      );
-    }
-    if (warnings.length > MAX_PRINTED_WARNINGS) {
-      console.log(
-        `- ... and ${warnings.length - MAX_PRINTED_WARNINGS} more warning(s)`,
-      );
-    }
+    printWarningDetails(warnings);
   }
   process.exit(1);
 }
@@ -454,16 +468,7 @@ const newWarnings = warningKeys.filter((key) => !baselineKeys.has(key));
 
 if (warnings.length > 0) {
   console.log("MEDIA_INVARIANTS_WARNINGS");
-  for (const warning of warnings.slice(0, MAX_PRINTED_WARNINGS)) {
-    console.log(
-      `- ${path.relative(root, warning.filePath)}: ${warning.message}`,
-    );
-  }
-  if (warnings.length > MAX_PRINTED_WARNINGS) {
-    console.log(
-      `- ... and ${warnings.length - MAX_PRINTED_WARNINGS} more warning(s)`,
-    );
-  }
+  printWarningDetails(warnings);
 
   if (baselineKeys.size > 0) {
     console.log(`MEDIA_WARNINGS_BASELINE_SIZE ${baselineKeys.size}`);
