@@ -6,6 +6,7 @@ This document describes the current CI behavior for `sannata-me`.
 
 - `Build` -> `.github/workflows/build.yml`
 - `Validate Universal Page Template v1.1` -> `.github/workflows/validate-universal-page-template.yml`
+- `Nightly Writer Smoke` -> `.github/workflows/nightly-smoke.yml`
 
 ## Build Workflow
 
@@ -98,6 +99,32 @@ This document describes the current CI behavior for `sannata-me`.
   - section type consistency
   - envelope invariants (`schemaVersion`, UUID v4 `pageId`, `slug`, `meta.status`, hero constraints)
 - Adds a step summary in Actions UI
+
+## Nightly Writer Smoke Workflow
+
+### Trigger
+
+- `schedule` (daily, `17 2 * * *`, UTC)
+- `workflow_dispatch`
+
+### Security / Runtime Controls
+
+- `permissions: contents: read`
+- `concurrency` enabled:
+  - `group: ${{ github.workflow }}-${{ github.ref }}`
+  - `cancel-in-progress: true`
+- Timeout: `40` minutes
+
+### Commands
+
+- `npm ci`
+- `npm run build`
+- `npm run smoke:writers`
+
+### Failure Diagnostics
+
+- On failure, uploads `smoke-writers.log` as workflow artifact.
+- Adds a step summary in Actions UI.
 
 ## Local Commands (Parity with CI)
 

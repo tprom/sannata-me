@@ -1,0 +1,54 @@
+name: Nightly Writer Smoke
+
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nightly-build-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Smoke writers
+        run: npm run smoke:writers 2>&1 | tee smoke-writers.log
+
+      - name: Upload smoke writers log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-smoke-writers-log-${{ github.run_id }}-${{ github.run_attempt }}
+          path: smoke-writers.log
+          if-no-files-found: ignore
+
+      - name: Nightly summary
+        if: always()
+        run: |
+          echo "## Nightly Writer Smoke Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Workflow: `Nightly Writer Smoke`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Job status: **${{ job.status }}**" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commands: `npm run build`, `npm run smoke:writers`" >> "$GITHUB_STEP_SUMMARY"

@@ -95,7 +95,15 @@ jobs:
         run: npm ci
 
       - name: Smoke writers
-        run: npm run smoke:writers
+        run: npm run smoke:writers 2>&1 | tee smoke-writers.log
+
+      - name: Upload smoke writers log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-writers-log-${{ github.run_id }}-${{ github.run_attempt }}
+          path: smoke-writers.log
+          if-no-files-found: ignore
 
       - name: Smoke writers summary
         if: always()
