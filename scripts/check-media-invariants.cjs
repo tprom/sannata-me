@@ -68,6 +68,65 @@ const normalizePathForKey = (targetPath) =>
 const toWarningKey = (warning) =>
   `${normalizePathForKey(warning.filePath)}|${warning.message}`;
 
+const splitWarningKey = (key) => {
+  const separatorIndex = key.indexOf("|");
+  if (separatorIndex < 0) {
+    return { filePath: key, message: "" };
+  }
+
+  return {
+    filePath: key.slice(0, separatorIndex),
+    message: key.slice(separatorIndex + 1),
+  };
+};
+
+const warningGroupKey = (filePath) => {
+  const normalized = normalize(filePath);
+
+  const landmarkMatch = normalized.match(
+    /^data\/landmarks\/([^/]+)\/([^/.]+)\.(ru|en|de|uk)\.json$/i,
+  );
+  if (landmarkMatch) {
+    const city = landmarkMatch[1];
+    const slug = landmarkMatch[2];
+    const locale = landmarkMatch[3].toLowerCase();
+    return `landmark:${city}/${slug}:${locale}`;
+  }
+
+  const appHomeMatch = normalized.match(
+    /^app\/landmarks\/data\/home\.(ru|en|de|uk)\.json$/i,
+  );
+  if (appHomeMatch) {
+    return `app-home:${appHomeMatch[1].toLowerCase()}`;
+  }
+
+  return `file:${normalized}`;
+};
+
+const printGroupedWarningSummary = (title, keys, maxGroups = 20) => {
+  if (keys.length === 0) return;
+
+  const grouped = new Map();
+  for (const key of keys) {
+    const { filePath } = splitWarningKey(key);
+    const group = warningGroupKey(filePath);
+    grouped.set(group, (grouped.get(group) || 0) + 1);
+  }
+
+  const rows = [...grouped.entries()].sort((a, b) => {
+    if (b[1] !== a[1]) return b[1] - a[1];
+    return a[0].localeCompare(b[0]);
+  });
+
+  console.log(title);
+  for (const [group, count] of rows.slice(0, maxGroups)) {
+    console.log(`- ${group}: ${count}`);
+  }
+  if (rows.length > maxGroups) {
+    console.log(`- ... and ${rows.length - maxGroups} more group(s)`);
+  }
+};
+
 const loadWarningBaseline = () => {
   if (!fs.existsSync(WARNING_BASELINE_PATH)) return [];
   try {
@@ -409,13 +468,19 @@ if (warnings.length > 0) {
   if (baselineKeys.size > 0) {
     console.log(`MEDIA_WARNINGS_BASELINE_SIZE ${baselineKeys.size}`);
     console.log(`MEDIA_WARNINGS_NEW ${newWarnings.length}`);
+    printGroupedWarningSummary("MEDIA_WARNINGS_GROUPED", warningKeys);
+    printGroupedWarningSummary("MEDIA_WARNINGS_NEW_GROUPED", newWarnings);
   }
 }
 
 if (FAIL_ON_NEW_WARNINGS && newWarnings.length > 0) {
   console.log("MEDIA_INVARIANTS_FAILED_NEW_WARNINGS");
+  printGroupedWarningSummary(
+    "MEDIA_INVARIANTS_FAILED_NEW_WARNINGS_GROUPED",
+    newWarnings,
+  );
   for (const key of newWarnings.slice(0, MAX_PRINTED_WARNINGS)) {
-    const [filePath, message] = key.split("|", 2);
+    const { filePath, message } = splitWarningKey(key);
     console.log(`- ${filePath}: ${message}`);
   }
   if (newWarnings.length > MAX_PRINTED_WARNINGS) {
