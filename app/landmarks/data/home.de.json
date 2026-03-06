@@ -26,7 +26,7 @@
       "payload": {
         "title": "",
         "text": "Ich weiß nicht, wo du gerade bist,\r\naber ich habe beschlossen, dir zu schreiben.\r\n\r\nIch gehe gern durch Städte.\r\nManchmal lange.\r\nManchmal nur ein kleines Stück.\r\nIch weiß nicht immer, wohin ich gehe.\r\nManchmal wähle ich einen Ort,\r\nweil er einen schönen Namen hat.\r\nManchmal, weil dort eine seltsame Treppe steht.\r\nManchmal, weil der Regen beginnt\r\nund es sich anfühlt, als würde er mich rufen.\r\nIch schaue nicht wie Erwachsene.\r\nIch schaue auf Risse, auf Schatten,\r\nauf Fenster, die etwas zu wissen scheinen.\r\nIch höre zu, wie ein Ort klingt.\r\nManche Orte flüstern.\r\nManche schweigen.\r\nUnd manche beginnen sofort zu erzählen.\r\nWenn ich an einen sehr schönen Ort komme,\r\nbleibe ich zuerst stehen.\r\nDann gehe ich einmal herum.\r\nDann berühre ich ihn mit meinem Blick.\r\nManchmal habe ich nichts zu sagen.\r\nDann merke ich mir einfach,\r\nwie der Morgen gerochen hat\r\nund welche Farbe der Himmel zwischen den Häusern hatte.\r\nUnd dann schreibe ich eine Postkarte.\r\nKeine lange.\r\nNicht über alles.\r\nNur über das,\r\nwas bei mir geblieben ist.\r\nManchmal sind es Worte.\r\nManchmal fast ein Gedicht.\r\nManchmal nur ein Gefühl,\r\ndas ich nicht verlieren möchte.\r\nIch werde weiterreisen.\r\nOhne Route.\r\nOhne richtige Antworten.\r\nUnd jedes Mal,\r\nwenn mich ein Ort berührt,\r\nbekommst du eine Postkarte von mir.",
-        "illustrationLeft": "## D. Иллюстрация блока 1 - Справа",
+        "illustrationLeft": "",
         "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
       }
     },
@@ -38,7 +38,7 @@
         "title": "",
         "text": "",
         "illustrationLeft": "/uploads/module-home/illustration2L-1772566391266.png",
-        "illustrationRight": "## D. Иллюстрация блока 3 - Слева"
+        "illustrationRight": ""
       }
     },
     {
@@ -48,7 +48,7 @@
       "payload": {
         "title": "",
         "text": "",
-        "illustrationLeft": "## D. Иллюстрация блока 3 - Справа",
+        "illustrationLeft": "",
         "illustrationRight": "/uploads/module-home/illustration3R-1772566444610.png"
       }
     },
@@ -66,17 +66,14 @@
       "/uploads/module-home/stampImage-1772449138482.png"
     ],
     "sections": [
-      "## D. Иллюстрация блока 1 - Справа",
       "/uploads/module-home/illustration1R-1772566361555.png",
       "/uploads/module-home/illustration2L-1772566391266.png",
-      "## D. Иллюстрация блока 3 - Слева",
-      "## D. Иллюстрация блока 3 - Справа",
       "/uploads/module-home/illustration3R-1772566444610.png"
     ]
   },
   "audit": {
     "createdAt": "2026-03-03T20:05:56.463Z",
-    "updatedAt": "2026-03-06T12:42:22.963Z",
+    "updatedAt": "2026-03-06T17:31:18.760Z",
     "updatedBy": "agent-form"
   },
   "navigation": {

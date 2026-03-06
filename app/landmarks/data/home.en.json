@@ -26,7 +26,7 @@
       "payload": {
         "title": "",
         "text": "I don’t know where you are right now,\r\nbut I decided to write to you.\r\n\r\nI love walking through cities.\r\nSometimes for a long time.\r\nSometimes just a little.\r\nI don’t always know where I’m going.\r\nSometimes I choose a place because it has a beautiful name.\r\nSometimes because there’s a strange staircase.\r\nSometimes because the rain starts\r\nand it feels as if it’s calling me.\r\nI don’t look the way adults do.\r\nI look at cracks, at shadows,\r\nat windows that seem to know something.\r\nI listen to how a place sounds.\r\nSome places whisper.\r\nSome stay silent.\r\nAnd some begin to tell their stories right away.\r\nWhen I arrive at a very beautiful place,\r\nI stand still first.\r\nThen I walk around it.\r\nThen I touch it with my eyes.\r\nSometimes I have nothing to say.\r\nThen I simply remember\r\nhow the morning smelled\r\nand what color the sky was between the houses.\r\nAnd then I write a postcard.\r\nNot a long one.\r\nNot about everything.\r\nOnly about what stayed with me.\r\nSometimes it becomes words.\r\nSometimes almost a poem.\r\nSometimes just a feeling\r\nI don’t want to lose.\r\nI will keep traveling.\r\nWithout a route.\r\nWithout the “right” answers.\r\nAnd every time a place touches me,\r\nyou will receive a postcard from me.",
-        "illustrationLeft": "## D. Иллюстрация блока 1 - Справа",
+        "illustrationLeft": "",
         "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
       }
     },
@@ -38,7 +38,7 @@
         "title": "",
         "text": "",
         "illustrationLeft": "/uploads/module-home/illustration2L-1772566391266.png",
-        "illustrationRight": "## D. Иллюстрация блока 3 - Слева"
+        "illustrationRight": ""
       }
     },
     {
@@ -48,7 +48,7 @@
       "payload": {
         "title": "",
         "text": "",
-        "illustrationLeft": "## D. Иллюстрация блока 3 - Справа",
+        "illustrationLeft": "",
         "illustrationRight": "/uploads/module-home/illustration3R-1772566444610.png"
       }
     },
@@ -66,17 +66,14 @@
       "/uploads/module-home/stampImage-1772449138482.png"
     ],
     "sections": [
-      "## D. Иллюстрация блока 1 - Справа",
       "/uploads/module-home/illustration1R-1772566361555.png",
       "/uploads/module-home/illustration2L-1772566391266.png",
-      "## D. Иллюстрация блока 3 - Слева",
-      "## D. Иллюстрация блока 3 - Справа",
       "/uploads/module-home/illustration3R-1772566444610.png"
     ]
   },
   "audit": {
     "createdAt": "2026-03-03T20:05:56.463Z",
-    "updatedAt": "2026-03-06T12:42:22.963Z",
+    "updatedAt": "2026-03-06T17:31:18.760Z",
     "updatedBy": "agent-form"
   },
   "navigation": {

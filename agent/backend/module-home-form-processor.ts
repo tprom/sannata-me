@@ -39,6 +39,11 @@ const parseKeyValue = (markdown: string, key: string): string => {
     return "";
   }
 
+  // Ignore accidental section-heading remnants captured as field values.
+  if (value.startsWith("## ")) {
+    return "";
+  }
+
   return value;
 };
 

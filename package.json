@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "check:media": "node scripts/check-media-invariants.cjs"
   },
   "dependencies": {
     "next": "^15.1.6",
