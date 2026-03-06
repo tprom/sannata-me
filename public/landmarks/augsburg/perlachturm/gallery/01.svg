@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#9fd4ff"/>
+      <stop offset="100%" stop-color="#f5fbff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <rect y="420" width="800" height="180" fill="#dfe8d8"/>
+  <rect x="340" y="160" width="120" height="260" rx="12" fill="#d0b48a"/>
+  <rect x="360" y="220" width="80" height="120" fill="#b5966d"/>
+  <rect x="372" y="250" width="56" height="80" fill="#8c6b4a"/>
+  <rect x="360" y="130" width="80" height="40" fill="#b5966d"/>
+  <rect x="330" y="110" width="140" height="30" fill="#a88a63"/>
+  <text x="40" y="560" font-family="Arial, sans-serif" font-size="28" fill="#4b5563">Perlachturm • Augsburg</text>
+</svg>

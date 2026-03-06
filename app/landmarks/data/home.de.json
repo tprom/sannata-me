@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "module-home",
+  "pageId": "landmarks:module-home:de",
+  "slug": "landmarks",
+  "locale": "de",
+  "translationGroupId": "landmarks:module-home",
+  "meta": {
+    "title": "Landmarks",
+    "tags": [
+      "landmarks",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Hallo. Ich bin’s, Ketty.",
+    "kicker": "Sannata",
+    "image": "/uploads/module-home/stampImage-1772449138482.png"
+  },
+  "sections": [
+    {
+      "id": "block-1",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "Ich weiß nicht, wo du gerade bist,\naber ich habe beschlossen, dir zu schreiben.\n\nIch gehe gern durch Städte.\nManchmal lange.\nManchmal nur ein kleines Stück.\nIch weiß nicht immer, wohin ich gehe.\nManchmal wähle ich einen Ort,\nweil er einen schönen Namen hat.\nManchmal, weil dort eine seltsame Treppe steht.\nManchmal, weil der Regen beginnt\nund es sich anfühlt, als würde er mich rufen.\nIch schaue nicht wie Erwachsene.\nIch schaue auf Risse, auf Schatten,\nauf Fenster, die etwas zu wissen scheinen.\nIch höre zu, wie ein Ort klingt.\nManche Orte flüstern.\nManche schweigen.\nUnd manche beginnen sofort zu erzählen.\nWenn ich an einen sehr schönen Ort komme,\nbleibe ich zuerst stehen.\nDann gehe ich einmal herum.\nDann berühre ich ihn mit meinem Blick.\nManchmal habe ich nichts zu sagen.\nDann merke ich mir einfach,\nwie der Morgen gerochen hat\nund welche Farbe der Himmel zwischen den Häusern hatte.\nUnd dann schreibe ich eine Postkarte.\nKeine lange.\nNicht über alles.\nNur über das,\nwas bei mir geblieben ist.\nManchmal sind es Worte.\nManchmal fast ein Gedicht.\nManchmal nur ein Gefühl,\ndas ich nicht verlieren möchte.\nIch werde weiterreisen.\nOhne Route.\nOhne richtige Antworten.\nUnd jedes Mal,\nwenn mich ein Ort berührt,\nbekommst du eine Postkarte von mir.",
+        "illustrationLeft": "## D. Иллюстрация блока 1 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
+      }
+    },
+    {
+      "id": "block-2",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "/uploads/module-home/illustration2L-1772566391266.png",
+        "illustrationRight": "## D. Иллюстрация блока 3 - Слева"
+      }
+    },
+    {
+      "id": "block-3",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "## D. Иллюстрация блока 3 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration3R-1772566444610.png"
+      }
+    },
+    {
+      "id": "closing",
+      "type": "module-home-closing",
+      "visible": true,
+      "payload": {
+        "text": "Postkarten kommen nicht nach Plan."
+      }
+    }
+  ],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/stampImage-1772449138482.png"
+    ],
+    "sections": [
+      "## D. Иллюстрация блока 1 - Справа",
+      "/uploads/module-home/illustration1R-1772566361555.png",
+      "/uploads/module-home/illustration2L-1772566391266.png",
+      "## D. Иллюстрация блока 3 - Слева",
+      "## D. Иллюстрация блока 3 - Справа",
+      "/uploads/module-home/illustration3R-1772566444610.png"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-03-03T20:05:56.463Z",
+    "updatedAt": "2026-03-03T20:05:56.463Z",
+    "updatedBy": "agent-form"
+  }
+}

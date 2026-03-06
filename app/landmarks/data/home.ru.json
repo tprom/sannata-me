@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "module-home",
+  "pageId": "landmarks:module-home:ru",
+  "slug": "landmarks",
+  "locale": "ru",
+  "translationGroupId": "landmarks:module-home",
+  "meta": {
+    "title": "Landmarks",
+    "tags": [
+      "landmarks",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Привет. Это я, Кетти.",
+    "kicker": "Sannata",
+    "image": "/uploads/module-home/stampImage-1772449138482.png"
+  },
+  "sections": [
+    {
+      "id": "block-1",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "Я не знаю, где ты сейчас, \nно я решила писать тебе.\n\nЯ люблю ходить по городам.\nИногда — долго.\nИногда — совсем чуть чуть.\nЯ не всегда знаю, куда иду.\nИногда я выбираю место, потому что у него красивое имя.\nИногда — потому что там странная лестница.\nИногда — потому что пошёл дождь, и он будто позвал меня.\nЯ смотрю не как взрослые.\nЯ смотрю на трещины, на тени, на окна, которые будто что то знают.\nЯ слушаю, как звучит место.\nНекоторые места шепчут.\nНекоторые молчат.\nА некоторые сразу начинают рассказывать.\nКогда я прихожу в очень красивое место,\nя сначала стою.\nПотом обхожу вокруг.\nПотом трогаю взглядом.\nИногда мне нечего сказать.\nТогда я просто запоминаю,\nкак пахло утро\nи какого цвета было небо между домами.\nА потом я пишу открытку.\nНе длинную.\nНе про всё.\nТолько про то,\nчто осталось со мной.\nИногда это слова.\nИногда — почти стих.\nИногда — просто чувство,\nкоторое я не хочу потерять.\nЯ буду путешествовать дальше.\nБез маршрута.\nБез правильных ответов.\nИ каждый раз,\nкогда место меня тронет,\nты получишь от меня открытку.",
+        "illustrationLeft": "## D. Иллюстрация блока 1 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
+      }
+    },
+    {
+      "id": "block-2",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "/uploads/module-home/illustration2L-1772566391266.png",
+        "illustrationRight": "## D. Иллюстрация блока 3 - Слева"
+      }
+    },
+    {
+      "id": "block-3",
+      "type": "module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "## D. Иллюстрация блока 3 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration3R-1772566444610.png"
+      }
+    },
+    {
+      "id": "closing",
+      "type": "module-home-closing",
+      "visible": true,
+      "payload": {
+        "text": "Открытки приходят не по расписанию."
+      }
+    }
+  ],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/stampImage-1772449138482.png"
+    ],
+    "sections": [
+      "## D. Иллюстрация блока 1 - Справа",
+      "/uploads/module-home/illustration1R-1772566361555.png",
+      "/uploads/module-home/illustration2L-1772566391266.png",
+      "## D. Иллюстрация блока 3 - Слева",
+      "## D. Иллюстрация блока 3 - Справа",
+      "/uploads/module-home/illustration3R-1772566444610.png"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-03-03T20:05:56.463Z",
+    "updatedAt": "2026-03-03T20:05:56.463Z",
+    "updatedBy": "agent-form"
+  }
+}

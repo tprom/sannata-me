@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "description": "Depth aliases for Ketty.",
+  "depth": {
+    "light": ["basic", "lite", "low", "L1", "shallow", "surface", "simple"],
+    "medium": [
+      "normal",
+      "mid",
+      "middle",
+      "moderate",
+      "personal",
+      "L2",
+      "story"
+    ],
+    "deep": ["poetic", "deepest", "high", "full", "L3", "advanced"]
+  },
+  "fallback": "medium",
+  "strict": true,
+  "unknownLevelPolicy": "warn"
+}

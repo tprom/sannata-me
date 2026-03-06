@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "ketty-landsberg-journey",
+    "title": {
+      "en": "Ketty — Landsberg Journey (Announcement)",
+      "de": "Ketty — Landsberg Reise (Ankündigung)",
+      "ru": "Кетти — Путешествие в Ландсберг (Анонс)",
+      "uk": "Кетті — Подорож до Ландсберга (Анонс)"
+    },
+    "description": {
+      "en": "The first illustrated announcement of Ketty’s adventures in Landsberg am Lech.",
+      "de": "Die erste illustrierte Ankündigung von Kettys Abenteuern in Landsberg am Lech.",
+      "ru": "Первый иллюстрированный анонс приключений Кетти в Ландсберге-на-Лехе.",
+      "uk": "Перше ілюстроване оголошення пригод Кетті в Ландсберзі-на-Леху."
+    },
+    "cover": "/books/ketty-landsberg-journey/01-cover.png"  },
+  {
+    "slug": "future-birthday",
+    "title": {
+      "en": "Ketty's Birthday",
+      "de": "Kettys Geburtstag",
+      "ru": "День рождения Кетти",
+      "uk": "День народження Кетті"
+    },
+    "description": {
+      "en": "Coming soon: Ketty celebrates her birthday.",
+      "de": "Demnächst: Ketty feiert ihren Geburtstag.",
+      "ru": "Скоро: Кетти празднует свой день рождения.",
+      "uk": "Скоро: Кетті святкує свій день народження."
+    },
+    "cover": "/books/ketty-landsberg-journey/01-cover.png",
+    "future": true
+  },
+  {
+    "slug": "decorative-1",
+    "decorative": true
+  },
+  {
+    "slug": "future-mammoth",
+    "title": {
+      "en": "Ketty and the Mammoth",
+      "de": "Ketty und das Mammut",
+      "ru": "Кетти и мамонт",
+      "uk": "Кетті та мамонт"
+    },
+    "description": {
+      "en": "Coming soon: A prehistoric adventure.",
+      "de": "Demnächst: Ein prähistorisches Abenteuer.",
+      "ru": "Скоро: Доисторическое приключение.",
+      "uk": "Скоро: Доісторична пригода."
+    },
+    "cover": "/books/ketty-landsberg-journey/01-cover.png",
+    "future": true
+  },
+  {
+    "slug": "decorative-2",
+    "decorative": true
+  },
+  {
+    "slug": "decorative-3",
+    "decorative": true  }
+]

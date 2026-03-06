@@ -1,0 +1,20 @@
+{
+  "style": {
+    "base": "минимализм, простые формы",
+    "colors": "1-2 цвета",
+    "outline": "лёгкий карандашный контур",
+    "edges": "зубцы по всем краям, перфорация",
+    "background": "полностью прозрачный",
+    "subject": "символический объект (не сцена)",
+    "denomination": "цифра номинала, кратная 5, в левом верхнем углу"
+  },
+  "constraints": [
+    "никаких фонов",
+    "никаких сложных деталей",
+    "никаких сюжетов",
+    "никаких текстур кроме лёгкого карандаша",
+    "никаких рамок",
+    "никаких текстов"
+  ],
+  "promptTemplate": "minimalistic pencil stamp of {landmark}, perforated edges on all sides, transparent background, simple shapes, 1-2 colors, clean outline, denomination number (multiple of 5) in top-left corner, no borders, no text"
+}

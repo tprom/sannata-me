@@ -1,0 +1,22 @@
+.layout {
+  display: flex;
+  height: calc(100vh - 44px);
+  margin-top: 44px;
+}
+
+.sidebar {
+  width: 320px;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

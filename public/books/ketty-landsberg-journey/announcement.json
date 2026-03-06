@@ -1,0 +1,125 @@
+[
+  {
+    "id": 1,
+    "type": "illustration",
+    "image": "01-cover.png",
+    "text": {
+      "en": "This is the story of how little Ketty first discovered the town of Landsberg am Lech…",
+      "de": "Dies ist die Geschichte davon, wie die kleine Ketty die Stadt Landsberg am Lech zum ersten Mal entdeckte…",
+      "ru": "Это история о том, как маленькая Кетти впервые увидела город Ландсберг на Лехе…",
+      "uk": "Це історія про те, як маленька Кетті вперше побачила місто Ландсберг-ам-Лех…"
+    },
+    "meta": {
+      "title": "Cover Hook"
+    }
+  },
+  {
+    "id": 2,
+    "type": "text",
+    "text": {
+      "en": "Ketty arrived in Landsberg am Lech for the first time with her mom and dad. The train stopped at a sunny platform, and the town greeted her with the smell of fresh pastries, the music of street performers, and the distant sound of the river.\n\n“Our journey begins here,” said Mr. Shi, appearing on the tablet screen. “I’ll show you the most wonderful places.”\n\nKetty felt a flutter of excitement inside. She didn’t yet know that ahead of her waited a meeting with the guardian of the river.",
+      "de": "Ketty kam zum ersten Mal zusammen mit Mama und Papa in Landsberg am Lech an. Der Zug hielt am sonnigen Bahnsteig, und die Stadt begrüßte sie mit dem Duft von frischem Gebäck, der Musik von Straßenkünstlern und dem fernen Rauschen des Flusses.\n\n„Unsere Reise beginnt hier“, sagte Mister Shi, der auf dem Tabletbildschirm erschien. „Ich zeige euch die schönsten Orte.“\n\nIn Ketty kribbelte es vor Vorfreude. Sie wusste noch nicht, dass sie bald dem Hüter des Flusses begegnen würde.",
+      "ru": "Кетти впервые приехала в Ландсберг на Лехе вместе с мамой и папой. Поезд остановился на солнечном перроне, и город сразу встретил её запахом свежей выпечки, музыкой уличных музыкантов и далёким шумом реки.\n\n— Наш путь начинается здесь, — сказал мистер Ши, появившись на экране планшета. — Я покажу вам самые удивительные места.\n\nКетти почувствовала, как внутри всё дрогнуло от предвкушения. Она ещё не знала, что впереди её ждёт встреча с хранителем реки.",
+      "uk": "Кетті вперше приїхала до Ландсберга-ам-Лех разом із мамою та татом. Потяг зупинився на сонячній платформі, і місто зустріло її запахом свіжої випічки, музикою вуличних музикантів та далеким шумом річки.\n\n«Наша подорож починається тут», — сказав містер Ші, з’явившись на екрані планшета. — «Я покажу вам найцікавіші місця».\n\nУсередині Кетті щось тремтіло від передчуття. Вона ще не знала, що попереду на неї чекає зустріч із хранителем річки."
+    },
+    "meta": {
+      "title": "Arrival Scene"
+    }
+  },
+  {
+    "id": 3,
+    "type": "illustration",
+    "image": "03-lechwehr-illustration.png",
+    "meta": {
+      "title": "Lechwehr Illustration"
+    }
+  },
+  {
+    "id": 4,
+    "type": "text",
+    "text": {
+      "en": "The sound of water grew louder, and soon Ketty saw a bridge covered with hundreds of colorful locks. At its entrance sat a stone guardian — the mighty Vater Lech, holding a fish and a vessel.\n\n“He protects the river,” Dad said.\n“And listens to it,” added Mr. Shi. “They say that at night he comes to life and checks if everything is in order.”\n\nKetty froze. It seemed to her that the stone guardian was looking straight at her.",
+      "de": "Das Rauschen des Wassers wurde immer lauter, und bald sah Ketty eine Brücke, die mit hunderten bunten Schlössern geschmückt war. Am Anfang der Brücke saß ein steinerner Wächter — der mächtige Vater Lech, mit einem Fisch und einem Gefäß in den Händen.\n\n„Er beschützt den Fluss“, sagte Papa.\n„Und er hört ihm zu“, fügte Mister Shi hinzu. „Man sagt, nachts erwacht er zum Leben und prüft, ob alles in Ordnung ist.“\n\nKetty blieb stehen. Ihr kam es vor, als würde der steinerne Wächter sie direkt ansehen.",
+      "ru": "Шум воды становился всё громче, и вскоре Кетти увидела мост, украшенный сотнями разноцветных замков. У его начала сидел каменный страж — могучий Vater Lech с рыбой и сосудом в руках.\n\n— Он охраняет реку, — сказал папа.\n— И слушает её, — добавил мистер Ши. — Говорят, ночью он оживает и проверяет, всё ли в порядке.\n\nКетти замерла. Ей показалось, что каменный страж действительно смотрит прямо на неё.",
+      "uk": "Шум води ставав дедалі гучнішим, і незабаром Кетті побачила міст, прикрашений сотнями кольорових замків. Біля його початку сидів кам’яний страж — могутній Vater Lech із рибою та посудиною в руках.\n\n«Він охороняє річку», — сказав тато.\n«І слухає її», — додав містер Ші. — «Кажуть, що вночі він оживає і перевіряє, чи все гаразд».\n\nКетті завмерла. Їй здалося, що кам’яний страж дивиться просто на неї."
+    },
+    "meta": {
+      "title": "Lechwehr Text Part 1"
+    }
+  },
+  {
+    "id": 5,
+    "type": "text",
+    "text": {
+      "en": "They stepped onto the bridge. The locks sparkled in the sunlight like tiny stories left behind by people.\n\nBeneath the bridge, the water fell in steps, roaring and foaming.\n\n“It’s like a staircase made of water!” Ketty exclaimed.\n“This is the Lechwehr,” said Mr. Shi. “It protected the town for many centuries.”\n\nKetty watched the cascades and felt the town come alive around her — whispering, breathing, sharing its secrets.",
+      "de": "Sie traten auf die Brücke. Die Schlösser funkelten in der Sonne wie kleine Geschichten, die Menschen hier hinterlassen hatten.\n\nUnter der Brücke fiel das Wasser stufenweise hinab, rauschte und schäumte.\n\n„Das ist wie eine Treppe aus Wasser!“ rief Ketty begeistert.\n„Das ist das Lechwehr“, sagte Mister Shi. „Es hat die Stadt viele Jahrhunderte lang geschützt.“\n\nKetty betrachtete die Kaskaden und spürte, wie die Stadt um sie herum lebendig wurde — rauschte, atmete und ihre Geheimnisse erzählte.",
+      "ru": "Они вышли на мост. Замки блестели на солнце, будто маленькие истории, оставленные людьми.\n\nПод мостом вода падала ступенями, шумела и пенилось.\n\n— Это как лестница из воды! — восхитилась Кетти.\n— Это Lechwehr, — сказал мистер Ши. — Он защищал город много веков.\n\nКетти смотрела на каскады и чувствовала, как город оживает вокруг неё — шумит, дышит, рассказывает свои тайны.",
+      "uk": "Вони ступили на міст. Замки блищали на сонці, немов маленькі історії, залишені людьми.\n\nПід мостом вода спадала сходинками, шуміла й пінилася.\n\n«Це як сходи з води!» — вигукнула Кетті.\n«Це Lechwehr», — сказав містер Ші. — «Він захищав місто багато століть».\n\nКетті дивилася на каскади й відчувала, як місто оживає навколо неї — шумить, дихає, розповідає свої таємниці."
+    },
+    "meta": {
+      "title": "Lechwehr Text Part 2"
+    }
+  },
+  {
+    "id": 6,
+    "type": "coloring",
+    "image": "06-lechwehr-coloring.png",
+    "meta": {
+      "title": "Lechwehr Coloring"
+    }
+  },
+  {
+    "id": 7,
+    "type": "text",
+    "text": {
+      "en": "They left the roaring cascades of the Lech behind and stepped into a narrow street. The houses grew taller, the windows narrower, and the cobblestones quieter. Ketty felt the town changing, as if it were leading her somewhere important.\n\n“Up ahead are the gates of the old town,” said Mr. Shi. “Travelers passed through them centuries ago.”\n\nIn the distance rose a tall tower with battlements. It looked as if it guarded the entrance to another world.\n\nKetty slowed her steps. Her heart beat faster — as if a secret was waiting for her behind the gates.",
+      "de": "Sie ließen die rauschenden Kaskaden des Lech hinter sich und traten in eine schmale Gasse. Die Häuser wurden höher, die Fenster schmaler und das Kopfsteinpflaster leiser. Ketty spürte, wie sich die Stadt veränderte — als würde sie sie zu etwas Wichtigem führen.\n\n„Dort vorne sind die Tore der Altstadt“, sagte Mister Shi. „Reisende sind vor vielen Jahrhunderten hier hindurchgegangen.“\n\nIn der Ferne erhob sich ein hoher Turm mit Zinnen. Er sah aus, als würde er den Eingang in eine andere Welt bewachen.\n\nKetty wurde langsamer. Ihr Herz schlug schneller — als würde hinter dem Tor ein Geheimnis auf sie warten.",
+      "ru": "Они оставили позади шумные каскады Леха и шагнули в узкую улицу. Дома вокруг становились выше, окна — уже, а мостовая — тише. Кетти чувствовала, как город меняется: будто он ведёт её куда‑то важному.\n\n— Впереди — ворота старого города, — сказал мистер Ши. — Через них проходили путешественники много веков назад.\n\nВдали поднималась высокая башня с зубцами. Она выглядела так, будто охраняет вход в другой мир.\n\nКетти замедлила шаг. Её сердце забилось быстрее — словно за воротами её ждала тайна.",
+      "uk": "Вони залишили позаду шумні каскади Леху й ступили в вузьку вуличку. Будинки ставали вищими, вікна — вужчими, а бруківка — тихішою. Кетті відчувала, як місто змінюється, ніби веде її до чогось важливого.\n\n«Попереду — ворота старого міста», — сказав містер Ші. — «Через них проходили мандрівники багато століть тому».\n\nУдалині здіймалася висока башта з зубцями. Вона виглядала так, ніби охороняє вхід до іншого світу.\n\nКетті сповільнила крок. Її серце забилося швидше — наче за воротами на неї чекала таємниця."
+    },
+    "meta": {
+      "title": "Transition to Bayertor"
+    }
+  },
+  {
+    "id": 8,
+    "type": "illustration",
+    "image": "08-bayertor-illustration.png",
+    "text": {
+      "en": "The Bayertor stood before her, majestic and calm. Tall walls, narrow windows, the warm color of the stone — everything seemed alive.\n\nKetty lifted her head and whispered:\n“These are the gates to a fairy tale…”\n\nAnd for a moment, she thought the tower smiled at her.",
+      "de": "Das Bayertor stand majestätisch und ruhig vor ihr. Hohe Mauern, schmale Fenster, der warme Farbton des Steins — alles wirkte lebendig.\n\nKetty hob den Kopf und flüsterte:\n„Das sind die Tore in ein Märchen…“\n\nUnd einen Augenblick lang glaubte sie, der Turm hätte sie angelächelt.",
+      "ru": "Bayertor стояли перед ней величественно и спокойно. Высокие стены, узкие окна, тёплый цвет камня — всё казалось живым.\n\nКетти подняла голову и прошептала:\n— Это ворота в сказку…\n\nИ в этот момент ей показалось, что башня тихо улыбнулась.",
+      "uk": "Bayertor стояли перед нею велично й спокійно. Високі стіни, вузькі вікна, теплий колір каменю — усе здавалося живим.\n\nКетті підняла голову й прошепотіла:\n«Це ворота в казку…»\n\nІ їй здалося, що башта тихо усміхнулася."
+    },
+    "meta": {
+      "title": "Bayertor Illustration"
+    }
+  },
+  {
+    "id": 9,
+    "type": "coloring",
+    "image": "09-bayertor-coloring.png",
+    "text": {
+      "en": "Ketty stepped closer and touched the cold stone. Every brick seemed to hold a story — of knights, travelers, and children who had passed here before.\n\n“Now I’m here too,” she whispered.",
+      "de": "Ketty trat näher und strich über den kalten Stein. Jeder Ziegel schien eine Geschichte zu bewahren — von Rittern, Reisenden und Kindern, die einst hier vorbeigingen.\n\n„Jetzt bin ich auch hier“, flüsterte sie.",
+      "ru": "Кетти подошла ближе и провела рукой по холодному камню. Каждый кирпич будто хранил историю — о рыцарях, путешественниках и детях, которые проходили здесь раньше.\n\n— Теперь и я здесь, — сказала она тихо.",
+      "uk": "Кетті підійшла ближче й провела рукою по холодному каменю. Кожна цеглина ніби зберігала історію — про лицарів, мандрівників і дітей, які проходили тут раніше.\n\n«Тепер і я тут», — тихо сказала вона."
+    },
+    "meta": {
+      "title": "Bayertor Coloring"
+    }
+  },
+  {
+    "id": 10,
+    "type": "text",
+    "text": {
+      "en": "Ketty stopped in front of the gates and smiled. Her journey was only beginning — ahead waited new streets, legends, and discoveries.\n\nIf you enjoyed walking beside Ketty, join her on her journey. The story continues.",
+      "de": "Ketty blieb vor dem Tor stehen und lächelte. Ihre Reise hatte gerade erst begonnen — vor ihr lagen neue Straßen, Legenden und Entdeckungen.\n\nWenn dir der Weg an Kettys Seite gefallen hat, begleite sie weiter. Die Geschichte geht weiter.",
+      "ru": "Кетти остановилась перед воротами и улыбнулась. Её путешествие только начиналось — впереди ждали новые улицы, легенды и открытия.\n\nЕсли тебе понравилось идти рядом с Кетти, присоединяйся к её путешествию. История продолжается.",
+      "uk": "Кетті зупинилася перед воротами й усміхнулася. Її подорож лише починалася — попереду чекали нові вулиці, легенди та відкриття.\n\nЯкщо тобі сподобалося йти поруч із Кетті, приєднуйся до її подорожі. Історія триває."
+    },
+    "meta": {
+      "title": "Final Invitation"
+    }
+  }
+]
