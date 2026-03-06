@@ -1,0 +1,135 @@
+{
+  "generatedAt": "2026-03-06T19:46:04.842Z",
+  "baselineSource": "docs/quality/media-warning-baseline.json",
+  "landmark": "augsburg/rathaus-perlachturm",
+  "totals": {
+    "warnings": 40,
+    "uniqueMissingMediaPaths": 10
+  },
+  "localeBreakdown": [
+    {
+      "locale": "de",
+      "count": 10
+    },
+    {
+      "locale": "en",
+      "count": 10
+    },
+    {
+      "locale": "ru",
+      "count": 10
+    },
+    {
+      "locale": "uk",
+      "count": 10
+    }
+  ],
+  "sourceFiles": [
+    "data/landmarks/augsburg/rathaus-perlachturm.de.json",
+    "data/landmarks/augsburg/rathaus-perlachturm.en.json",
+    "data/landmarks/augsburg/rathaus-perlachturm.ru.json",
+    "data/landmarks/augsburg/rathaus-perlachturm.uk.json"
+  ],
+  "missingMediaChecklist": [
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/illustrations/2l.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/illustrations/4r.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-01.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-02.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-03.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-04.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-05.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-06.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/images/image-07.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/augsburg/rathaus-perlachturm/stamp/stamp.png",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    }
+  ]
+}

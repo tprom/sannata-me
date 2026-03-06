@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-03-06T19:46:05.906Z",
+  "baselineSource": "docs/quality/media-warning-baseline.json",
+  "landmark": "nuremberg/kaiserburg",
+  "totals": {
+    "warnings": 20,
+    "uniqueMissingMediaPaths": 5
+  },
+  "localeBreakdown": [
+    {
+      "locale": "de",
+      "count": 5
+    },
+    {
+      "locale": "en",
+      "count": 5
+    },
+    {
+      "locale": "ru",
+      "count": 5
+    },
+    {
+      "locale": "uk",
+      "count": 5
+    }
+  ],
+  "sourceFiles": [
+    "data/landmarks/nuremberg/kaiserburg.de.json",
+    "data/landmarks/nuremberg/kaiserburg.en.json",
+    "data/landmarks/nuremberg/kaiserburg.ru.json",
+    "data/landmarks/nuremberg/kaiserburg.uk.json"
+  ],
+  "missingMediaChecklist": [
+    {
+      "mediaPath": "/public/landmarks/nuremberg/kaiserburg/images/image-01.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/nuremberg/kaiserburg/images/image-02.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/nuremberg/kaiserburg/images/image-03.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/nuremberg/kaiserburg/images/image-04.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/nuremberg/kaiserburg/stamp/stamp.png",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    }
+  ]
+}

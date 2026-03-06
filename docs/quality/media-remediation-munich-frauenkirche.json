@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-03-06T19:46:05.375Z",
+  "baselineSource": "docs/quality/media-warning-baseline.json",
+  "landmark": "munich/frauenkirche",
+  "totals": {
+    "warnings": 32,
+    "uniqueMissingMediaPaths": 8
+  },
+  "localeBreakdown": [
+    {
+      "locale": "de",
+      "count": 8
+    },
+    {
+      "locale": "en",
+      "count": 8
+    },
+    {
+      "locale": "ru",
+      "count": 8
+    },
+    {
+      "locale": "uk",
+      "count": 8
+    }
+  ],
+  "sourceFiles": [
+    "data/landmarks/munich/frauenkirche.de.json",
+    "data/landmarks/munich/frauenkirche.en.json",
+    "data/landmarks/munich/frauenkirche.ru.json",
+    "data/landmarks/munich/frauenkirche.uk.json"
+  ],
+  "missingMediaChecklist": [
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/images/image-01.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/images/image-02.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/images/image-03.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/images/image-04.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/images/image-05.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/images/image-06.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/images/image-07.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/munich/frauenkirche/stamp/stamp.png",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    }
+  ]
+}
