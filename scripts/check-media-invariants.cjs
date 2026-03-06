@@ -465,6 +465,9 @@ if (UPDATE_WARNING_BASELINE) {
 
 const baselineKeys = new Set(loadWarningBaseline());
 const newWarnings = warningKeys.filter((key) => !baselineKeys.has(key));
+const resolvedWarnings = [...baselineKeys].filter(
+  (key) => !warningKeys.includes(key),
+);
 
 if (warnings.length > 0) {
   console.log("MEDIA_INVARIANTS_WARNINGS");
@@ -473,8 +476,13 @@ if (warnings.length > 0) {
   if (baselineKeys.size > 0) {
     console.log(`MEDIA_WARNINGS_BASELINE_SIZE ${baselineKeys.size}`);
     console.log(`MEDIA_WARNINGS_NEW ${newWarnings.length}`);
+    console.log(`MEDIA_WARNINGS_RESOLVED ${resolvedWarnings.length}`);
     printGroupedWarningSummary("MEDIA_WARNINGS_GROUPED", warningKeys);
     printGroupedWarningSummary("MEDIA_WARNINGS_NEW_GROUPED", newWarnings);
+    printGroupedWarningSummary(
+      "MEDIA_WARNINGS_RESOLVED_GROUPED",
+      resolvedWarnings,
+    );
   }
 }
 
