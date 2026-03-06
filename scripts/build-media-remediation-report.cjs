@@ -14,6 +14,12 @@ const outputPath = path.join(
   "quality",
   "media-remediation-priority.md",
 );
+const outputJsonPath = path.join(
+  root,
+  "docs",
+  "quality",
+  "media-remediation-priority.json",
+);
 
 const LOCALE_RE = /\.(ru|en|de|uk)\.json$/i;
 const LANDMARK_RE =
@@ -67,6 +73,7 @@ const byLandmark = new Map();
 const byMediaPath = new Map();
 const byLocale = new Map();
 const byCity = new Map();
+const byLandmarkMediaPath = new Map();
 
 for (const key of baseline) {
   const { filePath, message } = splitKey(key);
@@ -76,9 +83,19 @@ for (const key of baseline) {
     const city = landmarkMatch[1];
     const slug = landmarkMatch[2];
     const locale = landmarkMatch[3].toLowerCase();
-    increment(byLandmark, `${city}/${slug}`);
+    const landmarkKey = `${city}/${slug}`;
+    increment(byLandmark, landmarkKey);
     increment(byLocale, locale);
     increment(byCity, city);
+
+    if (!byLandmarkMediaPath.has(landmarkKey)) {
+      byLandmarkMediaPath.set(landmarkKey, new Map());
+    }
+
+    const mediaPath = extractMissingPath(message);
+    if (mediaPath) {
+      increment(byLandmarkMediaPath.get(landmarkKey), mediaPath);
+    }
   } else {
     const localeMatch = filePath.match(LOCALE_RE);
     if (localeMatch) increment(byLocale, localeMatch[1].toLowerCase());
@@ -92,6 +109,7 @@ const topLandmarks = sortRows(byLandmark.entries()).slice(0, 15);
 const topMediaPaths = sortRows(byMediaPath.entries()).slice(0, 20);
 const localeStats = sortRows(byLocale.entries());
 const cityStats = sortRows(byCity.entries()).slice(0, 10);
+const landmarksSorted = sortRows(byLandmark.entries());
 
 const lines = [];
 lines.push("# Media Remediation Priority");
@@ -163,7 +181,58 @@ lines.push("");
 
 fs.writeFileSync(outputPath, lines.join("\n") + "\n", "utf8");
 
+const topLandmarkDetails = landmarksSorted
+  .slice(0, 10)
+  .map(([landmark, count]) => {
+    const mediaMap = byLandmarkMediaPath.get(landmark) || new Map();
+    const topMissingMedia = sortRows(mediaMap.entries())
+      .slice(0, 10)
+      .map(([mediaPath, mediaCount]) => ({ mediaPath, count: mediaCount }));
+
+    return {
+      landmark,
+      warningCount: count,
+      topMissingMedia,
+    };
+  });
+
+const reportJson = {
+  generatedAt: nowIso,
+  baselineSource: path.relative(root, baselinePath).replace(/\\/g, "/"),
+  totals: {
+    warnings: baseline.length,
+    uniqueLandmarks: byLandmark.size,
+    uniqueMissingMediaPaths: byMediaPath.size,
+  },
+  topLandmarks: topLandmarks.map(([landmark, count]) => ({
+    landmark,
+    count,
+  })),
+  topMissingMediaPaths: topMediaPaths.map(([mediaPath, count]) => ({
+    mediaPath,
+    count,
+  })),
+  localeDistribution: localeStats.map(([locale, count]) => ({
+    locale,
+    count,
+  })),
+  cityDistribution: cityStats.map(([city, count]) => ({
+    city,
+    count,
+  })),
+  topLandmarkDetails,
+};
+
+fs.writeFileSync(
+  outputJsonPath,
+  JSON.stringify(reportJson, null, 2) + "\n",
+  "utf8",
+);
+
 console.log(`MEDIA_REMEDIATION_REPORT_OK ${path.relative(root, outputPath)}`);
+console.log(
+  `MEDIA_REMEDIATION_REPORT_JSON_OK ${path.relative(root, outputJsonPath)}`,
+);
 console.log(`MEDIA_REMEDIATION_REPORT_TOTAL ${baseline.length}`);
 console.log(`MEDIA_REMEDIATION_REPORT_LANDMARKS ${byLandmark.size}`);
 console.log(`MEDIA_REMEDIATION_REPORT_MEDIA_PATHS ${byMediaPath.size}`);
