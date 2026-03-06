@@ -1,17 +1,40 @@
 {
-  "intro": {
-    "slogan": "Färbe deine Stadt — und die Geschichte erwacht zum Leben.",
-    "subtitle": "Abenteuer-Malbücher für Kinder und Erwachsene...",
-    "footer": "...inspiriert von Kettis Reisen — SANNATA",
-    "rightPageText": "Hier beginnt Kettis Reise — eine Welt voller Farben, Geschichten und Entdeckungen."
-  },
-
   "nav": {
-    "books": "Bücher",
-    "insights": "Einblicke",
-    "landmarks": "Wahrzeichen",
-    "studio": "Studio"
-  }
+    "books": "Books",
+    "insights": "Insights",
+    "landmarks": "Landmarks",
+    "studio": "Studio",
+    "diary": "Tagebuch",
+    "brand": "SANNATA.me"
+  },
+  "intro": {
+    "slogan": "Wo Geschichten lebendig werden",
+    "title": "Willkommen bei SANNATA.me",
+    "subtitle": "Ein Ort, an dem Geschichten beginnen",
+    "leftPage": {
+      "title": "Kettis Welt",
+      "text": "Entdecke die Abenteuer von Ketti und ihren magischen Freunden."
+    },
+    "rightPage": {
+      "title": "Beginne zu lesen",
+      "text": "Blättere um, um deine Reise zu beginnen."
+    }, 
+    "rightPageText": "Jedes große Abenteuer beginnt mit einer einzigen Seite.",
+    "footer": "Ein neues Kapitel beginnt hier"
+  },
+  "books": {
+    "title": "Bücher",
+    "welcome": "Willkommen in der Bibliothek",
+    "chooseBook": "Wähle ein Buch aus dem linken Bereich.",
+    "kettyLandsbergJourney": "Kettys Reise in die Stadt Landsberg am Lech",
+    "allBooks": "Alle Bücher",
+    "open": "Öffnen",
+    "read": "Lesen",
+    "notFound": "Buch nicht gefunden",
+    "notFoundText": "Das Buch, das du suchst, existiert nicht."
+  },
+  "diary": {
+  "title": "Tagebuch",
+  "comingSoon": "Dieser Bereich wird gerade erstellt."
 }
-
-
+}
