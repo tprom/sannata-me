@@ -1,0 +1,141 @@
+name: Validate Universal Page Template v1.1
+
+on:
+  pull_request:
+    paths:
+      - "docs/schemas/universal-page-template-v1.1/schemas/**"
+      - "docs/schemas/universal-page-template-v1.1/registries/**"
+      - "docs/schemas/universal-page-template-v1.1/examples/**"
+      - ".github/workflows/validate-universal-page-template.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-schema-pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install AJV CLI
+        run: npm install --no-save ajv-cli
+
+      - name: Validate profile registry schema
+        run: >-
+          npx ajv-cli validate --spec=draft2020
+          -s docs/schemas/universal-page-template-v1.1/schemas/profile-registry.schema.json
+          -d docs/schemas/universal-page-template-v1.1/registries/profile-registry.json
+
+      - name: Validate module-home example
+        run: >-
+          npx ajv-cli validate --spec=draft2020
+          -s docs/schemas/universal-page-template-v1.1/schemas/envelope.schema.json
+          -d docs/schemas/universal-page-template-v1.1/examples/module-home.ru.json
+
+      - name: Validate collection-home example
+        run: >-
+          npx ajv-cli validate --spec=draft2020
+          -s docs/schemas/universal-page-template-v1.1/schemas/envelope.schema.json
+          -d docs/schemas/universal-page-template-v1.1/examples/collection-home.ru.json
+
+      - name: Cross-check registries and examples
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const base = path.join(process.cwd(), 'docs', 'schemas', 'universal-page-template-v1.1');
+
+          const readJson = (relativePath) => {
+            const fullPath = path.join(base, relativePath);
+            return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+          };
+
+          const pageKindRegistry = readJson(path.join('registries', 'page-kind-registry.json'));
+          const aliasMap = readJson(path.join('registries', 'page-kind-alias-map.json'));
+          const moduleRegistry = readJson(path.join('registries', 'module-registry.json'));
+          const sectionTypeRegistry = readJson(path.join('registries', 'section-type-registry.json'));
+          const profileRegistry = readJson(path.join('registries', 'profile-registry.json'));
+          const examples = [
+            readJson(path.join('examples', 'module-home.ru.json')),
+            readJson(path.join('examples', 'collection-home.ru.json'))
+          ];
+
+          const globalPageKinds = new Set(pageKindRegistry.globalPageKinds || []);
+          const moduleKeys = new Set((moduleRegistry.modules || []).map((m) => m.key));
+          const sectionTypes = new Set(sectionTypeRegistry.sectionTypes || []);
+          const customPattern = new RegExp(sectionTypeRegistry.customTypePattern || '^custom:[a-z0-9-]+$');
+
+          const assert = (condition, message) => {
+            if (!condition) {
+              throw new Error(message);
+            }
+          };
+
+          // 4.1 pageKind consistency
+          for (const profile of profileRegistry.profiles || []) {
+            assert(globalPageKinds.has(profile.pageKind), `Profile pageKind not in global registry: ${profile.pageKind}`);
+          }
+
+          for (const [moduleKey, aliases] of Object.entries(aliasMap.aliases || {})) {
+            assert(moduleKeys.has(moduleKey), `Alias map moduleKey not found in module registry: ${moduleKey}`);
+            for (const targetKind of Object.values(aliases || {})) {
+              assert(globalPageKinds.has(targetKind), `Alias target pageKind not in global registry: ${targetKind}`);
+            }
+          }
+
+          // 4.2 module registry consistency
+          for (const profile of profileRegistry.profiles || []) {
+            assert(moduleKeys.has(profile.moduleKey), `Profile moduleKey not found in module registry: ${profile.moduleKey}`);
+          }
+          for (const doc of examples) {
+            assert(moduleKeys.has(doc.moduleKey), `Example moduleKey not found in module registry: ${doc.moduleKey}`);
+          }
+
+          // 4.3 section type consistency
+          for (const doc of examples) {
+            for (const section of doc.sections || []) {
+              const isKnown = sectionTypes.has(section.type);
+              const isCustom = customPattern.test(section.type);
+              assert(isKnown || isCustom, `Section type is not registered and not custom:* => ${section.type}`);
+            }
+          }
+
+          // 4.4 envelope invariants (extra guard)
+          const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+          const slug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+          const uuidV4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+          const statuses = new Set(['draft', 'review', 'published', 'archived']);
+
+          for (const doc of examples) {
+            assert(semver.test(doc.schemaVersion), `Invalid schemaVersion: ${doc.schemaVersion}`);
+            assert(uuidV4.test(doc.pageId), `Invalid pageId (must be UUID v4): ${doc.pageId}`);
+            assert(slug.test(doc.slug), `Invalid slug: ${doc.slug}`);
+            assert(statuses.has(doc.meta?.status), `Invalid meta.status: ${doc.meta?.status}`);
+            assert(doc.hero && !('url' in doc.hero), 'Hero must not contain direct URL field');
+          }
+
+          console.log('Cross-check passed');
+          NODE
+
+      - name: Validation summary
+        if: always()
+        run: |
+          echo "## Universal Template Validation Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Job status: **${{ job.status }}**" >> "$GITHUB_STEP_SUMMARY"
+          echo "- AJV validation: profile registry, module-home example, collection-home example" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Cross-checks: pageKind, moduleKey, section types, envelope invariants" >> "$GITHUB_STEP_SUMMARY"

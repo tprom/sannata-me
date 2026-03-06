@@ -1,0 +1,107 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      writers: ${{ steps.filter.outputs.writers }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect writer-related changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            writers:
+              - 'app/api/agent/landmark/**'
+              - 'app/api/agent/forms/collection-home/**'
+              - 'app/api/agent/forms/module-home/**'
+              - 'agent/backend/cities-registry.js'
+              - 'agent/backend/collection-home-form-processor.ts'
+              - 'agent/backend/module-home-form-processor.ts'
+              - 'agent/forms/collection-home-form.md'
+              - 'agent/forms/module-home-form.md'
+              - 'scripts/smoke-*.ts'
+              - 'scripts/smoke-writers.ts'
+              - 'data/landmarks/**'
+              - 'app/landmarks/data/**'
+              - 'package.json'
+              - 'package-lock.json'
+              - '.github/workflows/build.yml'
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Build summary
+        if: always()
+        run: |
+          echo "## Build Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Command: \`npm run build\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Job status: **${{ job.status }}**" >> "$GITHUB_STEP_SUMMARY"
+
+  smoke-writers:
+    needs: [changes, build]
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.writers == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Smoke writers
+        run: npm run smoke:writers
+
+      - name: Smoke writers summary
+        if: always()
+        run: |
+          echo "## Writer Smoke Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Command: \`npm run smoke:writers\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Job status: **${{ job.status }}**" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Scope: landmark writer, collection-home writer, module-home writer" >> "$GITHUB_STEP_SUMMARY"

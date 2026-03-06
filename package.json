@@ -6,17 +6,31 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "node scripts/patch-next-intl.js",
+    "orchestrator": "tsx scripts/run-orchestrator.ts",
+    "smoke:forms": "tsx scripts/smoke-forms.ts",
+    "smoke:agent-ui": "tsx scripts/smoke-agent-ui.ts",
+    "smoke:gallery": "tsx scripts/smoke-gallery-modes.ts",
+    "smoke:landmark-writer": "tsx scripts/smoke-landmark-writer.ts",
+    "smoke:collection-home-writer": "tsx scripts/smoke-collection-home-writer.ts",
+    "smoke:module-home-writer": "tsx scripts/smoke-module-home-writer.ts",
+    "smoke:writers": "tsx scripts/smoke-writers.ts",
+    "health:subnp": "tsx scripts/subnp-health.ts"
   },
+  "patchNotes": "Temporary patch for next-intl dynamic import warning: project applies scripts/patch-next-intl.js via the `postinstall` script which inserts a webpackIgnore comment into node_modules/next-intl to avoid a webpack parsing warning. Remove this postinstall and the patch after next-intl upstream provides a fix. (Created 2026-03-05)",
   "dependencies": {
     "next": "^15.1.6",
-    "next-intl": "^4.4.0",
+    "next-intl": "^4.8.3",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/node": "20.10.5",
     "@types/react": "18.2.45",
+    "tsx": "^4.20.6",
     "typescript": "5.3.3"
   }
 }
