@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "check:media": "node scripts/check-media-invariants.cjs"
+    "check:media": "node scripts/check-media-invariants.cjs",
+    "check:media:update-baseline": "set CHECK_MEDIA_UPDATE_BASELINE=1&& node scripts/check-media-invariants.cjs",
+    "check:media:no-new-warnings": "set CHECK_MEDIA_FAIL_ON_NEW_WARNINGS=1&& node scripts/check-media-invariants.cjs"
   },
   "dependencies": {
     "next": "^15.1.6",

@@ -14,8 +14,17 @@ const LANDMARKS_DATA_DIR = path.join(root, "data", "landmarks");
 const LOCALE_FILE_RE = /\.(ru|en|de|uk)\.json$/i;
 const MEDIA_EXT_RE = /\.(png|jpe?g|webp|gif|svg|avif)$/i;
 const STRICT_MODE = process.env.CHECK_MEDIA_STRICT === "1";
+const UPDATE_WARNING_BASELINE = process.env.CHECK_MEDIA_UPDATE_BASELINE === "1";
+const FAIL_ON_NEW_WARNINGS =
+  process.env.CHECK_MEDIA_FAIL_ON_NEW_WARNINGS === "1";
 const LEGACY_DATA_PREFIX = `${path.join(root, "data", "landmarks")}${path.sep}`;
 const APP_DATA_PREFIX = `${path.join(root, "app", "landmarks", "data")}${path.sep}`;
+const WARNING_BASELINE_PATH = path.join(
+  root,
+  "docs",
+  "quality",
+  "media-warning-baseline.json",
+);
 const MEDIA_PAGE_KINDS = new Set([
   "module-home",
   "collection-home",
@@ -51,6 +60,35 @@ const addIssue = (filePath, message) => {
 
 const addWarning = (filePath, message) => {
   warnings.push({ filePath, message });
+};
+
+const normalizePathForKey = (targetPath) =>
+  path.relative(root, targetPath).split(path.sep).join("/");
+
+const toWarningKey = (warning) =>
+  `${normalizePathForKey(warning.filePath)}|${warning.message}`;
+
+const loadWarningBaseline = () => {
+  if (!fs.existsSync(WARNING_BASELINE_PATH)) return [];
+  try {
+    const raw = fs.readFileSync(WARNING_BASELINE_PATH, "utf8");
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((entry) => typeof entry === "string");
+  } catch {
+    return [];
+  }
+};
+
+const saveWarningBaseline = (keys) => {
+  const sorted = [...new Set(keys)].sort((a, b) => a.localeCompare(b));
+  const dirPath = path.dirname(WARNING_BASELINE_PATH);
+  fs.mkdirSync(dirPath, { recursive: true });
+  fs.writeFileSync(
+    WARNING_BASELINE_PATH,
+    JSON.stringify(sorted, null, 2) + "\n",
+    "utf8",
+  );
 };
 
 const readJson = (filePath) => {
@@ -343,6 +381,18 @@ if (issues.length > 0) {
   process.exit(1);
 }
 
+const warningKeys = warnings.map(toWarningKey);
+
+if (UPDATE_WARNING_BASELINE) {
+  saveWarningBaseline(warningKeys);
+  console.log(
+    `MEDIA_WARNING_BASELINE_UPDATED ${path.relative(root, WARNING_BASELINE_PATH)} (${warningKeys.length} entries)`,
+  );
+}
+
+const baselineKeys = new Set(loadWarningBaseline());
+const newWarnings = warningKeys.filter((key) => !baselineKeys.has(key));
+
 if (warnings.length > 0) {
   console.log("MEDIA_INVARIANTS_WARNINGS");
   for (const warning of warnings.slice(0, MAX_PRINTED_WARNINGS)) {
@@ -355,6 +405,25 @@ if (warnings.length > 0) {
       `- ... and ${warnings.length - MAX_PRINTED_WARNINGS} more warning(s)`,
     );
   }
+
+  if (baselineKeys.size > 0) {
+    console.log(`MEDIA_WARNINGS_BASELINE_SIZE ${baselineKeys.size}`);
+    console.log(`MEDIA_WARNINGS_NEW ${newWarnings.length}`);
+  }
+}
+
+if (FAIL_ON_NEW_WARNINGS && newWarnings.length > 0) {
+  console.log("MEDIA_INVARIANTS_FAILED_NEW_WARNINGS");
+  for (const key of newWarnings.slice(0, MAX_PRINTED_WARNINGS)) {
+    const [filePath, message] = key.split("|", 2);
+    console.log(`- ${filePath}: ${message}`);
+  }
+  if (newWarnings.length > MAX_PRINTED_WARNINGS) {
+    console.log(
+      `- ... and ${newWarnings.length - MAX_PRINTED_WARNINGS} more new warning(s)`,
+    );
+  }
+  process.exit(1);
 }
 
 console.log("MEDIA_INVARIANTS_OK");
