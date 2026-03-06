@@ -9,6 +9,7 @@
     "start": "next start",
     "check:media": "node scripts/check-media-invariants.cjs",
     "check:media:report": "node scripts/build-media-remediation-report.cjs",
+    "check:media:plan": "node scripts/build-media-landmark-plan.cjs",
     "check:media:update-baseline": "set CHECK_MEDIA_UPDATE_BASELINE=1&& node scripts/check-media-invariants.cjs",
     "check:media:no-new-warnings": "set CHECK_MEDIA_FAIL_ON_NEW_WARNINGS=1&& node scripts/check-media-invariants.cjs",
     "check:media:no-new-warnings:compact": "set CHECK_MEDIA_FAIL_ON_NEW_WARNINGS=1&& set CHECK_MEDIA_COMPACT=1&& node scripts/check-media-invariants.cjs"

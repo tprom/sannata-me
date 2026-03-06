@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-03-06T19:44:28.351Z",
+  "baselineSource": "docs/quality/media-warning-baseline.json",
+  "landmark": "rome/coliseum",
+  "totals": {
+    "warnings": 44,
+    "uniqueMissingMediaPaths": 11
+  },
+  "localeBreakdown": [
+    {
+      "locale": "de",
+      "count": 11
+    },
+    {
+      "locale": "en",
+      "count": 11
+    },
+    {
+      "locale": "ru",
+      "count": 11
+    },
+    {
+      "locale": "uk",
+      "count": 11
+    }
+  ],
+  "sourceFiles": [
+    "data/landmarks/rome/coliseum.de.json",
+    "data/landmarks/rome/coliseum.en.json",
+    "data/landmarks/rome/coliseum.ru.json",
+    "data/landmarks/rome/coliseum.uk.json"
+  ],
+  "missingMediaChecklist": [
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/illustrations/2l.png",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/illustrations/4r.png",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-01.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-02.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-03.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-04.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-05.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-06.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-07.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/images/image-08.jpg",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    },
+    {
+      "mediaPath": "/public/landmarks/rome/coliseum/stamp/stamp.png",
+      "count": 4,
+      "locales": [
+        "de",
+        "en",
+        "ru",
+        "uk"
+      ]
+    }
+  ]
+}
