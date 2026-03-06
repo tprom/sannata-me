@@ -1,5 +1,7 @@
 # Media Remediation Execution Order (2026-03-06)
 
+Status: completed
+
 ## Objective
 
 Execute legacy media debt cleanup in descending impact order using generated landmark plans.
@@ -42,3 +44,10 @@ After completing all four landmarks:
 - Legacy warning baseline shrinks to zero for current known landmarks.
 - `MEDIA_WARNINGS_RESOLVED` increases from `0` toward full baseline coverage.
 - No new media regressions introduced.
+
+## Completion Summary
+
+- Queue executed fully: `rome/coliseum`, `augsburg/rathaus-perlachturm`, `munich/frauenkirche`, `nuremberg/kaiserburg`.
+- Baseline refreshed to zero warnings.
+- Verification gate: `npm run check:media:no-new-warnings:compact` -> `MEDIA_INVARIANTS_OK`.
+- Completion commit: `f0aacd6` (`fix(media): restore remaining landmark assets and reset baseline`).
