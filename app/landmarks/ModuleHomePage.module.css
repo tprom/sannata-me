@@ -1,0 +1,257 @@
+.moduleHomePage {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  background: transparent;
+  position: relative;
+}
+
+/* Single Postcard Container - ONE unified block */
+.postcardContainer {
+  position: relative;
+  width: 100%;
+  background: #fdf9f2;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(40, 32, 24, 0.18);
+  overflow: hidden;
+  padding: 42px;
+
+  @media (max-width: 640px) {
+    padding: 28px 24px;
+    border-radius: 16px;
+  }
+}
+
+.postcardContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.03) 0,
+      rgba(0, 0, 0, 0.03) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.greetingSection {
+  position: relative;
+  margin-bottom: 8px;
+  overflow: visible;
+}
+
+.greetingSection::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+@media (max-width: 640px) {
+  .greetingSection {
+    margin-bottom: 6px;
+  }
+}
+
+.stampContainer {
+  float: right;
+  width: 120px;
+  margin: 0 0 8px 16px;
+  position: relative;
+
+  @media (max-width: 640px) {
+    width: 96px;
+    margin: 0 0 6px 12px;
+  }
+}
+
+.stampContainer::after {
+  content: "";
+  position: absolute;
+  left: calc(-70px + 50% - 20px);
+  bottom: 6px;
+  width: 108px;
+  height: 48px;
+  pointer-events: none;
+  opacity: 0.78;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 3;
+  transform: rotate(-15deg);
+  transform-origin: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Cg fill='none' stroke='%233f3f3f' stroke-width='3.2' stroke-linecap='round' stroke-dasharray='7 7' opacity='0.9'%3E%3Cpath d='M4 14 C24 4 44 24 64 14 C84 4 104 24 116 14'/%3E%3Cpath d='M4 30 C24 20 44 40 64 30 C84 20 104 40 116 30'/%3E%3Cpath d='M4 46 C24 36 44 56 64 46 C84 36 104 56 116 46'/%3E%3C/g%3E%3C/svg%3E");
+
+  @media (max-width: 640px) {
+    left: calc(-56px + 50% - 20px);
+    bottom: 4px;
+    width: 88px;
+    height: 40px;
+  }
+}
+
+.greetingText {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #3e2f24;
+  margin: 0;
+
+  @media (max-width: 640px) {
+    font-size: 18px;
+  }
+}
+
+.stampImage {
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.kicker {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 12px;
+  color: #8b7355;
+  margin: 6px 0 0;
+  opacity: 0.8;
+}
+
+.kickerBottom {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 12px;
+  color: #8b7355;
+  margin: 12px 0 0;
+  opacity: 0.8;
+  text-align: right;
+}
+
+.textShifted {
+  position: relative;
+  left: 4ch;
+  z-index: 5;
+}
+
+/* Content Area - Single continuous postcard */
+.contentFlow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 32px;
+  margin-top: -61px;
+  position: relative;
+
+  @media (max-width: 640px) {
+    gap: 24px;
+    margin-bottom: 24px;
+    margin-top: -50px;
+  }
+}
+
+.contentBlock {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #3e2f24;
+  position: relative;
+}
+
+.illustrationLeft {
+  width: 240px;
+  display: block;
+  float: left;
+  margin: 8px 14px 8px 0;
+  transform: rotate(-2deg);
+
+  @media (max-width: 768px) {
+    width: 192px;
+    margin-left: 0;
+  }
+}
+
+.illustrationRight {
+  width: 240px;
+  display: block;
+  margin: 0;
+  position: absolute;
+  right: -12ch;
+  z-index: 0;
+  transform: rotate(2deg);
+
+  @media (max-width: 768px) {
+    width: 192px;
+    margin-right: 0;
+  }
+}
+
+.textContent {
+  position: relative;
+  min-height: 520px;
+}
+
+.textContent::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.illustrationImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(60, 48, 34, 0.2);
+  display: block;
+}
+
+.blockTitle {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 600;
+  color: #3e2f24;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  position: relative;
+  z-index: 3;
+}
+
+.blockText {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #3e2f24;
+  margin: 0;
+  white-space: pre-wrap;
+  position: relative;
+  z-index: 3;
+}
+
+/* Closing Section */
+.closingSection {
+  margin-top: 32px;
+  padding-top: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 16px;
+  color: #3e2f24;
+  opacity: 0.8;
+  white-space: pre-wrap;
+
+  @media (max-width: 640px) {
+    margin-top: 24px;
+  }
+}
+
+.closingText {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #3e2f24;
+  margin: 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}

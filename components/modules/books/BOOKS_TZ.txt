@@ -1,0 +1,173 @@
+=====================================================================
+BOOKS SIDEBAR — TWO-SHELF BOOKCASE (FINAL SPEC v2.1)
+Rewrite BooksSidebar.tsx from scratch. Do not preserve any old JSX.
+
+GOAL:
+Create a realistic two-shelf bookcase with:
+- three wooden planks (top, middle, bottom)
+- two separate stacks of books (upper = menu, lower = decorative)
+- dynamic book thickness (height auto)
+- realistic book spines (texture, shading, tilt)
+- air gaps above both stacks (“minus two books” and “minus one book”)
+- Scandinavian light-wood background applied to <aside>
+
+STRUCTURE:
+<aside>
+  <div class="top-plank"></div>
+  <div class="upper-air-gap"></div>
+  <div class="upper-stack"></div>
+  <div class="middle-plank"></div>
+  <div class="lower-stack"></div>
+  <div class="lower-air-gap"></div>
+  <div class="bottom-plank"></div>
+</aside>
+
+PLANKS:
+- height: 10–14px
+- background: #D8D8D5 (slightly darker wood)
+- subtle shadow below each plank
+
+BACKGROUND (APPLY TO <aside>):
+background:
+  linear-gradient(90deg, rgba(255,255,255,0.25) 1px, transparent 1px),
+  linear-gradient(0deg, #F4F4F2, #E2E2DF);
+background-size: 4px 100%, 100% 100%;
+
+STACK LOGIC:
+LOWER STACK (bottom shelf):
+- 3–5 decorative books
+- dynamic height
+- random pastel color
+- random rotation (-3deg to +3deg)
+- sits on bottom plank
+- above it: lower-air-gap = height of ~1 missing book
+
+UPPER STACK (menu shelf):
+Order from bottom to top:
+1. 2–4 decorative books
+2. two future books
+3. active book (always on top)
+Above active book: upper-air-gap = height of ~2 missing books
+Upper stack sits on middle plank.
+
+BOOK SPINES:
+- width: 260–280px
+- height: auto (dynamic thickness)
+- min-height: 32px
+- padding: 10–14px
+- border-radius: 6–8px
+- display: flex
+- align-items: center
+- overflow: hidden
+- background: pastel color
+- vertical texture:
+    linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)
+- top-to-bottom gradient:
+    linear-gradient(180deg, rgba(255,255,255,0.2), rgba(0,0,0,0.05))
+- left-edge embossing:
+    box-shadow: inset 2px 0 3px rgba(0,0,0,0.08)
+- rotation:
+    active: 0deg
+    future: ±1deg
+    decorative: -3deg to +3deg
+
+TEXT:
+- active: 15–16px, weight 600, color #333
+- future: 14–15px, weight 500, color #555
+- real books: 15–16px, weight 500, color #333
+- enable wrapping:
+    white-space: normal;
+    word-break: break-word;
+
+ACTIVE BOOK:
+- always on top of upper stack
+- if activeSlug undefined → first real book becomes active
+- mini-cover ALWAYS visible:
+    width: 32px; height: 32px; border-radius: 4px; margin-right: 12px;
+
+HOVER:
+- only real books:
+    translateY(-2px)
+    stronger shadow
+- no hover for future or decorative
+
+COLOR PALETTE:
+#E8DCC2
+#D7C7A3
+#C9B89A
+#F0E6D8
+#E4D8C8
+#D0C4B4
+#F3EDE3
+
+FINAL RESULT:
+A realistic two-shelf bookcase with:
+- decorative lower stack
+- menu upper stack
+- three wooden planks
+- dynamic book thickness
+- air gaps
+- Scandinavian wood background
+- active book with mini-cover
+=====================================================================
+
+=====================================================================
+FIX SPEC — BooksSidebar (v2.2)
+Fix the current implementation. Do NOT rewrite from scratch.
+
+1) Move wood background to <aside>, not inner div:
+- <aside> must have:
+  - height: '100%' (or minHeight: '100vh' if needed)
+  - width: '100%'
+  - display: 'flex'
+  - flexDirection: 'column'
+  - the Scandinavian wood background from the main spec
+
+2) Stretch all planks to full width:
+- each plank must be width: '100%'
+- planks must be siblings of stacks, not inside narrow containers
+
+3) Enforce vertical structure:
+<aside>
+  [top plank]
+  [upper air gap]
+  [upper stack]
+  [middle plank]
+  [lower stack]
+  [lower air gap]
+  [bottom plank]
+</aside>
+
+4) Ensure stacks stand on their planks:
+- upper stack must visually sit on middle plank
+- lower stack must visually sit on bottom plank
+- lower stack must be below middle plank, not attached to it
+
+5) Fix order of books in upper stack:
+- from bottom to top:
+  decorative → future → future → active
+
+6) Render stacks bottom-up:
+- use flexDirection: 'column-reverse'
+  OR render arrays in reverse order
+- visual effect: books “stand” on the plank, not hang from above
+
+7) Decorative books must be generated artificially:
+- lower stack: always 3–5 decorative books
+- upper stack: 2–4 decorative books at the bottom
+- do NOT rely on books.json for decorative books
+
+8) Ensure container height:
+- <aside> must not shrink to content height
+- use height: '100%' or minHeight: '100vh'
+
+9) Enable dynamic book height:
+- height: 'auto'
+- minHeight: '32px'
+- whiteSpace: 'normal'
+- wordBreak: 'break-word'
+
+10) Active book must always exist:
+- if activeSlug is undefined:
+  - first real book becomes active
+=====================================================================

@@ -1,27 +1,30 @@
 .page {
-  width: 1024px;
-  height: calc(100vh - 60px); /* экран минус Header */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 1325;
   background: white;
   position: relative;
   box-sizing: border-box;
-
-  /* визуальная граница страницы */
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
-
-  overflow: visible; /* временно, чтобы убрать скролл */
+  overflow: hidden;
   padding: 0;
 }
 
 .inner {
   width: 100%;
   height: 100%;
-  padding: 30px 40px; /* уменьшили */
-  padding-bottom: 40px;
+  padding: 30px 40px;
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 10px; /* уменьшили */
+  gap: 10px;
+
+  /* УБИРАЕМ скролл */
+  overflow-y: hidden;
+
+  /* УБИРАЕМ красную рамку */
+  outline: none;
 }
 

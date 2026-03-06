@@ -1,35 +1,55 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Flipbook from './Flipbook';
-import GlobalNavigation from './GlobalNavigation';
-import ModuleHost from './ModuleHost';
-import IntroSpread from './intro/IntroSpread';
+import styles from "./Portal.module.css";
+import type { PortalModule } from "./types";
 
-export default function Portal() {
-  const [activeModule, setActiveModule] = useState<
-    'books' | 'insights' | 'landmarks' | 'studio' | null
-  >(null);
+type Props = {
+  module?: PortalModule; // делаем необязательным, чтобы портал не падал
+};
 
-  // Если модуль не выбран → показываем IntroSpread
-  if (!activeModule) {
-    const introPages = [<IntroSpread key="intro-spread" />];
+export default function Portal({ module }: Props) {
+  // Защита от undefined
+  if (!module) {
     return (
-      <div className="portal">
-        <GlobalNavigation onSelect={setActiveModule} active={null} />
-        <Flipbook pages={introPages} />
+      <div className={styles.portalEmpty}>
+        <h2>Module not found</h2>
+        <p>Похоже, что модуль не был передан в Portal.</p>
       </div>
     );
   }
 
-  // Если модуль выбран → рендерим ModuleHost
+  const { navigation, pages } = module;
+
   return (
-    <div className="portal">
-      <GlobalNavigation onSelect={setActiveModule} active={activeModule} />
-      <ModuleHost activeModule={activeModule} />
+    <div className={styles.portalRoot}>
+      {/* Левое меню */}
+      <aside className={styles.portalSidebar}>
+        <h2>{navigation.title}</h2>
+
+        <ul className={styles.portalNavList}>
+          {navigation.items.map((item) => (
+            <li
+              key={item.id}
+              className={
+                item.id === navigation.active
+                  ? styles.portalNavItemActive
+                  : styles.portalNavItem
+              }
+            >
+              {item.label}
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      {/* Контент */}
+      <main className={styles.portalContent}>
+        {pages.map((page, index) => (
+          <div key={index} className={styles.portalPage}>
+            {page}
+          </div>
+        ))}
+      </main>
     </div>
   );
 }
-
-
-

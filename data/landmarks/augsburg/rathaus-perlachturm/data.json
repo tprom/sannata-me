@@ -10,7 +10,8 @@
     "citySlug": "augsburg",
     "landmarkSlug": "rathaus-perlachturm",
     "alias": "augsburg-rathaus-perlachturm",
-    "updatedAt": "2026-02-19T19:46:10.750Z"
+    "updatedAt": "2026-03-05T20:17:05.049Z",
+    "cityId": "city_augsburg"
   },
   "content": {
     "ru": "Сегодня мы с мамой и папой были на площади, где стоит самый высокий дом, который я когда нибудь видела. Папа сказал, что это ратуша, но я сразу поняла, что это почти дворец. Он такой большой и светлый, будто его построили для королей, только королей там нет, а город — есть.\nРядом с ратушей стоит башня. Она такая высокая, что я долго смотрела вверх, и у меня закружилась голова. Башня называется Перлах. Мне показалось, что она очень старая и всё про город знает. Мама сказала, что раньше она следила, чтобы не было пожаров. Я думаю, что сейчас она просто смотрит, чтобы все люди были в безопасности.\nКогда солнце светило на купол башни, он блестел и как будто подмигивал мне. Я решила, что башня живая. Папа рассказал, что внутри иногда появляется маленький ангел и сражается с чёртом. Я очень внимательно смотрела на окна, но, наверное, ангел сегодня был занят.\nНа площади было слышно шаги, голоса и колокола. Звук колоколов был такой, будто время само разговаривает. Я представила, что здесь много лет назад тоже ходили люди, дети бегали, и башня смотрела на них так же, как на меня.\nКогда мы уходили, я несколько раз обернулась. Мне не хотелось прощаться с башней. Я думаю, если я приеду сюда ещё раз, она меня узнает.\n",
@@ -85,50 +86,43 @@
         "index": 0,
         "isActive": true,
         "fileName": "pic-1.jpg",
-        "savedFile": "images/image-01.jpg",
-        "mime": "image/jpeg"
+        "savedFile": "images/image-01.jpg"
       },
       {
         "index": 1,
         "isActive": true,
         "fileName": "pic-2.jpg",
-        "savedFile": "images/image-02.jpg",
-        "mime": "image/jpeg"
+        "savedFile": "images/image-02.jpg"
       },
       {
         "index": 2,
         "isActive": true,
         "fileName": "pic-3.jpg",
-        "savedFile": "images/image-03.jpg",
-        "mime": "image/jpeg"
+        "savedFile": "images/image-03.jpg"
       },
       {
         "index": 3,
         "isActive": true,
         "fileName": "pic-4.jpg",
-        "savedFile": "images/image-04.jpg",
-        "mime": "image/jpeg"
+        "savedFile": "images/image-04.jpg"
       },
       {
         "index": 4,
         "isActive": true,
         "fileName": "pic-5.jpg",
-        "savedFile": "images/image-05.jpg",
-        "mime": "image/jpeg"
+        "savedFile": "images/image-05.jpg"
       },
       {
         "index": 5,
         "isActive": true,
         "fileName": "pic-6.jpg",
-        "savedFile": "images/image-06.jpg",
-        "mime": "image/jpeg"
+        "savedFile": "images/image-06.jpg"
       },
       {
         "index": 6,
         "isActive": true,
         "fileName": "pic-7.jpg",
-        "savedFile": "images/image-07.jpg",
-        "mime": "image/jpeg"
+        "savedFile": "images/image-07.jpg"
       },
       {
         "index": 7,

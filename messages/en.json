@@ -1,19 +1,40 @@
 {
-  "intro": {
-    "slogan": "Color your city — and the story comes alive.",
-    "subtitle": "Adventure coloring books for children and adults...",
-    "footer": "...inspired by Ketti’s travels — SANNATA",
-    "rightPageText": "This is where Ketti’s journey begins — a world of coloring, stories, and discoveries."
-  },
-
   "nav": {
     "books": "Books",
     "insights": "Insights",
     "landmarks": "Landmarks",
-    "studio": "Studio"
-  }
+    "studio": "Studio",
+    "diary": "Diary",
+    "brand": "SANNATA.me"
+  },
+
+  "intro": {
+    "slogan": "Where stories come alive",
+    "title": "Welcome to SANNATA.me",
+    "subtitle": "A place where stories begin",
+    "leftPage": {
+      "title": "Ketti's World",
+      "text": "Discover the adventures of Ketti and her magical friends."
+    },
+    "rightPage": {
+      "title": "Start Reading",
+      "text": "Turn the page to begin your journey."
+    },
+    "rightPageText": "Every great adventure begins with a single page.",
+    "footer": "A new chapter begins here"
+  },
+
+  "books": {
+  "title": "Books",  "welcome": "Welcome to the Library",
+  "chooseBook": "Choose a book from the left panel.",  "kettyLandsbergJourney": "Ketty’s Journey to the City of Landsberg am Lech",
+  "allBooks": "All Books", 
+  "open": "Open",
+  "read": "Read",
+  "notFound": "Book not found",
+  "notFoundText": "The book you are looking for does not exist."
+},
+"diary": {
+  "title": "Diary",
+  "comingSoon": "This section is under construction."
 }
-
-
-
-
+}

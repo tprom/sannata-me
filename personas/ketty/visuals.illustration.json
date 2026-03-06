@@ -1,0 +1,22 @@
+{
+  "style": {
+    "base": "карандашный рисунок, лёгкая штриховка",
+    "composition": "простая, детская, без хаоса",
+    "lines": "мягкие, слегка неровные",
+    "colors": "пастельные, приглушённые",
+    "proportions": "лёгкая наивность",
+    "background": "минимальный или отсутствует",
+    "emotion": "через простые детали (улыбка, наклон головы, жесты)",
+    "edges": "градиентно-прозрачные, растворяются в фоне"
+  },
+  "constraints": [
+    "никаких фотореалистичных деталей",
+    "никаких сложных теней",
+    "никаких взрослых художественных техник",
+    "никаких цифровых эффектов (glow, 3D, HDR)",
+    "никаких рамок",
+    "никаких резких контрастных переходов",
+    "никаких текстов"
+  ],
+  "promptTemplate": "pencil illustration of {scene}, soft lines, childlike proportions, pastel colors, minimal background, gentle shading, simple composition, warm and naive mood, gradient-transparent edges, no borders, no text"
+}

@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "version": "2.0",
+    "persona": "ketty",
+    "updatedAt": "2026-02-14",
+    "description": "Usage permissions for Ketty.",
+    "aliasesRef": "./aliases.json",
+    "fallback": "medium",
+    "strict": true,
+    "unknownLevelPolicy": "warn"
+  },
+  "modes": {
+    "postcard": {
+      "allow": {
+        "lexicon": {
+          "connectors": ["light"],
+          "beginnings": ["light"],
+          "endings": ["light"],
+          "questions": ["light"],
+          "microReactions": ["light"]
+        }
+      },
+      "deny": {
+        "logic": {
+          "innerMonologue": ["light", "medium", "deep"],
+          "comfortPhrases": ["light", "medium", "deep"],
+          "childLogic": ["light", "medium", "deep"],
+          "attentionTriggers": ["light", "medium", "deep"],
+          "logicTriggers": ["light", "medium", "deep"],
+          "observations": ["light", "medium", "deep"],
+          "emotions": ["light", "medium", "deep"],
+          "selfDescriptions": ["light", "medium", "deep"],
+          "adultDescriptions": ["light", "medium", "deep"]
+        },
+        "style": {
+          "poeticFormulas": ["light", "medium", "deep"],
+          "fantasies": ["light", "medium", "deep"],
+          "comparisons": ["light", "medium", "deep"],
+          "observations": ["light", "medium", "deep"],
+          "emotions": ["light", "medium", "deep"]
+        }
+      }
+    },
+    "diary": {
+      "allow": {
+        "lexicon": {
+          "connectors": ["light", "medium"],
+          "beginnings": ["light", "medium"],
+          "endings": ["light", "medium"],
+          "questions": ["light", "medium"],
+          "microReactions": ["light", "medium"]
+        },
+        "logic": {
+          "innerMonologue": ["light", "medium"],
+          "comfortPhrases": ["light", "medium"],
+          "childLogic": ["light", "medium"],
+          "attentionTriggers": ["light", "medium"],
+          "logicTriggers": ["light", "medium"],
+          "observations": ["light", "medium"],
+          "emotions": ["light", "medium"],
+          "selfDescriptions": ["light", "medium"],
+          "adultDescriptions": ["light", "medium"]
+        }
+      },
+      "deny": {
+        "style": {
+          "poeticFormulas": ["light", "medium", "deep"],
+          "fantasies": ["light", "medium", "deep"],
+          "comparisons": ["light", "medium", "deep"],
+          "observations": ["light", "medium", "deep"],
+          "emotions": ["light", "medium", "deep"]
+        }
+      }
+    },
+    "kettyStory": {
+      "allow": {
+        "lexicon": {
+          "connectors": ["light", "medium", "deep"],
+          "beginnings": ["light", "medium", "deep"],
+          "endings": ["light", "medium", "deep"],
+          "questions": ["light", "medium", "deep"],
+          "microReactions": ["light", "medium", "deep"]
+        },
+        "logic": {
+          "innerMonologue": ["light", "medium", "deep"],
+          "comfortPhrases": ["light", "medium", "deep"],
+          "childLogic": ["light", "medium", "deep"],
+          "attentionTriggers": ["light", "medium", "deep"],
+          "logicTriggers": ["light", "medium", "deep"],
+          "observations": ["light", "medium", "deep"],
+          "emotions": ["light", "medium", "deep"],
+          "selfDescriptions": ["light", "medium", "deep"],
+          "adultDescriptions": ["light", "medium", "deep"]
+        },
+        "style": {
+          "poeticFormulas": ["light", "medium", "deep"],
+          "fantasies": ["light", "medium", "deep"],
+          "comparisons": ["light", "medium", "deep"],
+          "observations": ["light", "medium", "deep"],
+          "emotions": ["light", "medium", "deep"]
+        }
+      }
+    }
+  }
+}

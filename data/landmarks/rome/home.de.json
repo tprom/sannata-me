@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "collection-home",
+  "pageId": "landmarks:collection-home:rome:de",
+  "slug": "rome",
+  "locale": "de",
+  "translationGroupId": "landmarks:collection-home:rome",
+  "meta": {
+    "title": "Roma DE",
+    "tags": [
+      "landmarks",
+      "city",
+      "rome"
+    ],
+    "status": "draft"
+  },
+  "hero": {
+    "title": "Hallo Rom"
+  },
+  "sections": [
+    {
+      "id": "summary",
+      "type": "summary",
+      "visible": true,
+      "payload": {
+        "kind": "summary",
+        "title": "О городе",
+        "subtitle": "Городской профиль",
+        "description": ""
+      }
+    },
+    {
+      "id": "links-grid",
+      "type": "links-grid",
+      "visible": true,
+      "payload": {
+        "kind": "links-grid",
+        "title": "Достопримечательности города",
+        "items": [
+          {
+            "id": "landmark-coliseum",
+            "title": "Coliseum",
+            "href": "/de/landmarks/rome/coliseum",
+            "description": "Откройте страницу объекта для подробной информации."
+          }
+        ]
+      }
+    }
+  ],
+  "navigation": {
+    "parentId": "landmarks:module-home:de",
+    "childrenIds": [
+      "landmarks:landmark-item:rome:coliseum:de"
+    ]
+  },
+  "mediaRefs": {
+    "hero": [],
+    "sections": []
+  },
+  "audit": {
+    "createdAt": "2026-03-05T19:46:24.928Z",
+    "updatedAt": "2026-03-05T19:46:24.928Z",
+    "updatedBy": "agent-form"
+  }
+}

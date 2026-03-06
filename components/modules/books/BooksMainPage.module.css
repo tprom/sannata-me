@@ -1,0 +1,107 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: #edede9;
+}
+
+.shelf {
+  flex: 1;
+  background: #edede9;
+  box-shadow: inset -8px 0 12px rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
+  z-index: 2;
+  height: calc(100% + 24px);
+  margin-top: -12px;
+  position: relative;
+}
+
+.leftShelf {
+  transform: perspective(800px) rotateY(12deg);
+  transform-origin: left center;
+  margin-right: -2px;
+}
+
+.rightShelf {
+  transform: perspective(800px) rotateY(-12deg);
+  transform-origin: right center;
+  box-shadow: inset 8px 0 12px rgba(0, 0, 0, 0.15);
+  margin-left: -2px;
+}
+
+.shelfOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.magazine {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 42px;
+  border-radius: 8px;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(160, 152, 144, 0.28),
+      rgba(120, 114, 106, 0.22)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.25) 0px,
+      rgba(255, 255, 255, 0.25) 3px,
+      rgba(255, 255, 255, 0) 3px,
+      rgba(255, 255, 255, 0) 6px
+    );
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.45),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.bookBand {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  background-repeat: repeat-x;
+  opacity: 0.28;
+}
+
+.plank {
+  height: 6px;
+  background: #d8d8d5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.centerArea {
+  flex: 6;
+  padding: 50px 80px;
+  background: #faf9f7;
+  overflow: visible;
+  font-family: serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  margin-top: 0;
+  align-self: flex-end;
+}

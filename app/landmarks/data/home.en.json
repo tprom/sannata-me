@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "module-home",
+  "pageId": "9b2913e8-6c1e-4afd-af13-5160d1a828f1",
+  "slug": "landmarks",
+  "locale": "en",
+  "translationGroupId": "tg_landmarks_module_home",
+  "meta": {
+    "title": "Landmarks",
+    "tags": [
+      "landmarks",
+      "module-home"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "headline": "Hello. It’s me, Ketty.",
+    "kicker": "Sannata"
+  },
+  "sections": [
+    {
+      "id": "sec_module_home_block_1",
+      "type": "custom:module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "I don’t know where you are right now,\r\nbut I decided to write to you.\r\n\r\nI love walking through cities.\r\nSometimes for a long time.\r\nSometimes just a little.\r\nI don’t always know where I’m going.\r\nSometimes I choose a place because it has a beautiful name.\r\nSometimes because there’s a strange staircase.\r\nSometimes because the rain starts\r\nand it feels as if it’s calling me.\r\nI don’t look the way adults do.\r\nI look at cracks, at shadows,\r\nat windows that seem to know something.\r\nI listen to how a place sounds.\r\nSome places whisper.\r\nSome stay silent.\r\nAnd some begin to tell their stories right away.\r\nWhen I arrive at a very beautiful place,\r\nI stand still first.\r\nThen I walk around it.\r\nThen I touch it with my eyes.\r\nSometimes I have nothing to say.\r\nThen I simply remember\r\nhow the morning smelled\r\nand what color the sky was between the houses.\r\nAnd then I write a postcard.\r\nNot a long one.\r\nNot about everything.\r\nOnly about what stayed with me.\r\nSometimes it becomes words.\r\nSometimes almost a poem.\r\nSometimes just a feeling\r\nI don’t want to lose.\r\nI will keep traveling.\r\nWithout a route.\r\nWithout the “right” answers.\r\nAnd every time a place touches me,\r\nyou will receive a postcard from me.",
+        "illustrationLeft": "## D. Иллюстрация блока 1 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
+      }
+    },
+    {
+      "id": "sec_module_home_block_2",
+      "type": "custom:module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "/uploads/module-home/illustration2L-1772566391266.png",
+        "illustrationRight": "## D. Иллюстрация блока 3 - Слева"
+      }
+    },
+    {
+      "id": "sec_module_home_block_3",
+      "type": "custom:module-home-block",
+      "visible": true,
+      "payload": {
+        "title": "",
+        "text": "",
+        "illustrationLeft": "## D. Иллюстрация блока 3 - Справа",
+        "illustrationRight": "/uploads/module-home/illustration3R-1772566444610.png"
+      }
+    },
+    {
+      "id": "sec_module_home_closing",
+      "type": "custom:module-home-closing",
+      "visible": true,
+      "payload": {
+        "text": "Postcards don’t follow schedules."
+      }
+    }
+  ],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/stampImage-1772449138482.png"
+    ],
+    "sections": [
+      "## D. Иллюстрация блока 1 - Справа",
+      "/uploads/module-home/illustration1R-1772566361555.png",
+      "/uploads/module-home/illustration2L-1772566391266.png",
+      "## D. Иллюстрация блока 3 - Слева",
+      "## D. Иллюстрация блока 3 - Справа",
+      "/uploads/module-home/illustration3R-1772566444610.png"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-03-03T20:05:56.463Z",
+    "updatedAt": "2026-03-06T12:42:22.963Z",
+    "updatedBy": "agent-form"
+  },
+  "navigation": {
+    "parentId": null,
+    "childrenIds": [],
+    "siblings": [],
+    "breadcrumbs": [
+      {
+        "pageId": "9b2913e8-6c1e-4afd-af13-5160d1a828f1",
+        "title": "Landmarks",
+        "slug": "landmarks"
+      }
+    ]
+  }
+}

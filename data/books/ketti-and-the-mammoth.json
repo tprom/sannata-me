@@ -1,0 +1,31 @@
+{
+  "id": "book-ketti-1",
+  "slug": "ketti-and-the-mammoth",
+  "title": {
+    "en": "Ketti and the Mammoth",
+    "de": "Ketti und das Mammut",
+    "ru": "Кетти и Мамонт",
+    "uk": "Кетті і Мамонт"
+  },
+  "cover": "/images/books/ketti-mammoth/cover.jpg",
+  "status": "published",
+  "buyLink": {
+    "amazon": "https://amazon.com/ketti-mammoth",
+    "other": null
+  },
+  "pages": [
+    {
+      "type": "text",
+      "content": "Once upon a time, Ketti found a mysterious footprint in the snow..."
+    },
+    {
+      "type": "illustration",
+      "image": "/images/books/ketti-mammoth/ill-01.jpg"
+    },
+    {
+      "type": "coloring",
+      "image": "/images/books/ketti-mammoth/coloring-01.png",
+      "download": false
+    }
+  ]
+}

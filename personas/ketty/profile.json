@@ -1,0 +1,19 @@
+{
+  "id": "ketty",
+  "label": "Ketty",
+  "version": "0.1.0",
+  "defaults": {
+    "language": "ru",
+    "contentMode": "primary"
+  },
+  "blocks": {
+    "textStyle": "text.style.json",
+    "textStructure": "text.structure.json",
+    "textLogic": "text.logic.json",
+    "textLexicon": "text.lexicon.json",
+    "visualsIllustration": "visuals.illustration.json",
+    "visualsGallery": "visuals.gallery.json",
+    "visualsStamp": "visuals.stamp.json",
+    "translateHints": "translate.hints.json"
+  }
+}

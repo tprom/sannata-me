@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "title": "Testville"
+  },
+  "description": "",
+  "hero": "",
+  "gallery": [],
+  "pageContent": {
+    "greeting": {
+      "ru": "Privet",
+      "en": "Hello",
+      "de": "",
+      "uk": ""
+    },
+    "description": {
+      "ru": "Opisanie RU",
+      "en": "Description EN",
+      "de": "",
+      "uk": ""
+    },
+    "invitation": {
+      "ru": "Priglashenie RU",
+      "en": "Invitation EN",
+      "de": "",
+      "uk": ""
+    },
+    "illustrations": []
+  }
+}

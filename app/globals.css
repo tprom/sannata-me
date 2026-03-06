@@ -1,0 +1,32 @@
+/* RESET — обязательный фундамент */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Remove default list styles */
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Remove default link underline */
+a {
+  text-decoration: none;
+  color: inherit;
+}
