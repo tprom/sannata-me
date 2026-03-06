@@ -1,36 +1,26 @@
-// /components/modules/books/BooksModule.tsx
+import { useTranslations } from "next-intl";
+import BookReader from "./BookReader";
+import styles from "./BooksModule.module.css";
 
-'use client';
-
-import books from '@/data/books.json';
-import PageRenderer from '@/components/book/PageRenderer';
-
-const BooksModule = {
-  generate() {
-    const book = books.ketti;
-
-    // ✔ Генерируем массив React‑элементов
-    const pages = book.pages.map((pageData: any, index: number) => (
-      <PageRenderer key={index} data={pageData} />
-    ));
-
-    const navigation = {
-      title: 'Books',
-      active: 'ketti',
-      items: [
-        { id: 'ketti', label: 'Ketti' }
-      ]
-    };
-
-    const controls = {
-      onSelect: (id: string) => {
-        console.log('Selected book:', id);
-      }
-    };
-
-    return { navigation, pages, controls };
-  }
+type Props = {
+  lang: string;
+  slug?: string;
 };
 
-export default BooksModule;
+export default function BooksModule({ lang, slug }: Props) {
+  const t = useTranslations("books");
 
+  if (slug) {
+    return <BookReader lang={lang} slug={slug} />;
+  }
+
+  return (
+    <div className={styles.emptyState}>
+      <h1 className={styles.title}>{t("welcome")}</h1>
+
+      <p className={styles.description}>{t("chooseBook")}</p>
+
+      <div className={styles.divider} />
+    </div>
+  );
+}

@@ -5,6 +5,7 @@ import typography from '../typography.module.css';
 import styles from './IntroLeftPage.module.css';
 
 export default function IntroLeftPage() {
+  console.log("👈 IntroLeftPage is rendering");
   const t = useTranslations('intro');
 
   return (

@@ -1,51 +1,685 @@
-.flipbook {
-  flex: 1;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-start; /* ← приподнимаем страницы вверх */
+/*
+=====================================================================
+TECHNICAL SPECIFICATION: FIX 3D GEOMETRY AND REMOVE MULTIPLE 3D CONTEXTS
+Scope: Flipbook.module.css
+Goal: Ensure that the turning page behaves as ONE physical sheet.
+Eliminate double‑page artifacts, ghost layers, delayed back‑face,
+and misaligned rotations caused by multiple 3D contexts.
+=====================================================================
 
-  padding-top: 10vh;        /* ← верхний отступ */
-  padding-bottom: 10vh;     /* ← нижний отступ */
+PROBLEM:
+The current CSS creates multiple independent 3D contexts:
+- turningPage rotates in 3D
+- turningPageFace rotates in 3D
+- turningPageContent creates its own 3D context (translateZ, preserve-3d)
+This causes:
+- two visible layers during animation
+- back page appearing late
+- page “jumping” from right to left
+- page “covering” the static left page
+- double‑turn visual effect
 
-  gap: 40px;
-  overflow: auto;
-  box-sizing: border-box;
+ROOT CAUSE:
+Any transform (including translateZ(0)) on turningPageContent creates a
+new 3D stacking context, breaking the unified page geometry.
+
+REQUIRED FIX:
+Ensure that ONLY ONE element participates in 3D rotation:
+→ .turningPage (the outer container)
+All inner layers must be flat and must NOT create their own 3D context.
+
+=====================================================================
+STEP 1 — Clean turningPageContent (must be FLAT)
+=====================================================================
+
+Replace the entire .turningPageContent block with:
+
+.turningPageContent {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  backface-visibility: hidden;
 }
 
+REMOVE the following if present:
+- transform: translateZ(0);
+- transform-origin: inherit;
+- transform-style: preserve-3d;
+- ANY transform on this element
 
-.pageContainer {
-  width: auto;
-  height: auto;
+=====================================================================
+STEP 2 — turningPageFace must NOT create transforms
+=====================================================================
+
+Ensure .turningPageFace has ONLY these properties:
+
+.turningPageFace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+Do NOT add:
+- transform
+- translateZ
+- scale
+- rotate
+- perspective
+
+=====================================================================
+STEP 3 — Correct rotation origins for front/back faces
+=====================================================================
+
+.turningPageForward .turningPageFace {
+  transform-origin: left center;
+}
+
+.turningPageBackward .turningPageFace {
+  transform-origin: right center;
+}
+
+These must remain exactly as above.
+
+=====================================================================
+STEP 4 — Back face must be rotated ONCE
+=====================================================================
+
+.turningPageBack {
+  transform: rotateY(-180deg);
+}
+
+No other transforms allowed on this element.
+
+=====================================================================
+STEP 5 — Ensure turningPage is the ONLY rotating element
+=====================================================================
+
+turningPage (the wrapper) must be the ONLY element animated with rotateY.
+Keyframes must apply ONLY to this element.
+
+=====================================================================
+EXPECTED RESULT:
+- turning page behaves as a single physical sheet
+- no ghost layers
+- no delayed back page
+- no double‑turn effect
+- no “page covering” the left page
+- perfectly clean, stable 3D animation
+=====================================================================
+
+*/
+
+
+/* Контейнер Flipbook */
+.wrapper {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding-top: 32px;
+  padding-bottom: 24px;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+
+  /* Мягкая подсветка центра */
+background-image:
+  radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.00) 60%
+  ),
+  radial-gradient(
+    circle at center,
+    #f5f5f5 0%,
+    #e6e6e6 40%,
+    #dcdcdc 100%
+  );
+
+  /* Тень книги на стол */
+box-shadow:
+  0 28px 45px rgba(0, 0, 0, 0.22),
+  0 12px 25px rgba(0, 0, 0, 0.18),
+  0 4px 10px rgba(0, 0, 0, 0.12);
+
 }
 
-.controls {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
+/* Книга занимает 90% высоты контейнера */
+.flipbook {
+  height: 90%;
+  aspect-ratio: 2048 / 1325;
   display: flex;
-  justify-content: space-between;
-  padding: 0 40px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+
+  position: relative;
+  top: 56px;
+  overflow: visible;
+
+  /* Внутренний переплёт */
+  box-shadow:
+  inset 0 0 60px rgba(0, 0, 0, 0.20), /* закругление корешка */
+  inset 0 0 25px rgba(0, 0, 0, 0.25),
+  inset 0 0 8px rgba(0, 0, 0, 0.15);
+
+  /* Лёгкая текстура переплёта */
+background-image:
+  linear-gradient(
+    rgba(255, 255, 255, 0.015) 0%,
+    rgba(0, 0, 0, 0.015) 100%
+  );
+background-blend-mode: overlay;
+
+  /* Лёгкая асимметрия книги */
+    transform: perspective(2000px) rotateY(-3deg);
+  transform-style: preserve-3d;
+    margin-top: 0; /* Removed ineffective margin */
+}
+
+/* Толщина блока страниц — левая сторона */
+.flipbook::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.18),
+    rgba(0, 0, 0, 0.00)
+  );
+  border-radius: 2px 0 0 2px;
   pointer-events: none;
 }
 
-.controls button {
-  pointer-events: all;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ccc;
-  cursor: pointer;
+/* Толщина блока страниц — правая сторона */
+.flipbook::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.18),
+    rgba(0, 0, 0, 0.00)
+  );
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
 }
 
-.controls button:disabled {
-  opacity: 0.4;
-  cursor: default;
+.flipbook--left-heavy {
+  transform: perspective(2000px) rotateY(-3deg) translateX(-6px);
+}
+
+.flipbook--right-heavy {
+  transform: perspective(2000px) rotateY(-3deg) translateX(6px);
+}
+
+
+.page {
+  flex: 1 1 50%;
+  height: 100%;
+  background: #ffffff;
+  overflow: visible;
+  display: block;
+  box-sizing: border-box;
+  min-width: 0;
+  position: relative;
+  padding: 10px 15px;
+  transition: transform 0.25s ease-out;
+}
+
+/* FIX 4: All visual effects moved to separate layer */
+.pageEffects {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+
+  /* Тень от блока страниц на сами страницы */
+  box-shadow:
+    inset 0 12px 18px rgba(0, 0, 0, 0.08),
+    inset 0 -12px 18px rgba(0, 0, 0, 0.06),
+    inset 0 0 18px rgba(0, 0, 0, 0.06),
+    0 4px 18px rgba(0, 0, 0, 0.12),
+    0 1px 4px rgba(0, 0, 0, 0.08);
+
+  /* Мягкая бумажная глубина */
+  background-image:
+    /* Микро‑зерно бумаги */
+    linear-gradient(
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.03) 100%
+    ),
+    /* Лёгкая тёплая температура бумаги */
+    linear-gradient(
+      rgba(255, 245, 230, 0.10),
+      rgba(255, 245, 230, 0.10)
+    ),
+    /* Мягкая бумажная глубина */
+    radial-gradient(
+      circle at center,
+      #ffffff 60%,
+      #f7f7f7 100%
+    );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+/* Вертикальная выпуклость страницы */
+.pageEffects::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+
+  background:
+  /* Вертикальная выпуклость */
+  linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(255, 255, 255, 0.00) 35%,
+    rgba(255, 255, 255, 0.00) 65%,
+    rgba(0, 0, 0, 0.08) 100%
+  ),
+  /* Боковая виньетка */
+  linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.00) 20%,
+    rgba(0, 0, 0, 0.00) 80%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  /* Лёгкое вздутие бумаги */
+  linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.00) 15%,
+    rgba(255, 255, 255, 0.00) 85%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+}
+
+.pageEffects::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  pointer-events: none;
+
+  /* Тень у внутреннего края */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.18),
+    rgba(0, 0, 0, 0.00)
+  );
+
+  /* По умолчанию — тень слева */
+  left: 0;
+}
+
+/* Левая страница — тень справа */
+.page:first-child .pageEffects::after {
+  left: auto;
+  right: 0;
+
+  background:
+    /* световой блик */
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.00) 30%
+    ),
+    /* тень */
+    linear-gradient(
+      to left,
+      rgba(0, 0, 0, 0.18),
+      rgba(0, 0, 0, 0.00)
+    );
+}
+
+
+/* Правая страница — тень слева */
+.page:last-child .pageEffects::after {
+  left: 0;
+  right: auto;
+
+  background:
+    /* световой блик */
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.00) 30%
+    ),
+    /* тень */
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.18),
+      rgba(0, 0, 0, 0.00)
+    );
+}
+
+/* FIX 5: Content wrapper */
+.pageContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+
+/* Иллюстрация подстраивается под высоту страницы */
+.page img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Кнопки */
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
 }
 
 .counter {
+  color: #333;
+  font-size: 14px;
+}
+
+
+.pageImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Лёгкое «дыхание» страницы при наведении 
+.page:hover {
+  transform: perspective(1200px) rotateY(0.6deg);
+  transition: transform 0.25s ease-out;
+}
+*/
+/* FIX 3: Dim static pages during page turn animation */
+.page.dimmed {
+  opacity: 0.3;
+  transition: opacity 0.1s ease-out;
+}
+
+.innerShadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 42px;
+  transform: translateX(-50%);
   pointer-events: none;
-  opacity: 0.7;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.22) 0%,
+    rgba(0, 0, 0, 0.12) 35%,
+    rgba(0, 0, 0, 0.06) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+.pageText {
+  font-size: 16px;
+  line-height: 1.6;
+  white-space: pre-line;
+  color: #222;
+  font-family: "Georgia", "Times New Roman", serif;
+
+  /* Поля текста внутри страницы */
+  padding: 40px 50px;
+
+  /* Красивые абзацы */
+  margin: 0 0 16px;
+}
+.pageText h1,
+.pageText h2,
+.pageText h3 {
+  margin: 0 0 20px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+/* Универсальный блок для иллюстраций */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  /* Небольшие поля для иллюстраций */
+  padding: 10px 15px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Иллюстрации не наследуют поля страницы */
+.page > .imageWrapper {
+  padding: 0px 0px !important;
+  margin: 0 !important;
+}
+
+/* Мягкое растворение краёв иллюстрации */
+.imageWrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.18) 100%
+  );
+}
+/* ============================
+   TURNING PAGE BUFFER (SPREAD)
+   ============================ */
+
+.turningPage {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  z-index: 9999;
+  will-change: transform;
+}
+
+.turningPageForward {
+  left: 50%;
+  transform-origin: left center;
+  animation: turningForward 0.8s ease-in-out forwards;
+}
+
+.turningPageBackward {
+  left: 0;
+  transform-origin: right center;
+  animation: turningBackward 0.8s ease-in-out forwards;
+}
+
+.turningPageFace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.turningPageContent {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.turningPageFront {
+  z-index: 2;
+  background: white;
+}
+
+.turningPageBack {
+  transform: rotateY(180deg) translateZ(0);
+  background: white;
+}
+
+@keyframes turningForward {
+  0% {
+    transform: perspective(1200px) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(1200px) rotateY(-90deg);
+  }
+  100% {
+    transform: perspective(1200px) rotateY(-180deg);
+  }
+}
+
+@keyframes turningBackward {
+  0% {
+    transform: perspective(1200px) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(1200px) rotateY(90deg);
+  }
+  100% {
+    transform: perspective(1200px) rotateY(180deg);
+  }
+}
+
+/* ============================
+   SINGLE MODE - КОНТЕЙНЕР И СТРАНИЦА
+   ============================ */
+
+.singlePageContainer {
+  height: 90%;
+  height: 88%;
+  aspect-ratio: 1024 / 1325;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  top: 56px;
+  margin-top: 0;
+
+  transform: perspective(2000px) rotateY(-3deg);
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.20),
+    inset 0 0 25px rgba(0, 0, 0, 0.25),
+    inset 0 0 8px rgba(0, 0, 0, 0.15);
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.015) 0%,
+      rgba(0, 0, 0, 0.015) 100%
+    );
+  background-blend-mode: overlay;
+}
+
+.singlePage {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  overflow: hidden;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+  position: relative;
+
+  padding: 10px 15px;
+
+  box-shadow:
+    inset 0 12px 18px rgba(0, 0, 0, 0.08),
+    inset 0 -12px 18px rgba(0, 0, 0, 0.06),
+    inset 0 0 18px rgba(0, 0, 0, 0.06),
+    0 4px 18px rgba(0, 0, 0, 0.12),
+    0 1px 4px rgba(0, 0, 0, 0.08);
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.03) 100%
+    ),
+    linear-gradient(
+      rgba(255, 245, 230, 0.10),
+      rgba(255, 245, 230, 0.10)
+    ),
+    radial-gradient(
+      circle at center,
+      #ffffff 60%,
+      #f7f7f7 100%
+    );
+
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: transform 0.25s ease-out;
+}
+
+/* ============================
+   SINGLE MODE - АНИМАЦИЯ
+   ============================ */
+
+.pageTurnSingleForward {
+  animation: turnSingleForward 0.8s ease-out forwards;
+}
+
+@keyframes turnSingleForward {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.pageTurnSingleBackward {
+  animation: turnSingleBackward 0.8s ease-out forwards;
+}
+
+@keyframes turnSingleBackward {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
