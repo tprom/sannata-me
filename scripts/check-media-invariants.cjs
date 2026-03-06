@@ -104,6 +104,41 @@ const warningGroupKey = (filePath) => {
   return `file:${normalized}`;
 };
 
+const missingMediaPathFromMessage = (message) => {
+  const normalized = normalize(message);
+  const match = normalized.match(/missing local media file:\s*(\S+)$/i);
+  return match ? match[1] : null;
+};
+
+const printMediaPathSummary = (title, keys, maxGroups = 20) => {
+  if (keys.length === 0) return;
+
+  const grouped = new Map();
+  for (const key of keys) {
+    const { message } = splitWarningKey(key);
+    const mediaPath = missingMediaPathFromMessage(message);
+    if (!mediaPath) continue;
+    grouped.set(mediaPath, (grouped.get(mediaPath) || 0) + 1);
+  }
+
+  if (grouped.size === 0) return;
+
+  const rows = [...grouped.entries()].sort((a, b) => {
+    if (b[1] !== a[1]) return b[1] - a[1];
+    return a[0].localeCompare(b[0]);
+  });
+
+  console.log(title);
+  for (const [mediaPath, count] of rows.slice(0, maxGroups)) {
+    console.log(`- ${mediaPath}: ${count}`);
+  }
+  if (rows.length > maxGroups) {
+    console.log(
+      `- ... and ${rows.length - maxGroups} more media path group(s)`,
+    );
+  }
+};
+
 const printGroupedWarningSummary = (title, keys, maxGroups = 20) => {
   if (keys.length === 0) return;
 
@@ -464,9 +499,10 @@ if (UPDATE_WARNING_BASELINE) {
 }
 
 const baselineKeys = new Set(loadWarningBaseline());
+const warningKeySet = new Set(warningKeys);
 const newWarnings = warningKeys.filter((key) => !baselineKeys.has(key));
 const resolvedWarnings = [...baselineKeys].filter(
-  (key) => !warningKeys.includes(key),
+  (key) => !warningKeySet.has(key),
 );
 
 if (warnings.length > 0) {
@@ -478,9 +514,15 @@ if (warnings.length > 0) {
     console.log(`MEDIA_WARNINGS_NEW ${newWarnings.length}`);
     console.log(`MEDIA_WARNINGS_RESOLVED ${resolvedWarnings.length}`);
     printGroupedWarningSummary("MEDIA_WARNINGS_GROUPED", warningKeys);
+    printMediaPathSummary("MEDIA_WARNINGS_BY_MEDIA_PATH", warningKeys);
     printGroupedWarningSummary("MEDIA_WARNINGS_NEW_GROUPED", newWarnings);
+    printMediaPathSummary("MEDIA_WARNINGS_NEW_BY_MEDIA_PATH", newWarnings);
     printGroupedWarningSummary(
       "MEDIA_WARNINGS_RESOLVED_GROUPED",
+      resolvedWarnings,
+    );
+    printMediaPathSummary(
+      "MEDIA_WARNINGS_RESOLVED_BY_MEDIA_PATH",
       resolvedWarnings,
     );
   }
