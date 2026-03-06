@@ -3,12 +3,15 @@ const path = require("path");
 
 const root = process.cwd();
 
-const HOME_FILES = [
+const APP_HOME_FILES = [
   path.join(root, "app", "landmarks", "data", "home.ru.json"),
   path.join(root, "app", "landmarks", "data", "home.en.json"),
   path.join(root, "app", "landmarks", "data", "home.de.json"),
   path.join(root, "app", "landmarks", "data", "home.uk.json"),
 ];
+
+const LANDMARKS_DATA_DIR = path.join(root, "data", "landmarks");
+const LOCALE_FILE_RE = /\.(ru|en|de|uk)\.json$/i;
 
 const issues = [];
 
@@ -37,6 +40,37 @@ const addIssue = (filePath, message) => {
 const readJson = (filePath) => {
   const content = fs.readFileSync(filePath, "utf8");
   return JSON.parse(content);
+};
+
+const walkJsonFiles = (dirPath) => {
+  if (!fs.existsSync(dirPath)) return [];
+
+  const out = [];
+  const stack = [dirPath];
+
+  while (stack.length > 0) {
+    const current = stack.pop();
+    const entries = fs.readdirSync(current, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(fullPath);
+        continue;
+      }
+
+      if (!entry.isFile()) continue;
+      if (!entry.name.toLowerCase().endsWith(".json")) continue;
+      if (entry.name === "data.json") continue;
+      if (!LOCALE_FILE_RE.test(entry.name) && !entry.name.startsWith("home.")) {
+        continue;
+      }
+
+      out.push(fullPath);
+    }
+  }
+
+  return out;
 };
 
 const ensureUniqueStringArray = (arr, fieldPath, filePath) => {
@@ -111,6 +145,22 @@ const checkModuleHomeSpecifics = (envelope, filePath) => {
   });
 };
 
+const checkUniversalMediaSpecifics = (envelope, filePath) => {
+  if (!["module-home", "collection-home", "item"].includes(envelope.pageKind)) {
+    return;
+  }
+
+  if (
+    isObject(envelope.hero) &&
+    Object.prototype.hasOwnProperty.call(envelope.hero, "image")
+  ) {
+    addIssue(
+      filePath,
+      "hero.image must not exist (use mediaRefs.hero[]) in v1.1 envelope",
+    );
+  }
+};
+
 const validateEnvelope = (filePath) => {
   if (!fs.existsSync(filePath)) {
     addIssue(filePath, "file does not exist");
@@ -133,6 +183,11 @@ const validateEnvelope = (filePath) => {
     return;
   }
 
+  if (envelope.schemaVersion !== "1.1.0") return;
+  if (!["module-home", "collection-home", "item"].includes(envelope.pageKind)) {
+    return;
+  }
+
   if (Object.prototype.hasOwnProperty.call(envelope, "mediaRefs")) {
     if (!isObject(envelope.mediaRefs)) {
       addIssue(filePath, "mediaRefs must be an object when present");
@@ -150,10 +205,15 @@ const validateEnvelope = (filePath) => {
     }
   }
 
+  checkUniversalMediaSpecifics(envelope, filePath);
   checkModuleHomeSpecifics(envelope, filePath);
 };
 
-for (const filePath of HOME_FILES) {
+const filesToCheck = [...APP_HOME_FILES, ...walkJsonFiles(LANDMARKS_DATA_DIR)];
+
+const dedupedFiles = [...new Set(filesToCheck)];
+
+for (const filePath of dedupedFiles) {
   validateEnvelope(filePath);
 }
 
