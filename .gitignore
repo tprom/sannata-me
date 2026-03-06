@@ -1,2 +1,4 @@
 node_modules
+
+# Next.js build artifacts (must stay untracked)
 .next/
