@@ -13,6 +13,9 @@ interface PageEnvelope {
     kicker?: string;
     image?: string;
   };
+  mediaRefs?: {
+    hero?: string[];
+  };
   sections?: Array<{
     id: string;
     type: string;
@@ -27,6 +30,7 @@ interface ModuleHomePageProps {
 export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
   const hero = envelope.hero;
   const sections = envelope.sections || [];
+  const heroImageFromMedia = envelope.mediaRefs?.hero?.[0];
 
   const isValidImageSrc = (value?: string): value is string => {
     if (!value) return false;
@@ -42,8 +46,21 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
   };
 
   // Find blocks by type
-  const blocks = sections.filter((s) => s.type === "module-home-block");
-  const closingSection = sections.find((s) => s.type === "module-home-closing");
+  const blocks = sections.filter(
+    (s) =>
+      s.type === "module-home-block" || s.type === "custom:module-home-block",
+  );
+  const closingSection = sections.find(
+    (s) =>
+      s.type === "module-home-closing" ||
+      s.type === "custom:module-home-closing",
+  );
+
+  const stampImageSrc = isValidImageSrc(hero?.image)
+    ? hero?.image
+    : isValidImageSrc(heroImageFromMedia)
+      ? heroImageFromMedia
+      : undefined;
 
   const mainBlockWithText = blocks.find(
     (block) => String(block.payload?.text || "").trim().length,
@@ -67,14 +84,14 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
         {/* Greeting with Stamp */}
         {hero && (
           <div className={styles.greetingSection}>
-            {isValidImageSrc(hero.image) && (
+            {stampImageSrc && (
               <div className={styles.stampContainer}>
                 <Image
-                  src={hero.image}
+                  src={stampImageSrc}
                   alt={hero.kicker || "Stamp"}
                   width={120}
                   height={120}
-                  unoptimized={hero.image.startsWith("/")}
+                  unoptimized={stampImageSrc.startsWith("/")}
                   className={styles.stampImage}
                 />
               </div>

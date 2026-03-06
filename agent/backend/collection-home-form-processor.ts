@@ -1,9 +1,18 @@
 import fs from "fs/promises";
 import path from "path";
+import { randomUUID } from "crypto";
 import { findCityById } from "./cities-registry";
 
 const LOCALES = ["ru", "en", "de", "uk"] as const;
 type LocaleCode = (typeof LOCALES)[number];
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+const asUuidOrNull = (value: unknown): string | null => {
+  if (typeof value !== "string") return null;
+  return UUID_RE.test(value) ? value : null;
+};
 
 type CollectionHomeFormData = {
   cityId?: string;
@@ -170,7 +179,7 @@ export const processCollectionHomeForm = async (markdown: string) => {
     throw new Error("Обязательные поля: citySlug (или cityId), locale, title");
   }
 
-  const pageId = `landmarks:collection-home:${citySlug}:${locale}`;
+  const pageId = randomUUID();
   const timestamp = new Date().toISOString();
 
   // Load landmarks for this city
@@ -188,7 +197,10 @@ export const processCollectionHomeForm = async (markdown: string) => {
       const content = await fs.readFile(path.join(landmarksDir, file), "utf-8");
       const envelope = JSON.parse(content);
 
-      if (envelope.pageKind === "landmark-item") {
+      if (
+        envelope.pageKind === "item" ||
+        envelope.pageKind === "landmark-item"
+      ) {
         landmarks.push({
           slug: envelope.slug,
           title: envelope.meta?.title || envelope.hero?.headline || "Untitled",
@@ -200,6 +212,23 @@ export const processCollectionHomeForm = async (markdown: string) => {
     // No landmarks found, continue with empty array
   }
 
+  const translationGroupId = `tg_landmarks_collection_home_${citySlug}`;
+
+  const linksItems = landmarks.map((landmark) => ({
+    title: landmark.title,
+    slug: landmark.slug,
+    description: "Откройте страницу объекта для подробной информации.",
+  }));
+
+  const summaryText = [
+    data.summaryTitle || "",
+    data.summarySubtitle || "",
+    data.summaryDescription || "",
+  ]
+    .filter(Boolean)
+    .join("\n\n")
+    .trim();
+
   const envelope = {
     schemaVersion: "1.1.0",
     moduleKey: "landmarks",
@@ -207,7 +236,7 @@ export const processCollectionHomeForm = async (markdown: string) => {
     pageId,
     slug: citySlug,
     locale,
-    translationGroupId: `landmarks:collection-home:${citySlug}`,
+    translationGroupId,
     meta: {
       title: data.title,
       subtitle: data.subtitle,
@@ -216,70 +245,64 @@ export const processCollectionHomeForm = async (markdown: string) => {
     },
     hero: data.heroTitle
       ? {
-          title: data.heroTitle,
-          subtitle: data.heroSubtitle,
-          image: data.heroImage,
+          headline: data.heroTitle,
+          subheadline: data.heroSubtitle,
+          kicker: "Sannata",
         }
       : undefined,
     sections: [
       {
-        id: "summary",
+        id: "sec_summary",
         type: "summary",
         visible: true,
         payload: {
-          kind: "summary",
-          title: data.summaryTitle || "О городе",
-          subtitle: data.summarySubtitle || "Городской профиль",
-          description: data.summaryDescription || "",
+          text: summaryText || "О городе",
         },
       },
       data.highlights.length > 0
         ? {
-            id: "highlights",
+            id: "sec_highlights",
             type: "highlights",
             visible: true,
             payload: {
-              kind: "highlights",
               items: data.highlights,
             },
           }
         : null,
-      landmarks.length > 0
+      linksItems.length > 0
         ? {
-            id: "links-grid",
+            id: "sec_links_grid",
             type: "links-grid",
             visible: true,
             payload: {
-              kind: "links-grid",
-              title: data.linksGridTitle || "Достопримечательности города",
-              items: landmarks.map((landmark) => ({
-                id: `landmark-${landmark.slug}`,
-                title: landmark.title,
-                href: `/${locale}/landmarks/${citySlug}/${landmark.slug}`,
-                description:
-                  "Откройте страницу объекта для подробной информации.",
-                image: landmark.thumbnail,
-              })),
+              items: linksItems,
             },
           }
         : null,
       data.ctaText
         ? {
-            id: "cta",
+            id: "sec_cta",
             type: "cta",
             visible: true,
             payload: {
-              kind: "cta",
-              text: data.ctaText,
+              label: data.ctaText,
+              targetSlug: citySlug,
+              variant: "primary",
             },
           }
         : null,
     ].filter(Boolean),
     navigation: {
-      parentId: `landmarks:module-home:${locale}`,
-      childrenIds: landmarks.map(
-        (lm) => `landmarks:landmark-item:${citySlug}:${lm.slug}:${locale}`,
-      ),
+      parentId: null,
+      childrenIds: [],
+      siblings: [],
+      breadcrumbs: [
+        {
+          pageId,
+          title: data.title,
+          slug: citySlug,
+        },
+      ],
     },
     mediaRefs: {
       hero: data.heroImage ? [data.heroImage] : [],
@@ -297,7 +320,61 @@ export const processCollectionHomeForm = async (markdown: string) => {
   await fs.mkdir(outputDir, { recursive: true });
 
   const outputPath = path.join(outputDir, `home.${locale}.json`);
-  await fs.writeFile(outputPath, JSON.stringify(envelope, null, 2), "utf-8");
+
+  let existingEnvelope: Record<string, unknown> = {};
+  try {
+    const raw = await fs.readFile(outputPath, "utf-8");
+    existingEnvelope = JSON.parse(raw) as Record<string, unknown>;
+  } catch {
+    existingEnvelope = {};
+  }
+
+  const existingAudit =
+    existingEnvelope.audit && typeof existingEnvelope.audit === "object"
+      ? (existingEnvelope.audit as Record<string, unknown>)
+      : {};
+
+  const mergedEnvelope = {
+    ...existingEnvelope,
+    ...envelope,
+    pageId: asUuidOrNull(existingEnvelope.pageId) ?? envelope.pageId,
+    translationGroupId:
+      typeof existingEnvelope.translationGroupId === "string" &&
+      /^[A-Za-z0-9_-]{6,}$/.test(existingEnvelope.translationGroupId)
+        ? existingEnvelope.translationGroupId
+        : envelope.translationGroupId,
+    meta: {
+      ...(existingEnvelope.meta as Record<string, unknown> | undefined),
+      ...envelope.meta,
+    },
+    hero: envelope.hero
+      ? {
+          ...(existingEnvelope.hero as Record<string, unknown> | undefined),
+          ...envelope.hero,
+        }
+      : undefined,
+    sections: envelope.sections,
+    navigation: envelope.navigation,
+    mediaRefs: {
+      ...(existingEnvelope.mediaRefs as Record<string, unknown> | undefined),
+      ...envelope.mediaRefs,
+    },
+    audit: {
+      ...existingAudit,
+      createdAt:
+        typeof existingAudit.createdAt === "string"
+          ? existingAudit.createdAt
+          : timestamp,
+      updatedAt: timestamp,
+      updatedBy: "agent-form",
+    },
+  };
+
+  await fs.writeFile(
+    outputPath,
+    JSON.stringify(mergedEnvelope, null, 2),
+    "utf-8",
+  );
 
   // Also update city's data.json -> pageContent so CityPage renders saved content
   try {
@@ -357,7 +434,7 @@ export const processCollectionHomeForm = async (markdown: string) => {
     locale,
     outputPath,
     landmarksCount: landmarks.length,
-    envelope,
+    envelope: mergedEnvelope,
   };
 };
 

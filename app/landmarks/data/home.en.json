@@ -2,10 +2,10 @@
   "schemaVersion": "1.1.0",
   "moduleKey": "landmarks",
   "pageKind": "module-home",
-  "pageId": "landmarks:module-home:en",
+  "pageId": "9b2913e8-6c1e-4afd-af13-5160d1a828f1",
   "slug": "landmarks",
   "locale": "en",
-  "translationGroupId": "landmarks:module-home",
+  "translationGroupId": "tg_landmarks_module_home",
   "meta": {
     "title": "Landmarks",
     "tags": [
@@ -16,24 +16,23 @@
   },
   "hero": {
     "headline": "Hello. It’s me, Ketty.",
-    "kicker": "Sannata",
-    "image": "/uploads/module-home/stampImage-1772449138482.png"
+    "kicker": "Sannata"
   },
   "sections": [
     {
-      "id": "block-1",
-      "type": "module-home-block",
+      "id": "sec_module_home_block_1",
+      "type": "custom:module-home-block",
       "visible": true,
       "payload": {
         "title": "",
-        "text": "I don’t know where you are right now,\nbut I decided to write to you.\n\nI love walking through cities.\nSometimes for a long time.\nSometimes just a little.\nI don’t always know where I’m going.\nSometimes I choose a place because it has a beautiful name.\nSometimes because there’s a strange staircase.\nSometimes because the rain starts\nand it feels as if it’s calling me.\nI don’t look the way adults do.\nI look at cracks, at shadows,\nat windows that seem to know something.\nI listen to how a place sounds.\nSome places whisper.\nSome stay silent.\nAnd some begin to tell their stories right away.\nWhen I arrive at a very beautiful place,\nI stand still first.\nThen I walk around it.\nThen I touch it with my eyes.\nSometimes I have nothing to say.\nThen I simply remember\nhow the morning smelled\nand what color the sky was between the houses.\nAnd then I write a postcard.\nNot a long one.\nNot about everything.\nOnly about what stayed with me.\nSometimes it becomes words.\nSometimes almost a poem.\nSometimes just a feeling\nI don’t want to lose.\nI will keep traveling.\nWithout a route.\nWithout the “right” answers.\nAnd every time a place touches me,\nyou will receive a postcard from me.",
+        "text": "I don’t know where you are right now,\r\nbut I decided to write to you.\r\n\r\nI love walking through cities.\r\nSometimes for a long time.\r\nSometimes just a little.\r\nI don’t always know where I’m going.\r\nSometimes I choose a place because it has a beautiful name.\r\nSometimes because there’s a strange staircase.\r\nSometimes because the rain starts\r\nand it feels as if it’s calling me.\r\nI don’t look the way adults do.\r\nI look at cracks, at shadows,\r\nat windows that seem to know something.\r\nI listen to how a place sounds.\r\nSome places whisper.\r\nSome stay silent.\r\nAnd some begin to tell their stories right away.\r\nWhen I arrive at a very beautiful place,\r\nI stand still first.\r\nThen I walk around it.\r\nThen I touch it with my eyes.\r\nSometimes I have nothing to say.\r\nThen I simply remember\r\nhow the morning smelled\r\nand what color the sky was between the houses.\r\nAnd then I write a postcard.\r\nNot a long one.\r\nNot about everything.\r\nOnly about what stayed with me.\r\nSometimes it becomes words.\r\nSometimes almost a poem.\r\nSometimes just a feeling\r\nI don’t want to lose.\r\nI will keep traveling.\r\nWithout a route.\r\nWithout the “right” answers.\r\nAnd every time a place touches me,\r\nyou will receive a postcard from me.",
         "illustrationLeft": "## D. Иллюстрация блока 1 - Справа",
         "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
       }
     },
     {
-      "id": "block-2",
-      "type": "module-home-block",
+      "id": "sec_module_home_block_2",
+      "type": "custom:module-home-block",
       "visible": true,
       "payload": {
         "title": "",
@@ -43,8 +42,8 @@
       }
     },
     {
-      "id": "block-3",
-      "type": "module-home-block",
+      "id": "sec_module_home_block_3",
+      "type": "custom:module-home-block",
       "visible": true,
       "payload": {
         "title": "",
@@ -54,8 +53,8 @@
       }
     },
     {
-      "id": "closing",
-      "type": "module-home-closing",
+      "id": "sec_module_home_closing",
+      "type": "custom:module-home-closing",
       "visible": true,
       "payload": {
         "text": "Postcards don’t follow schedules."
@@ -77,7 +76,19 @@
   },
   "audit": {
     "createdAt": "2026-03-03T20:05:56.463Z",
-    "updatedAt": "2026-03-03T20:05:56.463Z",
+    "updatedAt": "2026-03-06T12:42:22.963Z",
     "updatedBy": "agent-form"
+  },
+  "navigation": {
+    "parentId": null,
+    "childrenIds": [],
+    "siblings": [],
+    "breadcrumbs": [
+      {
+        "pageId": "9b2913e8-6c1e-4afd-af13-5160d1a828f1",
+        "title": "Landmarks",
+        "slug": "landmarks"
+      }
+    ]
   }
 }

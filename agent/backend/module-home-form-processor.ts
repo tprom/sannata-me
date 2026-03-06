@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import { randomUUID } from "crypto";
 
 type LocaleCode = "ru" | "en" | "de" | "uk";
 
@@ -84,6 +85,14 @@ const asRecord = (value: unknown): Record<string, unknown> => {
   return value as Record<string, unknown>;
 };
 
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+const asUuidOrNull = (value: unknown): string | null => {
+  if (typeof value !== "string") return null;
+  return UUID_RE.test(value) ? value : null;
+};
+
 export const parseModuleHomeForm = (markdown: string): ModuleHomeFormData => {
   return {
     greetingRu:
@@ -157,8 +166,8 @@ export const processModuleHomeForm = async (markdown: string) => {
 
       const blocks = [
         {
-          id: "block-1",
-          type: "module-home-block",
+          id: "sec_module_home_block_1",
+          type: "custom:module-home-block",
           visible: true,
           payload: {
             title: "",
@@ -168,8 +177,8 @@ export const processModuleHomeForm = async (markdown: string) => {
           },
         },
         {
-          id: "block-2",
-          type: "module-home-block",
+          id: "sec_module_home_block_2",
+          type: "custom:module-home-block",
           visible: true,
           payload: {
             title: "",
@@ -179,8 +188,8 @@ export const processModuleHomeForm = async (markdown: string) => {
           },
         },
         {
-          id: "block-3",
-          type: "module-home-block",
+          id: "sec_module_home_block_3",
+          type: "custom:module-home-block",
           visible: true,
           payload: {
             title: "",
@@ -191,7 +200,16 @@ export const processModuleHomeForm = async (markdown: string) => {
         },
       ];
 
-      const pageId = `landmarks:module-home:${locale}`;
+      const outPath = path.join(outputDir, `home.${locale}.json`);
+      let existingEnvelope: Record<string, unknown> = {};
+      try {
+        const raw = await fs.readFile(outPath, "utf-8");
+        existingEnvelope = asRecord(JSON.parse(raw));
+      } catch {
+        existingEnvelope = {};
+      }
+
+      const pageId = asUuidOrNull(existingEnvelope.pageId) ?? randomUUID();
       const envelope = {
         schemaVersion: "1.1.0",
         moduleKey: "landmarks",
@@ -199,7 +217,7 @@ export const processModuleHomeForm = async (markdown: string) => {
         pageId,
         slug: "landmarks",
         locale,
-        translationGroupId: "landmarks:module-home",
+        translationGroupId: "tg_landmarks_module_home",
         meta: {
           title: "Landmarks",
           tags: ["landmarks", "module-home"],
@@ -208,17 +226,28 @@ export const processModuleHomeForm = async (markdown: string) => {
         hero: {
           headline: localeGreetings[locale],
           kicker: "Sannata",
-          image: data.stampImage || "",
         },
         sections: [
           ...blocks,
           {
-            id: "closing",
-            type: "module-home-closing",
+            id: "sec_module_home_closing",
+            type: "custom:module-home-closing",
             visible: true,
             payload: { text: localeClosingTexts[locale] },
           },
         ],
+        navigation: {
+          parentId: null,
+          childrenIds: [],
+          siblings: [],
+          breadcrumbs: [
+            {
+              pageId,
+              title: "Landmarks",
+              slug: "landmarks",
+            },
+          ],
+        },
         mediaRefs: {
           hero: data.stampImage ? [data.stampImage] : [],
           sections: blocks
@@ -235,15 +264,6 @@ export const processModuleHomeForm = async (markdown: string) => {
         },
       };
 
-      const outPath = path.join(outputDir, `home.${locale}.json`);
-      let existingEnvelope: Record<string, unknown> = {};
-      try {
-        const raw = await fs.readFile(outPath, "utf-8");
-        existingEnvelope = asRecord(JSON.parse(raw));
-      } catch {
-        existingEnvelope = {};
-      }
-
       const existingAudit = asRecord(existingEnvelope.audit);
       const createdAt =
         typeof existingAudit.createdAt === "string"
@@ -257,15 +277,13 @@ export const processModuleHomeForm = async (markdown: string) => {
           ...asRecord(existingEnvelope.meta),
           ...envelope.meta,
         },
-        hero: {
-          ...asRecord(existingEnvelope.hero),
-          ...envelope.hero,
-        },
+        hero: envelope.hero,
         mediaRefs: {
           ...asRecord(existingEnvelope.mediaRefs),
           ...envelope.mediaRefs,
         },
         sections: envelope.sections,
+        navigation: envelope.navigation,
         audit: {
           ...existingAudit,
           createdAt,
