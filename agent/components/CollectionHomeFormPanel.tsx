@@ -46,7 +46,7 @@ const createIllustration = (): IllustrationDraft => ({
 });
 
 const parseField = (markdown: string, key: string): string => {
-  const m = markdown.match(new RegExp(`^${key}:\\s*(.*)$`, "m"));
+  const m = markdown.match(new RegExp(`^${key}:[ \\t]*([^\\r\\n]*)$`, "m"));
   return m ? m[1].trim() : "";
 };
 
@@ -63,7 +63,7 @@ const parseBoolean = (value: string, fallback: boolean): boolean => {
 
 const parseIllustrations = (markdown: string): IllustrationDraft[] => {
   const indexSet = new Set<number>();
-  const pattern = /illustration\[(\d+)\]\.[a-zA-Z0-9.]+:\s*(.*)$/gm;
+  const pattern = /illustration\[(\d+)\]\.[a-zA-Z0-9.]+:[ \t]*([^\r\n]*)$/gm;
   for (const match of markdown.matchAll(pattern)) {
     indexSet.add(Number.parseInt(match[1], 10));
   }
