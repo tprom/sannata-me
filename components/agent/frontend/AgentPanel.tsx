@@ -8,7 +8,6 @@ import { FormRenderer } from "./FormRenderer";
 import { ChildPatternsForm } from "./ChildPatternsForm";
 import { Chat } from "./Chat";
 import { Sidebar } from "./Sidebar";
-import { FormPanel } from "@/agent/components/FormPanel";
 import { MarkdownFormPanel } from "@/agent/components/MarkdownFormPanel";
 import { default as ModuleHomeFormPanel } from "@/agent/components/ModuleHomeFormPanel";
 import CollectionHomeFormPanel from "@/agent/components/CollectionHomeFormPanel";
@@ -863,7 +862,7 @@ export function AgentPanel() {
             />
           ) : activeForm === "landmarkForm" && selectedLandmarkForm ? (
             selectedLandmarkForm === "city" ? (
-              <FormPanel />
+              <MarkdownFormPanel formType="city" />
             ) : selectedLandmarkForm === "module-home" ? (
               <ModuleHomeFormPanel />
             ) : selectedLandmarkForm === "collection-home" ? (
