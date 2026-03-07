@@ -6,6 +6,110 @@ import styles from "./ModuleHomeFormPanel.module.css";
 type Props = {};
 type CityOption = { cityId: string; slug: string; label: string };
 
+type LocaleCode = "en" | "de" | "ru" | "uk";
+
+type IllustrationDraft = {
+  image: string;
+  caption: Record<LocaleCode, string>;
+  size: "small" | "medium" | "large";
+  type: "ketty-drawing" | "photo" | "decor";
+  position: "left" | "right" | "center";
+  wrap: boolean;
+  shadow: boolean;
+  border: boolean;
+  rotate: string;
+  insertWhere: "before" | "after";
+  insertParagraph: string;
+  anchor: string;
+};
+
+const emptyLocalized = (): Record<LocaleCode, string> => ({
+  en: "",
+  de: "",
+  ru: "",
+  uk: "",
+});
+
+const createIllustration = (): IllustrationDraft => ({
+  image: "",
+  caption: emptyLocalized(),
+  size: "medium",
+  type: "ketty-drawing",
+  position: "right",
+  wrap: true,
+  shadow: false,
+  border: false,
+  rotate: "0",
+  insertWhere: "after",
+  insertParagraph: "1",
+  anchor: "",
+});
+
+const parseField = (markdown: string, key: string): string => {
+  const m = markdown.match(new RegExp(`^${key}:\\s*(.*)$`, "m"));
+  return m ? m[1].trim() : "";
+};
+
+const parseBoolean = (value: string, fallback: boolean): boolean => {
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "true" || normalized === "1" || normalized === "yes") {
+    return true;
+  }
+  if (normalized === "false" || normalized === "0" || normalized === "no") {
+    return false;
+  }
+  return fallback;
+};
+
+const parseIllustrations = (markdown: string): IllustrationDraft[] => {
+  const indexSet = new Set<number>();
+  const pattern = /illustration\[(\d+)\]\.[a-zA-Z0-9.]+:\s*(.*)$/gm;
+  for (const match of markdown.matchAll(pattern)) {
+    indexSet.add(Number.parseInt(match[1], 10));
+  }
+
+  const indices = [...indexSet].sort((a, b) => a - b);
+  return indices.map((index) => {
+    const prefix = `illustration[${index}]`;
+    return {
+      image: parseField(markdown, `${prefix}\\.image`),
+      caption: {
+        en: parseField(markdown, `${prefix}\\.caption\\.en`),
+        de: parseField(markdown, `${prefix}\\.caption\\.de`),
+        ru: parseField(markdown, `${prefix}\\.caption\\.ru`),
+        uk: parseField(markdown, `${prefix}\\.caption\\.uk`),
+      },
+      size:
+        (parseField(
+          markdown,
+          `${prefix}\\.size`,
+        ) as IllustrationDraft["size"]) || "medium",
+      type:
+        (parseField(
+          markdown,
+          `${prefix}\\.type`,
+        ) as IllustrationDraft["type"]) || "ketty-drawing",
+      position:
+        (parseField(
+          markdown,
+          `${prefix}\\.position`,
+        ) as IllustrationDraft["position"]) || "right",
+      wrap: parseBoolean(parseField(markdown, `${prefix}\\.wrap`), true),
+      shadow: parseBoolean(parseField(markdown, `${prefix}\\.shadow`), false),
+      border: parseBoolean(parseField(markdown, `${prefix}\\.border`), false),
+      rotate: parseField(markdown, `${prefix}\\.rotate`) || "0",
+      insertWhere:
+        (parseField(
+          markdown,
+          `${prefix}\\.insert\\.where`,
+        ) as IllustrationDraft["insertWhere"]) || "after",
+      insertParagraph:
+        parseField(markdown, `${prefix}\\.insert\\.paragraph`) || "1",
+      anchor: parseField(markdown, `${prefix}\\.anchor`),
+    };
+  });
+};
+
 export default function CollectionHomeFormPanel(_props: Props) {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -13,21 +117,14 @@ export default function CollectionHomeFormPanel(_props: Props) {
 
   const [cityOptions, setCityOptions] = useState<CityOption[]>([]);
   const [cityId, setCityId] = useState("");
-  const [citySlug, setCitySlug] = useState("");
-  const [locale, setLocale] = useState("ru");
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const [tags, setTags] = useState("");
-  const [status, setStatus] = useState("draft");
-  const [heroTitle, setHeroTitle] = useState("");
-  const [heroSubtitle, setHeroSubtitle] = useState("");
-  const [heroImage, setHeroImage] = useState("");
-  const [summaryTitle, setSummaryTitle] = useState("");
-  const [summarySubtitle, setSummarySubtitle] = useState("");
-  const [summaryDescription, setSummaryDescription] = useState("");
-  const [highlights, setHighlights] = useState("");
-  const [linksGridTitle, setLinksGridTitle] = useState("");
-  const [ctaText, setCtaText] = useState("");
+  const [panorama, setPanorama] = useState("");
+  const [greeting, setGreeting] =
+    useState<Record<LocaleCode, string>>(emptyLocalized());
+  const [description, setDescription] =
+    useState<Record<LocaleCode, string>>(emptyLocalized());
+  const [invitation, setInvitation] =
+    useState<Record<LocaleCode, string>>(emptyLocalized());
+  const [illustrations, setIllustrations] = useState<IllustrationDraft[]>([]);
 
   useEffect(() => {
     loadForm();
@@ -47,46 +144,34 @@ export default function CollectionHomeFormPanel(_props: Props) {
         : [];
       setCityOptions(options);
 
-      // Try to parse some common keys from the payload.content markdown
       const md = payload.content || "";
-      const kv = (key: string) => {
-        const m = md.match(new RegExp(`^${key}:\\s*(.+)$`, "m"));
-        return m ? m[1].trim() : "";
-      };
 
-      const parsedCityId = kv("cityId") || "";
-      const parsedCitySlug = kv("citySlug") || "";
-
+      const parsedCityId = parseField(md, "cityId");
       setCityId(parsedCityId);
-      setCitySlug(parsedCitySlug);
+      setPanorama(parseField(md, "panorama"));
 
-      if (!parsedCityId && parsedCitySlug) {
-        const matched = options.find((item) => item.slug === parsedCitySlug);
-        if (matched) {
-          setCityId(matched.cityId);
-        }
-      }
+      setGreeting({
+        en: parseField(md, "greeting\\.en"),
+        de: parseField(md, "greeting\\.de"),
+        ru: parseField(md, "greeting\\.ru"),
+        uk: parseField(md, "greeting\\.uk"),
+      });
 
-      setLocale(kv("locale") || "ru");
-      setTitle(kv("title") || "");
-      setSubtitle(kv("subtitle") || "");
-      setTags(kv("tags") || "");
-      setStatus(kv("status") || "draft");
-      setHeroTitle(kv("heroTitle") || "");
-      setHeroSubtitle(kv("heroSubtitle") || "");
-      setHeroImage(kv("heroImage") || "");
-      setSummaryTitle(kv("summaryTitle") || "");
-      setSummarySubtitle(kv("summarySubtitle") || "");
-      setSummaryDescription(kv("summaryDescription") || "");
+      setDescription({
+        en: parseField(md, "description\\.en"),
+        de: parseField(md, "description\\.de"),
+        ru: parseField(md, "description\\.ru"),
+        uk: parseField(md, "description\\.uk"),
+      });
 
-      // highlights as highlight1, highlight2 ... collect them
-      const highlightsMatches = Array.from(
-        md.matchAll(/^highlight\d+:\s*(.+)$/gm),
-      ).map((r) => r[1].trim());
-      setHighlights(highlightsMatches.join("\n"));
+      setInvitation({
+        en: parseField(md, "invitation\\.en"),
+        de: parseField(md, "invitation\\.de"),
+        ru: parseField(md, "invitation\\.ru"),
+        uk: parseField(md, "invitation\\.uk"),
+      });
 
-      setLinksGridTitle(kv("linksGridTitle") || "");
-      setCtaText(kv("ctaText") || "");
+      setIllustrations(parseIllustrations(md));
 
       setMessage("Форма загружена");
     } catch (err) {
@@ -100,56 +185,147 @@ export default function CollectionHomeFormPanel(_props: Props) {
     const lines: string[] = [];
     lines.push("# Форма страницы города (collection-home)");
     lines.push("");
-    lines.push("## A. Город");
+    lines.push("## 1. Выбор города");
     lines.push("");
-    if (cityId) lines.push(`cityId: ${cityId}`);
-    lines.push(`citySlug: ${citySlug}`);
-    lines.push(`locale: ${locale}`);
+    lines.push(`cityId: ${cityId}`);
     lines.push("");
-    lines.push("## B. Метаданные");
+
+    lines.push("## 2. Панорама города");
     lines.push("");
-    lines.push(`title: ${title}`);
-    lines.push(`subtitle: ${subtitle}`);
-    if (tags) lines.push(`tags: ${tags}`);
-    lines.push(`status: ${status}`);
+    lines.push(`panorama: ${panorama}`);
     lines.push("");
-    lines.push("## C. Hero");
+
+    lines.push("## 3. Приветствие Кетти");
     lines.push("");
-    if (heroTitle) lines.push(`heroTitle: ${heroTitle}`);
-    if (heroSubtitle) lines.push(`heroSubtitle: ${heroSubtitle}`);
-    if (heroImage) lines.push(`heroImage: ${heroImage}`);
+    lines.push(`greeting.en: ${greeting.en}`);
+    lines.push(`greeting.de: ${greeting.de}`);
+    lines.push(`greeting.ru: ${greeting.ru}`);
+    lines.push(`greeting.uk: ${greeting.uk}`);
     lines.push("");
-    lines.push("## D. Summary секция");
+
+    lines.push("## 4. Описание (восприятие Кетти)");
     lines.push("");
-    if (summaryTitle) lines.push(`summaryTitle: ${summaryTitle}`);
-    if (summarySubtitle) lines.push(`summarySubtitle: ${summarySubtitle}`);
-    if (summaryDescription)
-      lines.push(`summaryDescription: ${summaryDescription}`);
+    lines.push(`description.en: ${description.en}`);
+    lines.push(`description.de: ${description.de}`);
+    lines.push(`description.ru: ${description.ru}`);
+    lines.push(`description.uk: ${description.uk}`);
     lines.push("");
-    if (highlights.trim()) {
-      highlights
-        .split(/\r?\n/)
-        .map((s) => s.trim())
-        .filter(Boolean)
-        .forEach((h, i) => lines.push(`highlight${i + 1}: ${h}`));
+
+    lines.push("## 5. Иллюстрации (динамический список)");
+    lines.push("");
+    illustrations.forEach((item, index) => {
+      lines.push(`illustration[${index}].image: ${item.image}`);
+      lines.push(`illustration[${index}].caption.en: ${item.caption.en}`);
+      lines.push(`illustration[${index}].caption.de: ${item.caption.de}`);
+      lines.push(`illustration[${index}].caption.ru: ${item.caption.ru}`);
+      lines.push(`illustration[${index}].caption.uk: ${item.caption.uk}`);
+      lines.push(`illustration[${index}].size: ${item.size}`);
+      lines.push(`illustration[${index}].type: ${item.type}`);
+      lines.push(`illustration[${index}].position: ${item.position}`);
+      lines.push(`illustration[${index}].wrap: ${item.wrap}`);
+      lines.push(`illustration[${index}].shadow: ${item.shadow}`);
+      lines.push(`illustration[${index}].border: ${item.border}`);
+      lines.push(`illustration[${index}].rotate: ${item.rotate}`);
+      lines.push(`illustration[${index}].insert.where: ${item.insertWhere}`);
+      lines.push(
+        `illustration[${index}].insert.paragraph: ${item.insertParagraph}`,
+      );
+      lines.push(`illustration[${index}].anchor: ${item.anchor}`);
       lines.push("");
-    }
-    if (linksGridTitle) {
-      lines.push("## F. Links-grid секция");
-      lines.push("");
-      lines.push(`linksGridTitle: ${linksGridTitle}`);
-      lines.push("");
-    }
-    if (ctaText) {
-      lines.push("## G. CTA секция");
-      lines.push("");
-      lines.push(`ctaText: ${ctaText}`);
-      lines.push("");
-    }
+    });
+
+    lines.push("## 6. Приглашение Кетти");
+    lines.push("");
+    lines.push(`invitation.en: ${invitation.en}`);
+    lines.push(`invitation.de: ${invitation.de}`);
+    lines.push(`invitation.ru: ${invitation.ru}`);
+    lines.push(`invitation.uk: ${invitation.uk}`);
+    lines.push("");
+
     return lines.join("\n");
   };
 
+  const updateLocalized = (
+    setter: React.Dispatch<React.SetStateAction<Record<LocaleCode, string>>>,
+    locale: LocaleCode,
+    value: string,
+  ) => {
+    setter((prev) => ({ ...prev, [locale]: value }));
+  };
+
+  const updateIllustration = (
+    index: number,
+    patch: Partial<IllustrationDraft>,
+  ) => {
+    setIllustrations((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, ...patch } : item)),
+    );
+  };
+
+  const updateIllustrationCaption = (
+    index: number,
+    locale: LocaleCode,
+    value: string,
+  ) => {
+    setIllustrations((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? { ...item, caption: { ...item.caption, [locale]: value } }
+          : item,
+      ),
+    );
+  };
+
+  const uploadImageFile = async (
+    file: File,
+    fieldName: string,
+    onDone: (path: string) => void,
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("fieldName", fieldName);
+
+      const response = await fetch("/api/agent/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => null);
+        setMessage(
+          `Ошибка загрузки файла: ${error?.message ?? response.statusText}`,
+        );
+        return;
+      }
+
+      const payload = await response.json();
+      onDone(payload.path || "");
+    } catch (error) {
+      setMessage(`Ошибка загрузки: ${String(error)}`);
+    }
+  };
+
+  const handlePanoramaUpload = async (file: File | null) => {
+    if (!file) return;
+    await uploadImageFile(file, "city-panorama", (imagePath) => {
+      setPanorama(imagePath);
+    });
+  };
+
+  const handleIllustrationUpload = async (index: number, file: File | null) => {
+    if (!file) return;
+    await uploadImageFile(file, `city-illustration-${index}`, (imagePath) => {
+      updateIllustration(index, { image: imagePath });
+    });
+  };
+
   const handleSave = async () => {
+    if (!cityId) {
+      setMessage("Выберите cityId.");
+      return;
+    }
+
     setSaving(true);
     try {
       const markdown = buildMarkdown();
@@ -174,26 +350,15 @@ export default function CollectionHomeFormPanel(_props: Props) {
 
   if (loading) return <div className={styles.container}>Загрузка...</div>;
 
-  const handleCityIdChange = (nextCityId: string) => {
-    setCityId(nextCityId);
-    const matched = cityOptions.find((item) => item.cityId === nextCityId);
-    if (matched?.slug) {
-      setCitySlug(matched.slug);
-    }
-  };
-
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Форма страницы города (Collection Home)</h2>
+      <h2 className={styles.title}>Форма страницы города (новый контракт)</h2>
 
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>A. Город</legend>
+        <legend className={styles.legend}>1. Выбор города</legend>
         <div className={styles.field}>
           <label className={styles.label}>cityId</label>
-          <select
-            value={cityId}
-            onChange={(e) => handleCityIdChange(e.target.value)}
-          >
+          <select value={cityId} onChange={(e) => setCityId(e.target.value)}>
             <option value="">(выберите город)</option>
             {cityOptions.map((item) => (
               <option key={item.cityId} value={item.cityId}>
@@ -202,120 +367,258 @@ export default function CollectionHomeFormPanel(_props: Props) {
             ))}
           </select>
         </div>
-        <div className={styles.field}>
-          <label className={styles.label}>citySlug</label>
-          <input
-            value={citySlug}
-            onChange={(e) => setCitySlug(e.target.value)}
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>locale</label>
-          <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-            <option value="ru">ru</option>
-            <option value="en">en</option>
-            <option value="de">de</option>
-            <option value="uk">uk</option>
-          </select>
-        </div>
       </fieldset>
 
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>B. Метаданные</legend>
+        <legend className={styles.legend}>2. Панорама города</legend>
         <div className={styles.field}>
-          <label className={styles.label}>title</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>subtitle</label>
+          <label className={styles.label}>panorama</label>
           <input
-            value={subtitle}
-            onChange={(e) => setSubtitle(e.target.value)}
+            value={panorama}
+            onChange={(e) => setPanorama(e.target.value)}
           />
         </div>
         <div className={styles.field}>
-          <label className={styles.label}>tags (comma)</label>
-          <input value={tags} onChange={(e) => setTags(e.target.value)} />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>status</label>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="draft">draft</option>
-            <option value="published">published</option>
-          </select>
-        </div>
-      </fieldset>
-
-      <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>C. Hero</legend>
-        <div className={styles.field}>
-          <label className={styles.label}>heroTitle</label>
+          <label className={styles.label}>upload panorama</label>
           <input
-            value={heroTitle}
-            onChange={(e) => setHeroTitle(e.target.value)}
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>heroSubtitle</label>
-          <input
-            value={heroSubtitle}
-            onChange={(e) => setHeroSubtitle(e.target.value)}
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>heroImage</label>
-          <input
-            value={heroImage}
-            onChange={(e) => setHeroImage(e.target.value)}
+            type="file"
+            accept="image/*"
+            onChange={(e) => handlePanoramaUpload(e.target.files?.[0] ?? null)}
           />
         </div>
       </fieldset>
 
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>D. Summary</legend>
-        <div className={styles.field}>
-          <label className={styles.label}>summaryTitle</label>
-          <input
-            value={summaryTitle}
-            onChange={(e) => setSummaryTitle(e.target.value)}
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>summarySubtitle</label>
-          <input
-            value={summarySubtitle}
-            onChange={(e) => setSummarySubtitle(e.target.value)}
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>summaryDescription</label>
-          <textarea
-            value={summaryDescription}
-            onChange={(e) => setSummaryDescription(e.target.value)}
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>highlights (one per line)</label>
-          <textarea
-            value={highlights}
-            onChange={(e) => setHighlights(e.target.value)}
-          />
+        <legend className={styles.legend}>3. Приветствие Кетти</legend>
+        {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+          <div className={styles.field} key={`greeting-${locale}`}>
+            <label className={styles.label}>{`greeting.${locale}`}</label>
+            <textarea
+              value={greeting[locale]}
+              onChange={(e) =>
+                updateLocalized(setGreeting, locale, e.target.value)
+              }
+            />
+          </div>
+        ))}
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>
+          4. Описание (восприятие Кетти)
+        </legend>
+        {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+          <div className={styles.field} key={`description-${locale}`}>
+            <label className={styles.label}>{`description.${locale}`}</label>
+            <textarea
+              value={description[locale]}
+              onChange={(e) =>
+                updateLocalized(setDescription, locale, e.target.value)
+              }
+            />
+          </div>
+        ))}
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>5. Иллюстрации</legend>
+        {illustrations.map((item, index) => (
+          <div
+            key={`ill-${index}`}
+            style={{
+              borderTop: "1px solid #ddd",
+              paddingTop: 12,
+              marginTop: 12,
+            }}
+          >
+            <div className={styles.field}>
+              <label
+                className={styles.label}
+              >{`illustration[${index}].image`}</label>
+              <input
+                value={item.image}
+                onChange={(e) =>
+                  updateIllustration(index, { image: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>upload image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  handleIllustrationUpload(index, e.target.files?.[0] ?? null)
+                }
+              />
+            </div>
+            {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+              <div className={styles.field} key={`ill-cap-${index}-${locale}`}>
+                <label className={styles.label}>{`caption.${locale}`}</label>
+                <input
+                  value={item.caption[locale]}
+                  onChange={(e) =>
+                    updateIllustrationCaption(index, locale, e.target.value)
+                  }
+                />
+              </div>
+            ))}
+            <div className={styles.field}>
+              <label className={styles.label}>size</label>
+              <select
+                value={item.size}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    size: e.target.value as IllustrationDraft["size"],
+                  })
+                }
+              >
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large">large</option>
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>type</label>
+              <select
+                value={item.type}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    type: e.target.value as IllustrationDraft["type"],
+                  })
+                }
+              >
+                <option value="ketty-drawing">ketty-drawing</option>
+                <option value="photo">photo</option>
+                <option value="decor">decor</option>
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>position</label>
+              <select
+                value={item.position}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    position: e.target.value as IllustrationDraft["position"],
+                  })
+                }
+              >
+                <option value="left">left</option>
+                <option value="right">right</option>
+                <option value="center">center</option>
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>insert.where</label>
+              <select
+                value={item.insertWhere}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    insertWhere: e.target
+                      .value as IllustrationDraft["insertWhere"],
+                  })
+                }
+              >
+                <option value="before">before</option>
+                <option value="after">after</option>
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>insert.paragraph</label>
+              <input
+                value={item.insertParagraph}
+                onChange={(e) =>
+                  updateIllustration(index, { insertParagraph: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>rotate (-10..10)</label>
+              <input
+                value={item.rotate}
+                onChange={(e) =>
+                  updateIllustration(index, { rotate: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>anchor (optional)</label>
+              <input
+                value={item.anchor}
+                onChange={(e) =>
+                  updateIllustration(index, { anchor: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={item.wrap}
+                  onChange={(e) =>
+                    updateIllustration(index, { wrap: e.target.checked })
+                  }
+                />{" "}
+                wrap
+              </label>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={item.shadow}
+                  onChange={(e) =>
+                    updateIllustration(index, { shadow: e.target.checked })
+                  }
+                />{" "}
+                shadow
+              </label>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={item.border}
+                  onChange={(e) =>
+                    updateIllustration(index, { border: e.target.checked })
+                  }
+                />{" "}
+                border
+              </label>
+            </div>
+            <button
+              type="button"
+              className="agent-button"
+              onClick={() =>
+                setIllustrations((prev) => prev.filter((_, i) => i !== index))
+              }
+            >
+              Удалить
+            </button>
+          </div>
+        ))}
+        <div style={{ marginTop: 12 }}>
+          <button
+            type="button"
+            className="agent-button"
+            onClick={() =>
+              setIllustrations((prev) => [...prev, createIllustration()])
+            }
+          >
+            Добавить иллюстрацию
+          </button>
         </div>
       </fieldset>
 
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>F/G. Links & CTA</legend>
-        <div className={styles.field}>
-          <label className={styles.label}>linksGridTitle</label>
-          <input
-            value={linksGridTitle}
-            onChange={(e) => setLinksGridTitle(e.target.value)}
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>ctaText</label>
-          <input value={ctaText} onChange={(e) => setCtaText(e.target.value)} />
-        </div>
+        <legend className={styles.legend}>6. Приглашение Кетти</legend>
+        {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+          <div className={styles.field} key={`invitation-${locale}`}>
+            <label className={styles.label}>{`invitation.${locale}`}</label>
+            <textarea
+              value={invitation[locale]}
+              onChange={(e) =>
+                updateLocalized(setInvitation, locale, e.target.value)
+              }
+            />
+          </div>
+        ))}
       </fieldset>
 
       <div style={{ marginTop: 12 }}>

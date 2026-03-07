@@ -1,58 +1,57 @@
 # Форма страницы города (collection-home)
 
-Эта форма создаёт или обновляет главную страницу города в модуле landmarks.
+Форма создаёт и обновляет контент страницы города по новому контракту.
+Создание города выполняется в отдельной форме (city registry).
 
-**Структура:** envelope с pageKind: "collection-home"
-
-## A. Город
+## 1. Выбор города
 
 cityId: (выберите из справочника ниже)
-citySlug: (выберите из справочника ниже)
-locale: ru
 
-## B. Метаданные
+## 2. Панорама города
 
-title: Аугсбург
-subtitle: Исторический город Баварии
-tags: landmarks, city, augsburg
-status: published
+panorama: /uploads/module-home/panorama-city.jpg
 
-## C. Hero
+## 3. Приветствие Кетти
 
-heroTitle: Аугсбург
-heroSubtitle: Город ренессансной архитектуры
-heroImage: /images/cities/augsburg/hero.jpg
+greeting.en:
+greeting.de:
+greeting.ru:
+greeting.uk:
 
-## D. Summary секция
+## 4. Описание (восприятие Кетти)
 
-summaryTitle: О городе
-summarySubtitle: Городской профиль
-summaryDescription: Аугсбург — третий по величине город Баварии после Мюнхена и Нюрнберга. Город богат историей, здесь родился архитектурный стиль "аугсбургские дома".
+description.en:
+description.de:
+description.ru:
+description.uk:
 
-## E. Highlights (по одной на строку)
+## 5. Иллюстрации (динамический список)
 
-highlight1: Достопримечательностей в городе
-highlight2: Выберите табличку в меню для подробной информации
-highlight3: Контент синхронизирован с каталогом data/landmarks
+<!-- Пример блока иллюстрации -->
 
-## F. Links-grid секция
+illustration[0].image:
+illustration[0].caption.en:
+illustration[0].caption.de:
+illustration[0].caption.ru:
+illustration[0].caption.uk:
+illustration[0].size: medium
+illustration[0].type: ketty-drawing
+illustration[0].position: right
+illustration[0].wrap: true
+illustration[0].shadow: false
+illustration[0].border: false
+illustration[0].rotate: 0
+illustration[0].insert.where: after
+illustration[0].insert.paragraph: 1
+illustration[0].anchor:
 
-linksGridTitle: Достопримечательности города
+## 6. Приглашение Кетти
 
-<!-- Ссылки генерируются автоматически из landmark-файлов города -->
+invitation.en:
+invitation.de:
+invitation.ru:
+invitation.uk:
 
-## G. CTA секция
+## 7. Справочник городов (read-only)
 
-ctaText: Блок расширяется по мере наполнения города новыми объектами и медиаматериалами.
-
-## H. Служебные поля (авто)
-
-pageKind: collection-home
-moduleKey: landmarks
-pageId: (генерируется автоматически)
-slug: (берётся из citySlug)
-schemaVersion: 1.1.0
-
-## I. Справочник городов (read-only)
-
-Список городов будет загружен автоматически при открытии формы.
+Список городов загружается автоматически при открытии формы.

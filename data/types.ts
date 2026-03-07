@@ -48,6 +48,8 @@ export interface IllustrationBlock {
 
 /** Контент страницы города (V1.3) */
 export interface CityPageContent {
+  /** Панорама города для верхнего блока */
+  panorama?: string;
   /** Приветствие — отображается в самом верху страницы */
   greeting?: LocalizedString;
   /** Описание города — текстовый блок без изображений */
