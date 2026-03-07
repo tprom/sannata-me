@@ -8,6 +8,13 @@ type CityOption = { cityId: string; slug: string; label: string };
 
 type LocaleCode = "en" | "de" | "ru" | "uk";
 
+const localeNames: Record<LocaleCode, string> = {
+  en: "английский",
+  de: "немецкий",
+  ru: "русский",
+  uk: "украинский",
+};
+
 type IllustrationDraft = {
   image: string;
   caption: Record<LocaleCode, string>;
@@ -357,7 +364,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>1. Выбор города</legend>
         <div className={styles.field}>
-          <label className={styles.label}>cityId</label>
+          <label className={styles.label}>Город (cityId)</label>
           <select value={cityId} onChange={(e) => setCityId(e.target.value)}>
             <option value="">(выберите город)</option>
             {cityOptions.map((item) => (
@@ -372,14 +379,14 @@ export default function CollectionHomeFormPanel(_props: Props) {
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>2. Панорама города</legend>
         <div className={styles.field}>
-          <label className={styles.label}>panorama</label>
+          <label className={styles.label}>Путь к панораме</label>
           <input
             value={panorama}
             onChange={(e) => setPanorama(e.target.value)}
           />
         </div>
         <div className={styles.field}>
-          <label className={styles.label}>upload panorama</label>
+          <label className={styles.label}>Загрузить панораму</label>
           <input
             type="file"
             accept="image/*"
@@ -392,7 +399,9 @@ export default function CollectionHomeFormPanel(_props: Props) {
         <legend className={styles.legend}>3. Приветствие Кетти</legend>
         {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
           <div className={styles.field} key={`greeting-${locale}`}>
-            <label className={styles.label}>{`greeting.${locale}`}</label>
+            <label
+              className={styles.label}
+            >{`Приветствие (${localeNames[locale]})`}</label>
             <textarea
               value={greeting[locale]}
               onChange={(e) =>
@@ -409,7 +418,9 @@ export default function CollectionHomeFormPanel(_props: Props) {
         </legend>
         {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
           <div className={styles.field} key={`description-${locale}`}>
-            <label className={styles.label}>{`description.${locale}`}</label>
+            <label
+              className={styles.label}
+            >{`Описание (${localeNames[locale]})`}</label>
             <textarea
               value={description[locale]}
               onChange={(e) =>
@@ -434,7 +445,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
             <div className={styles.field}>
               <label
                 className={styles.label}
-              >{`illustration[${index}].image`}</label>
+              >{`Изображение иллюстрации #${index + 1}`}</label>
               <input
                 value={item.image}
                 onChange={(e) =>
@@ -443,7 +454,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>upload image</label>
+              <label className={styles.label}>Загрузить изображение</label>
               <input
                 type="file"
                 accept="image/*"
@@ -454,7 +465,9 @@ export default function CollectionHomeFormPanel(_props: Props) {
             </div>
             {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
               <div className={styles.field} key={`ill-cap-${index}-${locale}`}>
-                <label className={styles.label}>{`caption.${locale}`}</label>
+                <label
+                  className={styles.label}
+                >{`Подпись (${localeNames[locale]})`}</label>
                 <input
                   value={item.caption[locale]}
                   onChange={(e) =>
@@ -464,7 +477,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
               </div>
             ))}
             <div className={styles.field}>
-              <label className={styles.label}>size</label>
+              <label className={styles.label}>Размер</label>
               <select
                 value={item.size}
                 onChange={(e) =>
@@ -473,13 +486,13 @@ export default function CollectionHomeFormPanel(_props: Props) {
                   })
                 }
               >
-                <option value="small">small</option>
-                <option value="medium">medium</option>
-                <option value="large">large</option>
+                <option value="small">Маленький</option>
+                <option value="medium">Средний</option>
+                <option value="large">Большой</option>
               </select>
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>type</label>
+              <label className={styles.label}>Тип</label>
               <select
                 value={item.type}
                 onChange={(e) =>
@@ -488,13 +501,13 @@ export default function CollectionHomeFormPanel(_props: Props) {
                   })
                 }
               >
-                <option value="ketty-drawing">ketty-drawing</option>
-                <option value="photo">photo</option>
-                <option value="decor">decor</option>
+                <option value="ketty-drawing">Рисунок Кетти</option>
+                <option value="photo">Фото</option>
+                <option value="decor">Декор</option>
               </select>
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>position</label>
+              <label className={styles.label}>Позиция</label>
               <select
                 value={item.position}
                 onChange={(e) =>
@@ -503,13 +516,13 @@ export default function CollectionHomeFormPanel(_props: Props) {
                   })
                 }
               >
-                <option value="left">left</option>
-                <option value="right">right</option>
-                <option value="center">center</option>
+                <option value="left">Слева</option>
+                <option value="right">Справа</option>
+                <option value="center">По центру</option>
               </select>
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>insert.where</label>
+              <label className={styles.label}>Вставка: до/после абзаца</label>
               <select
                 value={item.insertWhere}
                 onChange={(e) =>
@@ -519,12 +532,12 @@ export default function CollectionHomeFormPanel(_props: Props) {
                   })
                 }
               >
-                <option value="before">before</option>
-                <option value="after">after</option>
+                <option value="before">Перед абзацем</option>
+                <option value="after">После абзаца</option>
               </select>
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>insert.paragraph</label>
+              <label className={styles.label}>Номер абзаца</label>
               <input
                 value={item.insertParagraph}
                 onChange={(e) =>
@@ -533,7 +546,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>rotate (-10..10)</label>
+              <label className={styles.label}>Поворот (-10..10)</label>
               <input
                 value={item.rotate}
                 onChange={(e) =>
@@ -542,7 +555,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label}>anchor (optional)</label>
+              <label className={styles.label}>Якорь (необязательно)</label>
               <input
                 value={item.anchor}
                 onChange={(e) =>
@@ -559,7 +572,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
                     updateIllustration(index, { wrap: e.target.checked })
                   }
                 />{" "}
-                wrap
+                Обтекание текстом
               </label>
               <label className={styles.label}>
                 <input
@@ -569,7 +582,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
                     updateIllustration(index, { shadow: e.target.checked })
                   }
                 />{" "}
-                shadow
+                Тень
               </label>
               <label className={styles.label}>
                 <input
@@ -579,7 +592,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
                     updateIllustration(index, { border: e.target.checked })
                   }
                 />{" "}
-                border
+                Рамка
               </label>
             </div>
             <button
@@ -610,7 +623,9 @@ export default function CollectionHomeFormPanel(_props: Props) {
         <legend className={styles.legend}>6. Приглашение Кетти</legend>
         {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
           <div className={styles.field} key={`invitation-${locale}`}>
-            <label className={styles.label}>{`invitation.${locale}`}</label>
+            <label
+              className={styles.label}
+            >{`Приглашение (${localeNames[locale]})`}</label>
             <textarea
               value={invitation[locale]}
               onChange={(e) =>
