@@ -137,10 +137,22 @@ export default function CollectionHomeFormPanel(_props: Props) {
     loadForm();
   }, []);
 
-  const loadForm = async () => {
+  const resetFields = (nextCityId = "") => {
+    setCityId(nextCityId);
+    setPanorama("");
+    setGreeting(emptyLocalized());
+    setDescription(emptyLocalized());
+    setInvitation(emptyLocalized());
+    setIllustrations([]);
+  };
+
+  const loadForm = async (cityToLoad?: string) => {
     setLoading(true);
     try {
-      const res = await fetch("/api/agent/forms/collection-home");
+      const query = cityToLoad
+        ? `?cityId=${encodeURIComponent(cityToLoad)}`
+        : "";
+      const res = await fetch(`/api/agent/forms/collection-home${query}`);
       const payload = await res.json();
       if (!res.ok || !payload.ok) {
         throw new Error(payload.message ?? "Не удалось загрузить форму.");
@@ -153,7 +165,7 @@ export default function CollectionHomeFormPanel(_props: Props) {
 
       const md = payload.content || "";
 
-      const parsedCityId = parseField(md, "cityId");
+      const parsedCityId = parseField(md, "cityId") || cityToLoad || "";
       setCityId(parsedCityId);
       setPanorama(parseField(md, "panorama"));
 
@@ -186,6 +198,15 @@ export default function CollectionHomeFormPanel(_props: Props) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCitySelectionChange = (value: string) => {
+    if (!value) {
+      resetFields("");
+      setMessage("Режим создания новой страницы города");
+      return;
+    }
+    void loadForm(value);
   };
 
   const buildMarkdown = () => {
@@ -365,7 +386,10 @@ export default function CollectionHomeFormPanel(_props: Props) {
         <legend className={styles.legend}>1. Выбор города</legend>
         <div className={styles.field}>
           <label className={styles.label}>Город (cityId)</label>
-          <select value={cityId} onChange={(e) => setCityId(e.target.value)}>
+          <select
+            value={cityId}
+            onChange={(e) => handleCitySelectionChange(e.target.value)}
+          >
             <option value="">(выберите город)</option>
             {cityOptions.map((item) => (
               <option key={item.cityId} value={item.cityId}>
@@ -374,6 +398,14 @@ export default function CollectionHomeFormPanel(_props: Props) {
             ))}
           </select>
         </div>
+        <button
+          type="button"
+          className="agent-button"
+          onClick={() => void loadForm(cityId)}
+          disabled={!cityId}
+        >
+          Загрузить сохраненные данные
+        </button>
       </fieldset>
 
       <fieldset className={styles.fieldset}>

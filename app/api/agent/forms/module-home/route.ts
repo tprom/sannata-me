@@ -7,6 +7,254 @@ type RequestBody = {
   markdown?: string;
 };
 
+const asRecord = (value: unknown): Record<string, unknown> => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  return value as Record<string, unknown>;
+};
+
+const pickText = (value: unknown): string =>
+  typeof value === "string" ? value.trim() : "";
+
+const toScalarString = (value: unknown): string => {
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  if (typeof value === "boolean") return value ? "true" : "false";
+  return "";
+};
+
+const pickLocalized = (value: unknown) => {
+  const record = asRecord(value);
+  return {
+    en: pickText(record.en),
+    de: pickText(record.de),
+    ru: pickText(record.ru),
+    uk: pickText(record.uk),
+  };
+};
+
+const joinModuleTexts = (sections: unknown): string => {
+  if (!Array.isArray(sections)) return "";
+  const parts = sections
+    .map((item) => asRecord(item))
+    .filter((item) => {
+      const type = pickText(item.type);
+      return (
+        type === "module-home-block" || type === "custom:module-home-block"
+      );
+    })
+    .map((item) => {
+      const payload = asRecord(item.payload);
+      return pickText(payload.text);
+    })
+    .filter(Boolean);
+
+  return parts.join("\n\n").trim();
+};
+
+const buildLegacyIllustrations = (sections: unknown) => {
+  const result: string[] = [];
+  if (!Array.isArray(sections)) return result;
+
+  sections
+    .map((item) => asRecord(item))
+    .filter((item) => {
+      const type = pickText(item.type);
+      return (
+        type === "module-home-block" || type === "custom:module-home-block"
+      );
+    })
+    .forEach((item, blockIndex) => {
+      const payload = asRecord(item.payload);
+      const left = pickText(payload.illustrationLeft);
+      const right = pickText(payload.illustrationRight);
+      const paragraph = String((blockIndex + 1) * 2);
+
+      if (left) {
+        result.push(left, "left", paragraph);
+      }
+      if (right) {
+        result.push(right, "right", paragraph);
+      }
+    });
+
+  return result;
+};
+
+const buildModuleHomeMarkdownFromEnvelope = (
+  template: string,
+  envelopeByLocale: Record<string, Record<string, unknown>>,
+) => {
+  const ruEnvelope = envelopeByLocale.ru ?? {};
+  const contract = asRecord(ruEnvelope.moduleHomeContract);
+
+  const hasContract = Object.keys(contract).length > 0;
+  const greeting = {
+    en: "",
+    de: "",
+    ru: "",
+    uk: "",
+  };
+  const description = {
+    en: "",
+    de: "",
+    ru: "",
+    uk: "",
+  };
+  const invitation = {
+    en: "",
+    de: "",
+    ru: "",
+    uk: "",
+  };
+
+  if (hasContract) {
+    Object.assign(greeting, pickLocalized(contract.greeting));
+    Object.assign(description, pickLocalized(contract.description));
+    Object.assign(invitation, pickLocalized(contract.invitation));
+  } else {
+    const locales = ["en", "de", "ru", "uk"] as const;
+    locales.forEach((locale) => {
+      const envelope = envelopeByLocale[locale] ?? {};
+      const hero = asRecord(envelope.hero);
+      greeting[locale] = pickText(hero.headline);
+      description[locale] = joinModuleTexts(envelope.sections);
+      const closing = (
+        Array.isArray(envelope.sections) ? envelope.sections : []
+      )
+        .map((item) => asRecord(item))
+        .find((item) => {
+          const type = pickText(item.type);
+          return (
+            type === "module-home-closing" ||
+            type === "custom:module-home-closing"
+          );
+        });
+      invitation[locale] = pickText(asRecord(closing?.payload).text);
+    });
+  }
+
+  const mediaRefs = asRecord(ruEnvelope.mediaRefs);
+  const heroMedia = Array.isArray(mediaRefs.hero) ? mediaRefs.hero : [];
+  const stampImage = pickText(contract.stampImage) || pickText(heroMedia[0]);
+
+  const illustrations = Array.isArray(contract.illustrations)
+    ? contract.illustrations
+    : [];
+
+  const lines: string[] = [];
+  lines.push("# Форма главной страницы модуля (module-home)");
+  lines.push("");
+  lines.push(
+    "Форма создаёт и обновляет главную страницу модуля Landmarks в едином контракте.",
+  );
+  lines.push("");
+  lines.push("## 1. Модуль");
+  lines.push("");
+  lines.push(`moduleKey: ${pickText(ruEnvelope.moduleKey) || "landmarks"}`);
+  lines.push(`slug: ${pickText(ruEnvelope.slug) || "landmarks"}`);
+  lines.push("");
+  lines.push("## 2. Приветствие Кетти");
+  lines.push("");
+  lines.push(`greeting.en: ${greeting.en}`);
+  lines.push(`greeting.de: ${greeting.de}`);
+  lines.push(`greeting.ru: ${greeting.ru}`);
+  lines.push(`greeting.uk: ${greeting.uk}`);
+  lines.push("");
+  lines.push("## 3. Основной текст");
+  lines.push("");
+  lines.push(`description.en: ${description.en}`);
+  lines.push(`description.de: ${description.de}`);
+  lines.push(`description.ru: ${description.ru}`);
+  lines.push(`description.uk: ${description.uk}`);
+  lines.push("");
+  lines.push("## 4. Иллюстрации");
+  lines.push("");
+  lines.push(`stampImage: ${stampImage}`);
+  lines.push("");
+
+  if (illustrations.length > 0) {
+    illustrations.forEach((item, index) => {
+      const block = asRecord(item);
+      const caption = pickLocalized(block.caption);
+      const insert = asRecord(block.insert);
+      lines.push(`illustration[${index}].image: ${pickText(block.image)}`);
+      lines.push(`illustration[${index}].caption.en: ${caption.en}`);
+      lines.push(`illustration[${index}].caption.de: ${caption.de}`);
+      lines.push(`illustration[${index}].caption.ru: ${caption.ru}`);
+      lines.push(`illustration[${index}].caption.uk: ${caption.uk}`);
+      lines.push(
+        `illustration[${index}].size: ${toScalarString(block.size) || "medium"}`,
+      );
+      lines.push(
+        `illustration[${index}].type: ${toScalarString(block.type) || "ketty-drawing"}`,
+      );
+      lines.push(
+        `illustration[${index}].position: ${toScalarString(block.position) || "right"}`,
+      );
+      lines.push(
+        `illustration[${index}].wrap: ${toScalarString(block.wrap) || "true"}`,
+      );
+      lines.push(
+        `illustration[${index}].shadow: ${toScalarString(block.shadow) || "false"}`,
+      );
+      lines.push(
+        `illustration[${index}].border: ${toScalarString(block.border) || "false"}`,
+      );
+      lines.push(
+        `illustration[${index}].rotate: ${toScalarString(block.rotate) || "0"}`,
+      );
+      lines.push(
+        `illustration[${index}].insert.where: ${toScalarString(insert.where) || "after"}`,
+      );
+      lines.push(
+        `illustration[${index}].insert.paragraph: ${toScalarString(insert.paragraph) || "1"}`,
+      );
+      lines.push(`illustration[${index}].anchor: ${pickText(block.anchor)}`);
+      lines.push("");
+    });
+  } else {
+    const legacy = buildLegacyIllustrations(ruEnvelope.sections);
+    for (let i = 0, idx = 0; i < legacy.length; i += 3, idx += 1) {
+      const image = legacy[i] || "";
+      const position = legacy[i + 1] || "right";
+      const paragraph = legacy[i + 2] || "1";
+      lines.push(`illustration[${idx}].image: ${image}`);
+      lines.push(`illustration[${idx}].caption.en: `);
+      lines.push(`illustration[${idx}].caption.de: `);
+      lines.push(`illustration[${idx}].caption.ru: `);
+      lines.push(`illustration[${idx}].caption.uk: `);
+      lines.push(`illustration[${idx}].size: medium`);
+      lines.push(`illustration[${idx}].type: ketty-drawing`);
+      lines.push(`illustration[${idx}].position: ${position}`);
+      lines.push(`illustration[${idx}].wrap: true`);
+      lines.push(`illustration[${idx}].shadow: false`);
+      lines.push(`illustration[${idx}].border: false`);
+      lines.push(`illustration[${idx}].rotate: 0`);
+      lines.push(`illustration[${idx}].insert.where: after`);
+      lines.push(`illustration[${idx}].insert.paragraph: ${paragraph}`);
+      lines.push(`illustration[${idx}].anchor: `);
+      lines.push("");
+    }
+  }
+
+  lines.push("## 5. Заключительная фраза");
+  lines.push("");
+  lines.push(`invitation.en: ${invitation.en}`);
+  lines.push(`invitation.de: ${invitation.de}`);
+  lines.push(`invitation.ru: ${invitation.ru}`);
+  lines.push(`invitation.uk: ${invitation.uk}`);
+  lines.push("");
+  lines.push("## 6. Служебные поля");
+  lines.push("");
+  lines.push("pageKind: module-home");
+  lines.push(`schemaVersion: ${pickText(ruEnvelope.schemaVersion) || "1.2.0"}`);
+  lines.push("");
+
+  return lines.length > 0 ? lines.join("\n") : template;
+};
+
 export async function GET() {
   const filePath = path.join(
     process.cwd(),
@@ -16,7 +264,33 @@ export async function GET() {
   );
 
   try {
-    const content = await fs.readFile(filePath, "utf8");
+    const template = await fs.readFile(filePath, "utf8");
+    const locales = ["ru", "en", "de", "uk"];
+    const envelopeByLocale: Record<string, Record<string, unknown>> = {};
+
+    await Promise.all(
+      locales.map(async (locale) => {
+        const localePath = path.join(
+          process.cwd(),
+          "app",
+          "landmarks",
+          "data",
+          `home.${locale}.json`,
+        );
+        try {
+          const raw = await fs.readFile(localePath, "utf8");
+          envelopeByLocale[locale] = JSON.parse(raw) as Record<string, unknown>;
+        } catch {
+          envelopeByLocale[locale] = {};
+        }
+      }),
+    );
+
+    const content = buildModuleHomeMarkdownFromEnvelope(
+      template,
+      envelopeByLocale,
+    );
+
     return new Response(content, {
       status: 200,
       headers: { "Content-Type": "text/plain; charset=utf-8" },

@@ -290,3 +290,67 @@ export const processCityForm = async (markdown) => {
     mode: index >= 0 ? "updated" : "created",
   };
 };
+
+export const deleteCityById = async (cityIdRaw) => {
+  const cityId = String(cityIdRaw ?? "").trim();
+  if (!cityId) {
+    throw new Error("Для удаления укажите cityId.");
+  }
+
+  const cities = await loadCitiesRegistry();
+  const index = cities.findIndex((item) => item.cityId === cityId);
+  if (index < 0) {
+    throw new Error("Город с указанным cityId не найден.");
+  }
+
+  const city = cities[index];
+  const hasRegistryLandmarks =
+    Array.isArray(city.landmarks) && city.landmarks.length > 0;
+  if (hasRegistryLandmarks) {
+    throw new Error(
+      "Нельзя удалить город: в реестре уже есть привязанные достопримечательности.",
+    );
+  }
+
+  const cityDir = path.join(process.cwd(), "data", "landmarks", city.slug);
+  try {
+    const entries = await fs.readdir(cityDir, { withFileTypes: true });
+    const landmarkDirs = [];
+
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+      const landmarkDataPath = path.join(cityDir, entry.name, "data.json");
+      try {
+        await fs.access(landmarkDataPath);
+        landmarkDirs.push(entry.name);
+      } catch {
+        // ignore folders without landmark data.json
+      }
+    }
+
+    if (landmarkDirs.length > 0) {
+      throw new Error(
+        "Нельзя удалить город: найдены обработанные достопримечательности в data/landmarks.",
+      );
+    }
+
+    await fs.rm(cityDir, { recursive: true, force: true });
+  } catch (error) {
+    if (error && typeof error === "object" && "code" in error) {
+      if (error.code !== "ENOENT") {
+        throw error;
+      }
+    } else if (error instanceof Error) {
+      throw error;
+    }
+  }
+
+  cities.splice(index, 1);
+  await saveCitiesRegistry(cities);
+
+  return {
+    cityId: city.cityId,
+    slug: city.slug,
+    mode: "deleted",
+  };
+};
