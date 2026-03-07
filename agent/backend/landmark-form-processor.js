@@ -44,6 +44,31 @@ const ensureImageItem = (items, index) => {
 };
 
 export const parseLandmarkForm = (markdown) => {
+  const flatFields = {};
+  for (const rawLine of markdown.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#") || line.startsWith("<!--")) continue;
+    const fieldMatch = line.match(/^([A-Za-z0-9_.\[\]]+)\s*:\s*([^\r\n]*)$/);
+    if (!fieldMatch) continue;
+    flatFields[fieldMatch[1]] = parseValue(fieldMatch[2]);
+  }
+
+  const parseField = (key) => {
+    const value = flatFields[key];
+    return typeof value === "string" ? value.trim() : "";
+  };
+
+  const parseMultilineField = (key) => {
+    const direct = parseField(key);
+    if (direct) {
+      return direct.replace(/\\n/g, "\n");
+    }
+
+    const regex = new RegExp(`^${key}\\s*:\\s*\\n([\\s\\S]*?)(?=^##|\\Z)`, "m");
+    const match = markdown.match(regex);
+    return match?.[1]?.trim() || "";
+  };
+
   const lines = markdown.split(/\r?\n/);
   const blocks = {};
   const fields = {
@@ -62,6 +87,57 @@ export const parseLandmarkForm = (markdown) => {
     commonPrompt: "",
     items: [],
   };
+
+  const contractBlocks = {
+    passport: parseMultilineField("block.passport"),
+    history: parseMultilineField("block.history"),
+    meaning: parseMultilineField("block.meaning"),
+    legends: parseMultilineField("block.legends"),
+    visual: parseMultilineField("block.visual"),
+    sensory: parseMultilineField("block.sensory"),
+    touristExperience: parseMultilineField("block.touristExperience"),
+    sources: parseMultilineField("block.sources"),
+  };
+
+  fields.cityId = parseField("cityId") || fields.cityId;
+  fields.landmark = parseField("landmark") || fields.landmark;
+  fields.landmarkSlug = parseField("landmarkSlug") || fields.landmarkSlug;
+  fields.geoLat = parseField("geoLat") || fields.geoLat;
+  fields.geoLng = parseField("geoLng") || fields.geoLng;
+  fields.geoSource = parseField("geoSource") || fields.geoSource;
+  fields.greeting = parseMultilineField("greeting") || fields.greeting;
+  fields.footer = parseMultilineField("footer") || fields.footer;
+  fields.stampPrompt = parseMultilineField("stampPrompt") || fields.stampPrompt;
+
+  const imageSlots = Number.parseInt(parseField("imageSlots"), 10);
+  if (!Number.isNaN(imageSlots)) {
+    images.maxCount = imageSlots;
+  }
+  images.commonPrompt =
+    parseMultilineField("commonImagePrompt") || images.commonPrompt;
+
+  const imageIndexSet = new Set();
+  for (const key of Object.keys(flatFields)) {
+    const indexed = key.match(/^image\[(\d+)\]\.(file|prompt)$/);
+    if (!indexed) continue;
+    imageIndexSet.add(Number.parseInt(indexed[1], 10));
+  }
+
+  if (imageIndexSet.size > 0) {
+    const sorted = [...imageIndexSet].sort((a, b) => a - b);
+    images.items = sorted
+      .map((idx) => {
+        const file = parseField(`image[${idx}].file`);
+        const prompt = parseMultilineField(`image[${idx}].prompt`);
+        if (!file && !prompt) return null;
+        return {
+          index: idx + 1,
+          file,
+          prompt,
+        };
+      })
+      .filter(Boolean);
+  }
 
   let section = null;
   let currentBlock = null;
@@ -148,6 +224,57 @@ export const parseLandmarkForm = (markdown) => {
   }
 
   flushBlock();
+
+  const contractBlockKeys = Object.keys(contractBlocks).filter(
+    (key) => contractBlocks[key]?.trim().length > 0,
+  );
+
+  if (contractBlockKeys.length > 0) {
+    blocks.passport = contractBlocks.passport;
+    blocks.history = contractBlocks.history;
+    blocks.meaning = contractBlocks.meaning;
+    blocks.legends = contractBlocks.legends;
+    blocks.visual = contractBlocks.visual;
+    blocks.sensory = contractBlocks.sensory;
+    blocks.touristExperience = contractBlocks.touristExperience;
+    blocks.sources = contractBlocks.sources;
+  } else {
+    const legacyAliases = {
+      passport: ["Паспорт объекта", "Паспорт"],
+      history: ["История"],
+      meaning: ["Значение"],
+      legends: ["Легенды и истории", "Легенды"],
+      visual: ["Визуальный образ"],
+      sensory: ["Сенсорные впечатления"],
+      touristExperience: ["Туристический опыт"],
+      sources: ["Источники"],
+    };
+
+    for (const [canonical, aliases] of Object.entries(legacyAliases)) {
+      if (blocks[canonical]) continue;
+      const found = aliases.find((name) => typeof blocks[name] === "string");
+      if (found) {
+        blocks[canonical] = blocks[found];
+      }
+    }
+  }
+
+  if (images.items.length === 0) {
+    for (let i = 1; i <= images.maxCount; i += 1) {
+      const file = parseField(`image${i}File`);
+      const prompt = parseMultilineField(`image${i}Prompt`);
+      if (!file && !prompt) continue;
+      images.items.push({ index: i, file, prompt });
+    }
+  }
+
+  if (!fields.greeting) {
+    fields.greeting = "Милый друг,";
+  }
+
+  if (!fields.footer) {
+    fields.footer = "Читать полную историю в книге\\nКнига Кетти";
+  }
 
   return {
     blocks,

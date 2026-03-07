@@ -18,15 +18,8 @@ export async function GET() {
 
   try {
     const content = await fs.readFile(filePath, "utf8");
-    const options = await listCityOptions();
-    const optionsText = options.length
-      ? options
-          .map((item) => `- ${item.cityId} | ${item.label} (${item.slug})`)
-          .join("\n")
-      : "- справочник городов пуст";
-
-    const enriched = `${content}\n\n## D. Справочник городов (read-only)\n${optionsText}\n`;
-    return NextResponse.json({ ok: true, content: enriched });
+    const cityOptions = await listCityOptions();
+    return NextResponse.json({ ok: true, content, cityOptions });
   } catch (error) {
     return NextResponse.json(
       {

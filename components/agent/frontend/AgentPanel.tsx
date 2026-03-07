@@ -11,6 +11,7 @@ import { Sidebar } from "./Sidebar";
 import { MarkdownFormPanel } from "@/agent/components/MarkdownFormPanel";
 import { default as ModuleHomeFormPanel } from "@/agent/components/ModuleHomeFormPanel";
 import CollectionHomeFormPanel from "@/agent/components/CollectionHomeFormPanel";
+import LandmarkFormPanel from "@/agent/components/LandmarkFormPanel";
 
 const LOCALES = ["ru", "en", "de", "uk"] as const;
 
@@ -823,19 +824,7 @@ export function AgentPanel() {
   const handleSelectLandmarkForm = (formType: LandmarkFormType) => {
     setSelectedLandmarkForm(formType);
     setSchema(null);
-
-    if (formType === "landmark-item") {
-      // Для landmark-item используем старую форму FormRenderer
-      setActiveForm("landmark");
-      routeAgentMessage({ skill: "formGenerator" }, engine).then((response) => {
-        if (response.ok) {
-          setSchema(response.data as AgentFormSchema);
-        }
-      });
-    } else {
-      // Для остальных используем новую markdown-форму
-      setActiveForm("landmarkForm");
-    }
+    setActiveForm("landmarkForm");
   };
 
   const handleCreateChildPatterns = () => {
@@ -867,6 +856,8 @@ export function AgentPanel() {
               <ModuleHomeFormPanel />
             ) : selectedLandmarkForm === "collection-home" ? (
               <CollectionHomeFormPanel />
+            ) : selectedLandmarkForm === "landmark-item" ? (
+              <LandmarkFormPanel />
             ) : null
           ) : activeForm === "landmark" ? (
             <FormRenderer

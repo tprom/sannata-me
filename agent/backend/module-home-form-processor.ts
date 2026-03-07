@@ -4,60 +4,158 @@ import { randomUUID } from "crypto";
 
 type LocaleCode = "ru" | "en" | "de" | "uk";
 
+type IllustrationDraft = {
+  image: string;
+  caption: Record<LocaleCode, string>;
+  size: "small" | "medium" | "large";
+  type: "ketty-drawing" | "photo" | "decor";
+  position: "left" | "right" | "center";
+  wrap: boolean;
+  shadow: boolean;
+  border: boolean;
+  rotate: number;
+  insert?: {
+    where: "before" | "after";
+    paragraph: number;
+  };
+  anchor?: string;
+};
+
 type ModuleHomeFormData = {
-  greetingRu: string;
-  greetingEn: string;
-  greetingDe: string;
-  greetingUk: string;
-  contentRu: string;
-  contentEn: string;
-  contentDe: string;
-  contentUk: string;
+  moduleKey: string;
+  slug: string;
+  greeting: Record<LocaleCode, string>;
+  description: Record<LocaleCode, string>;
+  invitation: Record<LocaleCode, string>;
   stampImage: string;
-  illustration1L: string;
-  illustration1R: string;
-  illustration2L: string;
-  illustration2R: string;
-  illustration3L: string;
-  illustration3R: string;
-  closingTextRu: string;
-  closingTextEn: string;
-  closingTextDe: string;
-  closingTextUk: string;
+  illustrations: IllustrationDraft[];
+  legacyIllustrationSlots: {
+    illustration1L: string;
+    illustration1R: string;
+    illustration2L: string;
+    illustration2R: string;
+    illustration3L: string;
+    illustration3R: string;
+  };
 };
 
-const parseKeyValue = (markdown: string, key: string): string => {
-  const regex = new RegExp(`^${key}\\s*:\\s*(.*)$`, "m");
-  const match = markdown.match(regex);
-  const value = match?.[1]?.trim() || "";
+const LOCALES: LocaleCode[] = ["ru", "en", "de", "uk"];
 
-  if (
-    value === "(путь к файлу или URL)" ||
-    value === "(path to file or URL)" ||
-    value === "(url)"
-  ) {
-    return "";
+const emptyLocalized = (): Record<LocaleCode, string> => ({
+  ru: "",
+  en: "",
+  de: "",
+  uk: "",
+});
+
+const normalize = (value: unknown): string =>
+  typeof value === "string" ? value.trim() : "";
+
+const decodeMultiline = (value: string): string => value.replace(/\\n/g, "\n");
+
+const parseFlatFields = (markdown: string): Record<string, string> => {
+  const fields: Record<string, string> = {};
+
+  for (const rawLine of markdown.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#") || line.startsWith("<!--")) continue;
+    const match = line.match(/^([A-Za-z0-9_.\[\]]+)\s*:\s*([^\r\n]*)$/);
+    if (!match) continue;
+    fields[match[1]] = match[2].trim();
   }
 
-  // Ignore accidental section-heading remnants captured as field values.
-  if (value.startsWith("## ")) {
-    return "";
-  }
-
-  return value;
+  return fields;
 };
 
-const parseMultilineField = (markdown: string, key: string): string => {
-  // Match "key:" followed by newline and content until next section or end
+const parseMultilineLegacy = (markdown: string, key: string): string => {
   const regex = new RegExp(`^${key}\\s*:\\s*\\n([\\s\\S]*?)(?=^##|\\Z)`, "m");
   const match = markdown.match(regex);
   if (match?.[1]) {
     return match[1].trim();
   }
-  // Fallback: single line after key
-  const singleLineRegex = new RegExp(`^${key}\\s*:\\s*(.+?)(?=\\n|$)`, "m");
-  const singleMatch = singleLineRegex.exec(markdown);
-  return singleMatch?.[1]?.trim() || "";
+  return "";
+};
+
+const parseBoolean = (value: unknown, fallback: boolean): boolean => {
+  const normalized = normalize(value).toLowerCase();
+  if (normalized === "true" || normalized === "1" || normalized === "yes") {
+    return true;
+  }
+  if (normalized === "false" || normalized === "0" || normalized === "no") {
+    return false;
+  }
+  return fallback;
+};
+
+const parseNumber = (value: unknown, fallback: number): number => {
+  const n = Number.parseFloat(normalize(value));
+  return Number.isFinite(n) ? n : fallback;
+};
+
+const clampRotate = (value: number): number => {
+  if (value < -10) return -10;
+  if (value > 10) return 10;
+  return value;
+};
+
+const parseIllustrations = (
+  fields: Record<string, string>,
+): IllustrationDraft[] => {
+  const byIndex = new Map<number, Record<string, string>>();
+
+  for (const [key, value] of Object.entries(fields)) {
+    const match = key.match(/^illustration\[(\d+)\]\.(.+)$/);
+    if (!match) continue;
+
+    const index = Number.parseInt(match[1], 10);
+    if (!Number.isFinite(index)) continue;
+
+    if (!byIndex.has(index)) {
+      byIndex.set(index, {});
+    }
+
+    byIndex.get(index)![match[2]] = value;
+  }
+
+  return [...byIndex.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([, block]) => {
+      const rotate = clampRotate(parseNumber(block.rotate, 0));
+      const paragraph = Math.max(
+        1,
+        Math.floor(parseNumber(block["insert.paragraph"], 1)),
+      );
+      const whereRaw = normalize(block["insert.where"]);
+      const where: "before" | "after" =
+        whereRaw === "before" ? "before" : "after";
+
+      return {
+        image: normalize(block.image),
+        caption: {
+          ru: normalize(block["caption.ru"]),
+          en: normalize(block["caption.en"]),
+          de: normalize(block["caption.de"]),
+          uk: normalize(block["caption.uk"]),
+        },
+        size: (normalize(block.size) as IllustrationDraft["size"]) || "medium",
+        type:
+          (normalize(block.type) as IllustrationDraft["type"]) ||
+          "ketty-drawing",
+        position:
+          (normalize(block.position) as IllustrationDraft["position"]) ||
+          "right",
+        wrap: parseBoolean(block.wrap, true),
+        shadow: parseBoolean(block.shadow, false),
+        border: parseBoolean(block.border, false),
+        rotate,
+        insert: {
+          where,
+          paragraph,
+        },
+        anchor: normalize(block.anchor) || undefined,
+      } as IllustrationDraft;
+    })
+    .filter((item) => item.image.length > 0);
 };
 
 const splitContentIntoThreeParts = (
@@ -83,6 +181,68 @@ const splitContentIntoThreeParts = (
   return [parts[0] || "", parts[1] || "", parts[2] || ""];
 };
 
+const toLegacySlots = (
+  illustrations: IllustrationDraft[],
+  legacy: ModuleHomeFormData["legacyIllustrationSlots"],
+) => {
+  const slots = {
+    illustration1L: legacy.illustration1L,
+    illustration1R: legacy.illustration1R,
+    illustration2L: legacy.illustration2L,
+    illustration2R: legacy.illustration2R,
+    illustration3L: legacy.illustration3L,
+    illustration3R: legacy.illustration3R,
+  };
+
+  for (const item of illustrations) {
+    const paragraph = item.insert?.paragraph ?? 1;
+    const blockIndex = Math.min(3, Math.max(1, Math.ceil(paragraph / 2)));
+    const side = item.position === "left" ? "L" : "R";
+    const slotKey = `illustration${blockIndex}${side}` as keyof typeof slots;
+    if (!slots[slotKey]) {
+      slots[slotKey] = item.image;
+    }
+  }
+
+  return slots;
+};
+
+const parseLegacyOrNewValue = (
+  fields: Record<string, string>,
+  markdown: string,
+  newKey: string,
+  oldKey: string,
+) => {
+  const fromNew = normalize(fields[newKey]);
+  if (fromNew) return decodeMultiline(fromNew);
+
+  const fromOld = normalize(fields[oldKey]);
+  if (fromOld) return fromOld;
+
+  const oldMultiline = parseMultilineLegacy(markdown, oldKey);
+  if (oldMultiline) return oldMultiline;
+
+  return "";
+};
+
+const parseKeyValue = (fields: Record<string, string>, key: string): string => {
+  const value = normalize(fields[key]);
+
+  if (
+    value === "(путь к файлу или URL)" ||
+    value === "(path to file or URL)" ||
+    value === "(url)"
+  ) {
+    return "";
+  }
+
+  if (value.startsWith("## ")) {
+    return "";
+  }
+
+  return value;
+};
+
 const asRecord = (value: unknown): Record<string, unknown> => {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return {};
@@ -99,38 +259,110 @@ const asUuidOrNull = (value: unknown): string | null => {
 };
 
 export const parseModuleHomeForm = (markdown: string): ModuleHomeFormData => {
+  const fields = parseFlatFields(markdown);
+
+  const greeting = emptyLocalized();
+  const description = emptyLocalized();
+  const invitation = emptyLocalized();
+
+  for (const locale of LOCALES) {
+    greeting[locale] =
+      parseLegacyOrNewValue(
+        fields,
+        markdown,
+        `greeting.${locale}`,
+        `greeting${locale.toUpperCase()}`,
+      ) ||
+      (locale === "ru"
+        ? "Привет. Меня зовут Кетти."
+        : locale === "en"
+          ? "Hello. My name is Ketty."
+          : locale === "de"
+            ? "Hallo. Mein Name ist Ketty."
+            : "Привiт. Мене звуть Кеттi.");
+
+    description[locale] = parseLegacyOrNewValue(
+      fields,
+      markdown,
+      `description.${locale}`,
+      `content${locale.toUpperCase()}`,
+    );
+
+    invitation[locale] =
+      parseLegacyOrNewValue(
+        fields,
+        markdown,
+        `invitation.${locale}`,
+        `closingText${locale.toUpperCase()}`,
+      ) ||
+      (locale === "ru"
+        ? "Открытки приходят не по расписанию."
+        : locale === "en"
+          ? "Postcards come not by schedule."
+          : locale === "de"
+            ? "Postkarten kommen nicht nach Plan."
+            : "Листiвки приходять не за розкладом.");
+  }
+
+  const legacyIllustrationSlots = {
+    illustration1L: parseKeyValue(fields, "illustration1L"),
+    illustration1R: parseKeyValue(fields, "illustration1R"),
+    illustration2L: parseKeyValue(fields, "illustration2L"),
+    illustration2R: parseKeyValue(fields, "illustration2R"),
+    illustration3L: parseKeyValue(fields, "illustration3L"),
+    illustration3R: parseKeyValue(fields, "illustration3R"),
+  };
+
+  let illustrations = parseIllustrations(fields);
+  if (illustrations.length === 0) {
+    const legacyOrder: Array<
+      [
+        keyof ModuleHomeFormData["legacyIllustrationSlots"],
+        "left" | "right",
+        number,
+      ]
+    > = [
+      ["illustration1L", "left", 2],
+      ["illustration1R", "right", 2],
+      ["illustration2L", "left", 4],
+      ["illustration2R", "right", 4],
+      ["illustration3L", "left", 6],
+      ["illustration3R", "right", 6],
+    ];
+
+    illustrations = legacyOrder
+      .map(([key, position, paragraph]) => {
+        const image = legacyIllustrationSlots[key];
+        if (!image) return null;
+
+        return {
+          image,
+          caption: emptyLocalized(),
+          size: "medium",
+          type: "ketty-drawing",
+          position,
+          wrap: true,
+          shadow: false,
+          border: false,
+          rotate: 0,
+          insert: {
+            where: "after",
+            paragraph,
+          },
+        } as IllustrationDraft;
+      })
+      .filter((item): item is IllustrationDraft => Boolean(item));
+  }
+
   return {
-    greetingRu:
-      parseKeyValue(markdown, "greetingRu") || "Привет. Меня зовут Кетти.",
-    greetingEn:
-      parseKeyValue(markdown, "greetingEn") || "Hello. My name is Ketty.",
-    greetingDe:
-      parseKeyValue(markdown, "greetingDe") || "Hallo. Mein Name ist Ketty.",
-    greetingUk:
-      parseKeyValue(markdown, "greetingUk") || "Привіт. Мене звуть Кеті.",
-    contentRu: parseMultilineField(markdown, "contentRu"),
-    contentEn: parseMultilineField(markdown, "contentEn"),
-    contentDe: parseMultilineField(markdown, "contentDe"),
-    contentUk: parseMultilineField(markdown, "contentUk"),
-    stampImage: parseKeyValue(markdown, "stampImage"),
-    illustration1L: parseKeyValue(markdown, "illustration1L"),
-    illustration1R: parseKeyValue(markdown, "illustration1R"),
-    illustration2L: parseKeyValue(markdown, "illustration2L"),
-    illustration2R: parseKeyValue(markdown, "illustration2R"),
-    illustration3L: parseKeyValue(markdown, "illustration3L"),
-    illustration3R: parseKeyValue(markdown, "illustration3R"),
-    closingTextRu:
-      parseKeyValue(markdown, "closingTextRu") ||
-      "Открытки приходят не по расписанию.",
-    closingTextEn:
-      parseKeyValue(markdown, "closingTextEn") ||
-      "Postcards come not by schedule.",
-    closingTextDe:
-      parseKeyValue(markdown, "closingTextDe") ||
-      "Postkarten kommen nicht nach Plan.",
-    closingTextUk:
-      parseKeyValue(markdown, "closingTextUk") ||
-      "Листівки приходять не за розкладом.",
+    moduleKey: parseKeyValue(fields, "moduleKey") || "landmarks",
+    slug: parseKeyValue(fields, "slug") || "landmarks",
+    greeting,
+    description,
+    invitation,
+    stampImage: parseKeyValue(fields, "stampImage"),
+    illustrations,
+    legacyIllustrationSlots,
   };
 };
 
@@ -142,31 +374,12 @@ export const processModuleHomeForm = async (markdown: string) => {
   const outputDir = path.join(process.cwd(), "app", "landmarks", "data");
   await fs.mkdir(outputDir, { recursive: true });
 
-  const localeGreetings: Record<LocaleCode, string> = {
-    ru: data.greetingRu,
-    en: data.greetingEn,
-    de: data.greetingDe,
-    uk: data.greetingUk,
-  };
-
-  const localeContents: Record<LocaleCode, string> = {
-    ru: data.contentRu,
-    en: data.contentEn,
-    de: data.contentDe,
-    uk: data.contentUk,
-  };
-
-  const localeClosingTexts: Record<LocaleCode, string> = {
-    ru: data.closingTextRu,
-    en: data.closingTextEn,
-    de: data.closingTextDe,
-    uk: data.closingTextUk,
-  };
+  const slots = toLegacySlots(data.illustrations, data.legacyIllustrationSlots);
 
   const results = await Promise.all(
     locales.map(async (locale) => {
       const [text1, text2, text3] = splitContentIntoThreeParts(
-        localeContents[locale],
+        data.description[locale],
       );
 
       const blocks = [
@@ -177,8 +390,8 @@ export const processModuleHomeForm = async (markdown: string) => {
           payload: {
             title: "",
             text: text1,
-            illustrationLeft: data.illustration1L,
-            illustrationRight: data.illustration1R,
+            illustrationLeft: slots.illustration1L,
+            illustrationRight: slots.illustration1R,
           },
         },
         {
@@ -188,8 +401,8 @@ export const processModuleHomeForm = async (markdown: string) => {
           payload: {
             title: "",
             text: text2,
-            illustrationLeft: data.illustration2L,
-            illustrationRight: data.illustration2R,
+            illustrationLeft: slots.illustration2L,
+            illustrationRight: slots.illustration2R,
           },
         },
         {
@@ -199,8 +412,8 @@ export const processModuleHomeForm = async (markdown: string) => {
           payload: {
             title: "",
             text: text3,
-            illustrationLeft: data.illustration3L,
-            illustrationRight: data.illustration3R,
+            illustrationLeft: slots.illustration3L,
+            illustrationRight: slots.illustration3R,
           },
         },
       ];
@@ -217,19 +430,19 @@ export const processModuleHomeForm = async (markdown: string) => {
       const pageId = asUuidOrNull(existingEnvelope.pageId) ?? randomUUID();
       const envelope = {
         schemaVersion: "1.1.0",
-        moduleKey: "landmarks",
+        moduleKey: data.moduleKey || "landmarks",
         pageKind: "module-home",
         pageId,
-        slug: "landmarks",
+        slug: data.slug || "landmarks",
         locale,
-        translationGroupId: "tg_landmarks_module_home",
+        translationGroupId: `tg_${data.moduleKey || "landmarks"}_module_home`,
         meta: {
           title: "Landmarks",
           tags: ["landmarks", "module-home"],
           status: "published",
         },
         hero: {
-          headline: localeGreetings[locale],
+          headline: data.greeting[locale],
           kicker: "Sannata",
         },
         sections: [
@@ -238,7 +451,7 @@ export const processModuleHomeForm = async (markdown: string) => {
             id: "sec_module_home_closing",
             type: "custom:module-home-closing",
             visible: true,
-            payload: { text: localeClosingTexts[locale] },
+            payload: { text: data.invitation[locale] },
           },
         ],
         navigation: {
@@ -266,6 +479,13 @@ export const processModuleHomeForm = async (markdown: string) => {
           createdAt: timestamp,
           updatedAt: timestamp,
           updatedBy: "agent-form",
+        },
+        moduleHomeContract: {
+          greeting: data.greeting,
+          description: data.description,
+          invitation: data.invitation,
+          stampImage: data.stampImage,
+          illustrations: data.illustrations,
         },
       };
 

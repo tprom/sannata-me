@@ -1,78 +1,203 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ModuleHomeFormPanel.module.css";
 
-interface ModuleHomeFormState {
-  greetingRu: string;
-  greetingEn: string;
-  greetingDe: string;
-  greetingUk: string;
-  contentRu: string;
-  contentEn: string;
-  contentDe: string;
-  contentUk: string;
-  stampImage: string;
-  illustration1L: string;
-  illustration1R: string;
-  illustration2L: string;
-  illustration2R: string;
-  illustration3L: string;
-  illustration3R: string;
-  closingTextRu: string;
-  closingTextEn: string;
-  closingTextDe: string;
-  closingTextUk: string;
-}
+type LocaleCode = "en" | "de" | "ru" | "uk";
 
-interface ImagePreviews {
-  stampImage: string;
-  illustration1L: string;
-  illustration1R: string;
-  illustration2L: string;
-  illustration2R: string;
-  illustration3L: string;
-  illustration3R: string;
-}
+type IllustrationDraft = {
+  image: string;
+  caption: Record<LocaleCode, string>;
+  size: "small" | "medium" | "large";
+  type: "ketty-drawing" | "photo" | "decor";
+  position: "left" | "right" | "center";
+  wrap: boolean;
+  shadow: boolean;
+  border: boolean;
+  rotate: string;
+  insertWhere: "before" | "after";
+  insertParagraph: string;
+  anchor: string;
+};
 
-const initialState: ModuleHomeFormState = {
-  greetingRu: "",
-  greetingEn: "",
-  greetingDe: "",
-  greetingUk: "",
-  contentRu: "",
-  contentEn: "",
-  contentDe: "",
-  contentUk: "",
-  stampImage: "",
-  illustration1L: "",
-  illustration1R: "",
-  illustration2L: "",
-  illustration2R: "",
-  illustration3L: "",
-  illustration3R: "",
-  closingTextRu: "",
-  closingTextEn: "",
-  closingTextDe: "",
-  closingTextUk: "",
+const localeNames: Record<LocaleCode, string> = {
+  en: "английский",
+  de: "немецкий",
+  ru: "русский",
+  uk: "украинский",
+};
+
+const emptyLocalized = (): Record<LocaleCode, string> => ({
+  en: "",
+  de: "",
+  ru: "",
+  uk: "",
+});
+
+const createIllustration = (): IllustrationDraft => ({
+  image: "",
+  caption: emptyLocalized(),
+  size: "medium",
+  type: "ketty-drawing",
+  position: "right",
+  wrap: true,
+  shadow: false,
+  border: false,
+  rotate: "0",
+  insertWhere: "after",
+  insertParagraph: "1",
+  anchor: "",
+});
+
+const decodeMultiline = (value: string): string => value.replace(/\\n/g, "\n");
+const encodeMultiline = (value: string): string =>
+  value.replace(/\r?\n/g, "\\n");
+
+const parseField = (markdown: string, key: string): string => {
+  const m = markdown.match(new RegExp(`^${key}:[ \\t]*([^\\r\\n]*)$`, "m"));
+  return m ? m[1].trim() : "";
+};
+
+const parseBoolean = (value: string, fallback: boolean): boolean => {
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "true" || normalized === "1" || normalized === "yes") {
+    return true;
+  }
+  if (normalized === "false" || normalized === "0" || normalized === "no") {
+    return false;
+  }
+  return fallback;
+};
+
+const parseMultilineLegacy = (markdown: string, key: string): string => {
+  const regex = new RegExp(`^${key}\\s*:\\s*\\n([\\s\\S]*?)(?=^##|\\Z)`, "m");
+  const match = markdown.match(regex);
+  return match?.[1]?.trim() || "";
+};
+
+const parseLegacyOrNew = (
+  markdown: string,
+  newKey: string,
+  legacyKey: string,
+): string => {
+  const nextValue = parseField(markdown, newKey);
+  if (nextValue) {
+    return decodeMultiline(nextValue);
+  }
+
+  const legacySingle = parseField(markdown, legacyKey);
+  if (legacySingle) {
+    return legacySingle;
+  }
+
+  const legacyMultiline = parseMultilineLegacy(markdown, legacyKey);
+  if (legacyMultiline) {
+    return legacyMultiline;
+  }
+
+  return "";
+};
+
+const parseIllustrations = (markdown: string): IllustrationDraft[] => {
+  const indexSet = new Set<number>();
+  const pattern = /illustration\[(\d+)\]\.[a-zA-Z0-9.]+:[ \t]*([^\r\n]*)$/gm;
+  for (const match of markdown.matchAll(pattern)) {
+    indexSet.add(Number.parseInt(match[1], 10));
+  }
+
+  const indices = [...indexSet].sort((a, b) => a - b);
+  return indices
+    .map((index) => {
+      const prefix = `illustration[${index}]`;
+      return {
+        image: parseField(markdown, `${prefix}\\.image`),
+        caption: {
+          en: parseField(markdown, `${prefix}\\.caption\\.en`),
+          de: parseField(markdown, `${prefix}\\.caption\\.de`),
+          ru: parseField(markdown, `${prefix}\\.caption\\.ru`),
+          uk: parseField(markdown, `${prefix}\\.caption\\.uk`),
+        },
+        size:
+          (parseField(
+            markdown,
+            `${prefix}\\.size`,
+          ) as IllustrationDraft["size"]) || "medium",
+        type:
+          (parseField(
+            markdown,
+            `${prefix}\\.type`,
+          ) as IllustrationDraft["type"]) || "ketty-drawing",
+        position:
+          (parseField(
+            markdown,
+            `${prefix}\\.position`,
+          ) as IllustrationDraft["position"]) || "right",
+        wrap: parseBoolean(parseField(markdown, `${prefix}\\.wrap`), true),
+        shadow: parseBoolean(parseField(markdown, `${prefix}\\.shadow`), false),
+        border: parseBoolean(parseField(markdown, `${prefix}\\.border`), false),
+        rotate: parseField(markdown, `${prefix}\\.rotate`) || "0",
+        insertWhere:
+          (parseField(
+            markdown,
+            `${prefix}\\.insert\\.where`,
+          ) as IllustrationDraft["insertWhere"]) || "after",
+        insertParagraph:
+          parseField(markdown, `${prefix}\\.insert\\.paragraph`) || "1",
+        anchor: parseField(markdown, `${prefix}\\.anchor`),
+      };
+    })
+    .filter((item) => item.image.trim().length > 0);
+};
+
+const legacyIllustrations = (markdown: string): IllustrationDraft[] => {
+  const map: Array<[string, "left" | "right", number]> = [
+    ["illustration1L", "left", 2],
+    ["illustration1R", "right", 2],
+    ["illustration2L", "left", 4],
+    ["illustration2R", "right", 4],
+    ["illustration3L", "left", 6],
+    ["illustration3R", "right", 6],
+  ];
+
+  return map
+    .map(([legacyKey, side, paragraph]) => {
+      const image = parseField(markdown, legacyKey);
+      if (!image) return null;
+
+      return {
+        image,
+        caption: emptyLocalized(),
+        size: "medium",
+        type: "ketty-drawing",
+        position: side,
+        wrap: true,
+        shadow: false,
+        border: false,
+        rotate: "0",
+        insertWhere: "after",
+        insertParagraph: String(paragraph),
+        anchor: "",
+      } as IllustrationDraft;
+    })
+    .filter((item): item is IllustrationDraft => Boolean(item));
 };
 
 export default function ModuleHomeFormPanel() {
-  const [formData, setFormData] = useState<ModuleHomeFormState>(initialState);
-  const [imagePreviews, setImagePreviews] = useState<ImagePreviews>({
-    stampImage: "",
-    illustration1L: "",
-    illustration1R: "",
-    illustration2L: "",
-    illustration2R: "",
-    illustration3L: "",
-    illustration3R: "",
-  });
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Load form template
+  const [moduleKey, setModuleKey] = useState("landmarks");
+  const [slug, setSlug] = useState("landmarks");
+  const [stampImage, setStampImage] = useState("");
+  const [greeting, setGreeting] =
+    useState<Record<LocaleCode, string>>(emptyLocalized());
+  const [description, setDescription] =
+    useState<Record<LocaleCode, string>>(emptyLocalized());
+  const [invitation, setInvitation] =
+    useState<Record<LocaleCode, string>>(emptyLocalized());
+  const [illustrations, setIllustrations] = useState<IllustrationDraft[]>([]);
+
   useEffect(() => {
     loadForm();
   }, []);
@@ -81,210 +206,99 @@ export default function ModuleHomeFormPanel() {
     setLoading(true);
     try {
       const response = await fetch("/api/agent/forms/module-home");
-      const template = await response.text();
-      const parsed = parseFormMarkdown(template);
-      setFormData(parsed);
-      loadImagePreviews(parsed);
+      const markdown = await response.text();
+
+      setModuleKey(parseField(markdown, "moduleKey") || "landmarks");
+      setSlug(parseField(markdown, "slug") || "landmarks");
+      setStampImage(parseField(markdown, "stampImage"));
+
+      setGreeting({
+        en:
+          parseLegacyOrNew(markdown, "greeting\\.en", "greetingEn") ||
+          "Hello. My name is Ketty.",
+        de:
+          parseLegacyOrNew(markdown, "greeting\\.de", "greetingDe") ||
+          "Hallo. Mein Name ist Ketty.",
+        ru:
+          parseLegacyOrNew(markdown, "greeting\\.ru", "greetingRu") ||
+          "Привет. Меня зовут Кетти.",
+        uk:
+          parseLegacyOrNew(markdown, "greeting\\.uk", "greetingUk") ||
+          "Привiт. Мене звуть Кеттi.",
+      });
+
+      setDescription({
+        en: parseLegacyOrNew(markdown, "description\\.en", "contentEn"),
+        de: parseLegacyOrNew(markdown, "description\\.de", "contentDe"),
+        ru: parseLegacyOrNew(markdown, "description\\.ru", "contentRu"),
+        uk: parseLegacyOrNew(markdown, "description\\.uk", "contentUk"),
+      });
+
+      setInvitation({
+        en:
+          parseLegacyOrNew(markdown, "invitation\\.en", "closingTextEn") ||
+          "Postcards come not by schedule.",
+        de:
+          parseLegacyOrNew(markdown, "invitation\\.de", "closingTextDe") ||
+          "Postkarten kommen nicht nach Plan.",
+        ru:
+          parseLegacyOrNew(markdown, "invitation\\.ru", "closingTextRu") ||
+          "Открытки приходят не по расписанию.",
+        uk:
+          parseLegacyOrNew(markdown, "invitation\\.uk", "closingTextUk") ||
+          "Листiвки приходять не за розкладом.",
+      });
+
+      const parsedIllustrations = parseIllustrations(markdown);
+      setIllustrations(
+        parsedIllustrations.length > 0
+          ? parsedIllustrations
+          : legacyIllustrations(markdown),
+      );
+
       setMessage("Форма загружена");
     } catch (error) {
-      setMessage(`Ошибка загрузки: ${error}`);
+      setMessage(`Ошибка загрузки: ${String(error)}`);
     } finally {
       setLoading(false);
     }
   };
 
-  const parseFormMarkdown = (markdown: string): ModuleHomeFormState => {
-    const data: ModuleHomeFormState = { ...initialState };
-
-    // Parse key-value fields
-    const parseKeyValue = (key: string): string => {
-      const regex = new RegExp(`^${key}\\s*:\\s*(.+?)(?=\\n|$)`, "m");
-      const match = markdown.match(regex);
-      return match?.[1]?.trim() || "";
-    };
-
-    // Parse multiline fields
-    const parseMultiline = (key: string): string => {
-      const regex = new RegExp(
-        `^${key}\\s*:\\s*\\n([\\s\\S]*?)(?=^##|\\Z)`,
-        "m",
-      );
-      const match = markdown.match(regex);
-      return match?.[1]?.trim() || "";
-    };
-
-    data.greetingRu = parseKeyValue("greetingRu");
-    data.greetingEn = parseKeyValue("greetingEn");
-    data.greetingDe = parseKeyValue("greetingDe");
-    data.greetingUk = parseKeyValue("greetingUk");
-
-    data.contentRu = parseMultiline("contentRu");
-    data.contentEn = parseMultiline("contentEn");
-    data.contentDe = parseMultiline("contentDe");
-    data.contentUk = parseMultiline("contentUk");
-
-    data.stampImage = parseKeyValue("stampImage");
-    data.illustration1L = parseKeyValue("illustration1L");
-    data.illustration1R = parseKeyValue("illustration1R");
-    data.illustration2L = parseKeyValue("illustration2L");
-    data.illustration2R = parseKeyValue("illustration2R");
-    data.illustration3L = parseKeyValue("illustration3L");
-    data.illustration3R = parseKeyValue("illustration3R");
-    data.closingTextRu = parseKeyValue("closingTextRu");
-    data.closingTextEn = parseKeyValue("closingTextEn");
-    data.closingTextDe = parseKeyValue("closingTextDe");
-    data.closingTextUk = parseKeyValue("closingTextUk");
-
-    return data;
-  };
-
-  // Load previews from parsed image paths
-  const loadImagePreviews = (data: ModuleHomeFormState) => {
-    const previews: ImagePreviews = {
-      stampImage: "",
-      illustration1L: "",
-      illustration1R: "",
-      illustration2L: "",
-      illustration2R: "",
-      illustration3L: "",
-      illustration3R: "",
-    };
-
-    // Load image paths from form data
-    Object.keys(previews).forEach((key) => {
-      const value = data[key as keyof ModuleHomeFormState];
-      if (value && (value.startsWith("/") || value.startsWith("http"))) {
-        previews[key as keyof ImagePreviews] = value;
-      }
-    });
-
-    setImagePreviews(previews);
-  };
-
-  const buildFormMarkdown = (): string => {
-    return `# Форма главной страницы модуля Landmarks
-
-Эта форма создаёт или обновляет главную страницу модуля landmarks (module-home).
-Каждое поле - отдельный блок для удобства редактирования.
-
-## A. Приветствие - Русский
-
-greetingRu: ${formData.greetingRu}
-
-## A. Приветствие - English
-
-greetingEn: ${formData.greetingEn}
-
-## A. Приветствие - Deutsch
-
-greetingDe: ${formData.greetingDe}
-
-## A. Приветствие - Українська
-
-greetingUk: ${formData.greetingUk}
-
-## B. Контент - Русский
-
-contentRu:
-${formData.contentRu}
-
-## B. Контент - English
-
-contentEn:
-${formData.contentEn}
-
-## B. Контент - Deutsch
-
-contentDe:
-${formData.contentDe}
-
-## B. Контент - Українська
-
-contentUk:
-${formData.contentUk}
-
-## C. Иллюстрация почтовой марки
-
-stampImage: ${formData.stampImage}
-
-## D. Иллюстрация блока 1 - Слева
-
-illustration1L: ${formData.illustration1L}
-
-## D. Иллюстрация блока 1 - Справа
-
-illustration1R: ${formData.illustration1R}
-
-## D. Иллюстрация блока 2 - Слева
-
-illustration2L: ${formData.illustration2L}
-
-## D. Иллюстрация блока 2 - Справа
-
-illustration2R: ${formData.illustration2R}
-
-## D. Иллюстрация блока 3 - Слева
-
-illustration3L: ${formData.illustration3L}
-
-## D. Иллюстрация блока 3 - Справа
-
-illustration3R: ${formData.illustration3R}
-
-## E. Заключительная фраза - Русский
-
-closingTextRu: ${formData.closingTextRu}
-
-## E. Заключительная фраза - English
-
-closingTextEn: ${formData.closingTextEn}
-
-## E. Заключительная фраза - Deutsch
-
-closingTextDe: ${formData.closingTextDe}
-
-## E. Заключительная фраза - Українська
-
-closingTextUk: ${formData.closingTextUk}
-
-## F. Служебные поля (авто)
-
-pageKind: module-home
-moduleKey: landmarks
-pageId: (генерируется автоматически)
-slug: landmarks
-schemaVersion: 1.1.0`;
-  };
-
-  const handleChange = (key: keyof ModuleHomeFormState, value: string) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleImageChange = (
-    fieldName: keyof ImagePreviews,
-    file: File | null,
+  const updateLocalized = (
+    setter: React.Dispatch<React.SetStateAction<Record<LocaleCode, string>>>,
+    locale: LocaleCode,
+    value: string,
   ) => {
-    if (!file) {
-      setImagePreviews((prev) => ({ ...prev, [fieldName]: "" }));
-      setFormData((prev) => ({ ...prev, [fieldName]: "" }));
-      return;
-    }
+    setter((prev) => ({ ...prev, [locale]: value }));
+  };
 
-    // Show preview immediately
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const dataUrl = e.target?.result as string;
-      setImagePreviews((prev) => ({ ...prev, [fieldName]: dataUrl }));
-    };
-    reader.readAsDataURL(file);
+  const updateIllustration = (
+    index: number,
+    patch: Partial<IllustrationDraft>,
+  ) => {
+    setIllustrations((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, ...patch } : item)),
+    );
+  };
 
-    // Upload file to server
-    uploadImageFile(file, fieldName);
+  const updateIllustrationCaption = (
+    index: number,
+    locale: LocaleCode,
+    value: string,
+  ) => {
+    setIllustrations((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? { ...item, caption: { ...item.caption, [locale]: value } }
+          : item,
+      ),
+    );
   };
 
   const uploadImageFile = async (
     file: File,
-    fieldName: keyof ImagePreviews,
+    fieldName: string,
+    onDone: (path: string) => void,
   ) => {
     try {
       const formData = new FormData();
@@ -297,455 +311,440 @@ schemaVersion: 1.1.0`;
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        setMessage(`❌ Ошибка загрузки файла: ${error.message}`);
+        const error = await response.json().catch(() => null);
+        setMessage(
+          `Ошибка загрузки файла: ${error?.message ?? response.statusText}`,
+        );
         return;
       }
 
-      const { path: imagePath } = await response.json();
-      // Store the public path for markdown serialization
-      setFormData((prev) => ({ ...prev, [fieldName]: imagePath }));
+      const payload = await response.json();
+      onDone(payload.path || "");
     } catch (error) {
-      setMessage(`❌ Ошибка загрузки: ${error}`);
+      setMessage(`Ошибка загрузки: ${String(error)}`);
     }
   };
 
-  const removeImage = (fieldName: keyof ImagePreviews) => {
-    setImagePreviews((prev) => ({ ...prev, [fieldName]: "" }));
-    setFormData((prev) => ({ ...prev, [fieldName]: "" }));
+  const buildMarkdown = (): string => {
+    const lines: string[] = [];
+    lines.push("# Форма главной страницы модуля (module-home)");
+    lines.push("");
+    lines.push("## 1. Модуль");
+    lines.push("");
+    lines.push(`moduleKey: ${moduleKey}`);
+    lines.push(`slug: ${slug}`);
+    lines.push("");
+
+    lines.push("## 2. Приветствие Кетти");
+    lines.push("");
+    lines.push(`greeting.en: ${encodeMultiline(greeting.en)}`);
+    lines.push(`greeting.de: ${encodeMultiline(greeting.de)}`);
+    lines.push(`greeting.ru: ${encodeMultiline(greeting.ru)}`);
+    lines.push(`greeting.uk: ${encodeMultiline(greeting.uk)}`);
+    lines.push("");
+
+    lines.push("## 3. Основной текст");
+    lines.push("");
+    lines.push(`description.en: ${encodeMultiline(description.en)}`);
+    lines.push(`description.de: ${encodeMultiline(description.de)}`);
+    lines.push(`description.ru: ${encodeMultiline(description.ru)}`);
+    lines.push(`description.uk: ${encodeMultiline(description.uk)}`);
+    lines.push("");
+
+    lines.push("## 4. Иллюстрации");
+    lines.push("");
+    lines.push(`stampImage: ${stampImage}`);
+    lines.push("");
+
+    illustrations.forEach((item, index) => {
+      lines.push(`illustration[${index}].image: ${item.image}`);
+      lines.push(
+        `illustration[${index}].caption.en: ${encodeMultiline(item.caption.en)}`,
+      );
+      lines.push(
+        `illustration[${index}].caption.de: ${encodeMultiline(item.caption.de)}`,
+      );
+      lines.push(
+        `illustration[${index}].caption.ru: ${encodeMultiline(item.caption.ru)}`,
+      );
+      lines.push(
+        `illustration[${index}].caption.uk: ${encodeMultiline(item.caption.uk)}`,
+      );
+      lines.push(`illustration[${index}].size: ${item.size}`);
+      lines.push(`illustration[${index}].type: ${item.type}`);
+      lines.push(`illustration[${index}].position: ${item.position}`);
+      lines.push(`illustration[${index}].wrap: ${item.wrap}`);
+      lines.push(`illustration[${index}].shadow: ${item.shadow}`);
+      lines.push(`illustration[${index}].border: ${item.border}`);
+      lines.push(`illustration[${index}].rotate: ${item.rotate}`);
+      lines.push(`illustration[${index}].insert.where: ${item.insertWhere}`);
+      lines.push(
+        `illustration[${index}].insert.paragraph: ${item.insertParagraph}`,
+      );
+      lines.push(`illustration[${index}].anchor: ${item.anchor}`);
+      lines.push("");
+    });
+
+    lines.push("## 5. Заключительная фраза");
+    lines.push("");
+    lines.push(`invitation.en: ${encodeMultiline(invitation.en)}`);
+    lines.push(`invitation.de: ${encodeMultiline(invitation.de)}`);
+    lines.push(`invitation.ru: ${encodeMultiline(invitation.ru)}`);
+    lines.push(`invitation.uk: ${encodeMultiline(invitation.uk)}`);
+    lines.push("");
+
+    lines.push("## 6. Служебные поля");
+    lines.push("");
+    lines.push("pageKind: module-home");
+    lines.push("schemaVersion: 1.2.0");
+    lines.push("");
+
+    return lines.join("\n");
   };
 
   const handleSave = async () => {
     setSaving(true);
     try {
-      const markdown = buildFormMarkdown();
+      const markdown = buildMarkdown();
       const response = await fetch("/api/agent/forms/module-home", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ markdown }),
       });
 
-      if (response.ok) {
-        setMessage("✅ Форма сохранена успешно");
-      } else {
-        const error = await response.text();
-        setMessage(`❌ Ошибка сохранения: ${error}`);
+      const payload = await response.json().catch(() => null);
+
+      if (!response.ok || !payload?.ok) {
+        throw new Error(payload?.message ?? "Ошибка сохранения");
       }
+
+      setMessage("Форма сохранена");
     } catch (error) {
-      setMessage(`❌ Ошибка: ${error}`);
+      setMessage(`Ошибка сохранения: ${String(error)}`);
     } finally {
       setSaving(false);
     }
   };
 
   if (loading) {
-    return <div className={styles.container}>Загрузка формы...</div>;
+    return <div className={styles.container}>Загрузка...</div>;
   }
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Форма главной страницы (Module Home)</h2>
+      <h2 className={styles.title}>Форма главной страницы модуля</h2>
 
-      {/* Greetings Section */}
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>A. Приветствие (4 языка)</legend>
-
+        <legend className={styles.legend}>1. Модуль</legend>
         <div className={styles.field}>
-          <label className={styles.label}>Русский (greetingRu)</label>
+          <label className={styles.label}>Ключ модуля (moduleKey)</label>
           <input
-            type="text"
-            className={styles.input}
-            value={formData.greetingRu}
-            onChange={(e) => handleChange("greetingRu", e.target.value)}
-            placeholder="Привет. Меня зовут Кетти."
+            value={moduleKey}
+            onChange={(e) => setModuleKey(e.target.value)}
           />
         </div>
-
         <div className={styles.field}>
-          <label className={styles.label}>English (greetingEn)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.greetingEn}
-            onChange={(e) => handleChange("greetingEn", e.target.value)}
-            placeholder="Hello. My name is Ketty."
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Deutsch (greetingDe)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.greetingDe}
-            onChange={(e) => handleChange("greetingDe", e.target.value)}
-            placeholder="Hallo. Mein Name ist Ketty."
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Українська (greetingUk)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.greetingUk}
-            onChange={(e) => handleChange("greetingUk", e.target.value)}
-            placeholder="Привіт. Мене звуть Кеті."
-          />
+          <label className={styles.label}>Slug</label>
+          <input value={slug} onChange={(e) => setSlug(e.target.value)} />
         </div>
       </fieldset>
 
-      {/* Content Section */}
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>
-          B. Контент (4 многострочных поля)
-        </legend>
-        <p className={styles.hint}>
-          Разделяйте смысловые блоки через `---` на отдельной строке
-        </p>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Русский (contentRu)</label>
-          <textarea
-            className={styles.textarea}
-            value={formData.contentRu}
-            onChange={(e) => handleChange("contentRu", e.target.value)}
-            placeholder="Готовый текст открытки на русском"
-            rows={6}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>English (contentEn)</label>
-          <textarea
-            className={styles.textarea}
-            value={formData.contentEn}
-            onChange={(e) => handleChange("contentEn", e.target.value)}
-            placeholder="Ready postcard text in English"
-            rows={6}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Deutsch (contentDe)</label>
-          <textarea
-            className={styles.textarea}
-            value={formData.contentDe}
-            onChange={(e) => handleChange("contentDe", e.target.value)}
-            placeholder="Fertiger Poskartentext auf Deutsch"
-            rows={6}
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Українська (contentUk)</label>
-          <textarea
-            className={styles.textarea}
-            value={formData.contentUk}
-            onChange={(e) => handleChange("contentUk", e.target.value)}
-            placeholder="Готовий текст листівки українською"
-            rows={6}
-          />
-        </div>
+        <legend className={styles.legend}>2. Приветствие Кетти</legend>
+        {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+          <div className={styles.field} key={`greeting-${locale}`}>
+            <label
+              className={styles.label}
+            >{`Приветствие (${localeNames[locale]})`}</label>
+            <textarea
+              value={greeting[locale]}
+              onChange={(e) =>
+                updateLocalized(setGreeting, locale, e.target.value)
+              }
+              rows={3}
+            />
+          </div>
+        ))}
       </fieldset>
 
-      {/* Stamp Image */}
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>C. Иллюстрация почтовой марки</legend>
+        <legend className={styles.legend}>3. Основной текст</legend>
+        {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+          <div className={styles.field} key={`description-${locale}`}>
+            <label
+              className={styles.label}
+            >{`Описание (${localeNames[locale]})`}</label>
+            <textarea
+              value={description[locale]}
+              onChange={(e) =>
+                updateLocalized(setDescription, locale, e.target.value)
+              }
+              rows={6}
+            />
+          </div>
+        ))}
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>4. Иллюстрации</legend>
         <div className={styles.field}>
-          <label className={styles.label}>stampImage</label>
+          <label className={styles.label}>Марка (stampImage)</label>
+          <input
+            value={stampImage}
+            onChange={(e) => setStampImage(e.target.value)}
+          />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.label}>Загрузить марку</label>
           <input
             type="file"
             accept="image/*"
-            className={styles.fileInput}
-            onChange={(e) =>
-              handleImageChange("stampImage", e.target.files?.[0] || null)
-            }
+            onChange={(e) => {
+              const file = e.target.files?.[0] ?? null;
+              if (!file) return;
+              uploadImageFile(file, "module-stamp", (imagePath) =>
+                setStampImage(imagePath),
+              );
+            }}
           />
-          {imagePreviews.stampImage && (
-            <div className={styles.imagePreviewContainer}>
-              <img
-                src={imagePreviews.stampImage}
-                alt="Stamp Preview"
-                className={styles.imagePreview}
+        </div>
+
+        {illustrations.map((item, index) => (
+          <div
+            key={`ill-${index}`}
+            style={{
+              borderTop: "1px solid #ddd",
+              paddingTop: 12,
+              marginTop: 12,
+            }}
+          >
+            <div className={styles.field}>
+              <label
+                className={styles.label}
+              >{`Изображение иллюстрации #${index + 1}`}</label>
+              <input
+                value={item.image}
+                onChange={(e) =>
+                  updateIllustration(index, { image: e.target.value })
+                }
               />
-              <div className={styles.imageInfo}>
-                <span className={styles.imageStatus}>активен</span>
-                <button
-                  type="button"
-                  className={styles.removeButton}
-                  onClick={() => removeImage("stampImage")}
-                >
-                  Удалить
-                </button>
-              </div>
             </div>
-          )}
+            <div className={styles.field}>
+              <label className={styles.label}>Загрузить изображение</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] ?? null;
+                  if (!file) return;
+                  uploadImageFile(
+                    file,
+                    `module-illustration-${index}`,
+                    (imagePath) =>
+                      updateIllustration(index, { image: imagePath }),
+                  );
+                }}
+              />
+            </div>
+
+            {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+              <div className={styles.field} key={`caption-${index}-${locale}`}>
+                <label
+                  className={styles.label}
+                >{`Подпись (${localeNames[locale]})`}</label>
+                <input
+                  value={item.caption[locale]}
+                  onChange={(e) =>
+                    updateIllustrationCaption(index, locale, e.target.value)
+                  }
+                />
+              </div>
+            ))}
+
+            <div className={styles.field}>
+              <label className={styles.label}>Размер</label>
+              <select
+                value={item.size}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    size: e.target.value as IllustrationDraft["size"],
+                  })
+                }
+              >
+                <option value="small">Маленький</option>
+                <option value="medium">Средний</option>
+                <option value="large">Большой</option>
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Тип</label>
+              <select
+                value={item.type}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    type: e.target.value as IllustrationDraft["type"],
+                  })
+                }
+              >
+                <option value="ketty-drawing">Рисунок Кетти</option>
+                <option value="photo">Фото</option>
+                <option value="decor">Декор</option>
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Позиция</label>
+              <select
+                value={item.position}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    position: e.target.value as IllustrationDraft["position"],
+                  })
+                }
+              >
+                <option value="left">Слева</option>
+                <option value="right">Справа</option>
+                <option value="center">По центру</option>
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Вставка: до/после абзаца</label>
+              <select
+                value={item.insertWhere}
+                onChange={(e) =>
+                  updateIllustration(index, {
+                    insertWhere: e.target
+                      .value as IllustrationDraft["insertWhere"],
+                  })
+                }
+              >
+                <option value="before">Перед абзацем</option>
+                <option value="after">После абзаца</option>
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Номер абзаца</label>
+              <input
+                value={item.insertParagraph}
+                onChange={(e) =>
+                  updateIllustration(index, { insertParagraph: e.target.value })
+                }
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Поворот (-10..10)</label>
+              <input
+                value={item.rotate}
+                onChange={(e) =>
+                  updateIllustration(index, { rotate: e.target.value })
+                }
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Якорь (необязательно)</label>
+              <input
+                value={item.anchor}
+                onChange={(e) =>
+                  updateIllustration(index, { anchor: e.target.value })
+                }
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={item.wrap}
+                  onChange={(e) =>
+                    updateIllustration(index, { wrap: e.target.checked })
+                  }
+                />{" "}
+                Обтекание текстом
+              </label>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={item.shadow}
+                  onChange={(e) =>
+                    updateIllustration(index, { shadow: e.target.checked })
+                  }
+                />{" "}
+                Тень
+              </label>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={item.border}
+                  onChange={(e) =>
+                    updateIllustration(index, { border: e.target.checked })
+                  }
+                />{" "}
+                Рамка
+              </label>
+            </div>
+
+            <button
+              type="button"
+              className="agent-button"
+              onClick={() =>
+                setIllustrations((prev) => prev.filter((_, i) => i !== index))
+              }
+            >
+              Удалить
+            </button>
+          </div>
+        ))}
+
+        <div style={{ marginTop: 12 }}>
+          <button
+            type="button"
+            className="agent-button"
+            onClick={() =>
+              setIllustrations((prev) => [...prev, createIllustration()])
+            }
+          >
+            Добавить иллюстрацию
+          </button>
         </div>
       </fieldset>
 
-      {/* Illustrations Section */}
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>
-          D. Иллюстрации блоков (6 полей)
-        </legend>
-
-        <div className={styles.illustrationGroup}>
-          <div className={styles.field}>
-            <label className={styles.label}>Блок 1 - Слева (1L)</label>
-            <input
-              type="file"
-              accept="image/*"
-              className={styles.fileInput}
+        <legend className={styles.legend}>5. Заключительная фраза</legend>
+        {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
+          <div className={styles.field} key={`invitation-${locale}`}>
+            <label
+              className={styles.label}
+            >{`Приглашение (${localeNames[locale]})`}</label>
+            <textarea
+              value={invitation[locale]}
               onChange={(e) =>
-                handleImageChange("illustration1L", e.target.files?.[0] || null)
+                updateLocalized(setInvitation, locale, e.target.value)
               }
+              rows={3}
             />
-            {imagePreviews.illustration1L && (
-              <div className={styles.imagePreviewContainer}>
-                <img
-                  src={imagePreviews.illustration1L}
-                  alt="Illustration 1L Preview"
-                  className={styles.imagePreview}
-                />
-                <div className={styles.imageInfo}>
-                  <span className={styles.imageStatus}>активен</span>
-                  <button
-                    type="button"
-                    className={styles.removeButton}
-                    onClick={() => removeImage("illustration1L")}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Блок 1 - Справа (1R)</label>
-            <input
-              type="file"
-              accept="image/*"
-              className={styles.fileInput}
-              onChange={(e) =>
-                handleImageChange("illustration1R", e.target.files?.[0] || null)
-              }
-            />
-            {imagePreviews.illustration1R && (
-              <div className={styles.imagePreviewContainer}>
-                <img
-                  src={imagePreviews.illustration1R}
-                  alt="Illustration 1R Preview"
-                  className={styles.imagePreview}
-                />
-                <div className={styles.imageInfo}>
-                  <span className={styles.imageStatus}>активен</span>
-                  <button
-                    type="button"
-                    className={styles.removeButton}
-                    onClick={() => removeImage("illustration1R")}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className={styles.illustrationGroup}>
-          <div className={styles.field}>
-            <label className={styles.label}>Блок 2 - Слева (2L)</label>
-            <input
-              type="file"
-              accept="image/*"
-              className={styles.fileInput}
-              onChange={(e) =>
-                handleImageChange("illustration2L", e.target.files?.[0] || null)
-              }
-            />
-            {imagePreviews.illustration2L && (
-              <div className={styles.imagePreviewContainer}>
-                <img
-                  src={imagePreviews.illustration2L}
-                  alt="Illustration 2L Preview"
-                  className={styles.imagePreview}
-                />
-                <div className={styles.imageInfo}>
-                  <span className={styles.imageStatus}>активен</span>
-                  <button
-                    type="button"
-                    className={styles.removeButton}
-                    onClick={() => removeImage("illustration2L")}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Блок 2 - Справа (2R)</label>
-            <input
-              type="file"
-              accept="image/*"
-              className={styles.fileInput}
-              onChange={(e) =>
-                handleImageChange("illustration2R", e.target.files?.[0] || null)
-              }
-            />
-            {imagePreviews.illustration2R && (
-              <div className={styles.imagePreviewContainer}>
-                <img
-                  src={imagePreviews.illustration2R}
-                  alt="Illustration 2R Preview"
-                  className={styles.imagePreview}
-                />
-                <div className={styles.imageInfo}>
-                  <span className={styles.imageStatus}>активен</span>
-                  <button
-                    type="button"
-                    className={styles.removeButton}
-                    onClick={() => removeImage("illustration2R")}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className={styles.illustrationGroup}>
-          <div className={styles.field}>
-            <label className={styles.label}>Блок 3 - Слева (3L)</label>
-            <input
-              type="file"
-              accept="image/*"
-              className={styles.fileInput}
-              onChange={(e) =>
-                handleImageChange("illustration3L", e.target.files?.[0] || null)
-              }
-            />
-            {imagePreviews.illustration3L && (
-              <div className={styles.imagePreviewContainer}>
-                <img
-                  src={imagePreviews.illustration3L}
-                  alt="Illustration 3L Preview"
-                  className={styles.imagePreview}
-                />
-                <div className={styles.imageInfo}>
-                  <span className={styles.imageStatus}>активен</span>
-                  <button
-                    type="button"
-                    className={styles.removeButton}
-                    onClick={() => removeImage("illustration3L")}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Блок 3 - Справа (3R)</label>
-            <input
-              type="file"
-              accept="image/*"
-              className={styles.fileInput}
-              onChange={(e) =>
-                handleImageChange("illustration3R", e.target.files?.[0] || null)
-              }
-            />
-            {imagePreviews.illustration3R && (
-              <div className={styles.imagePreviewContainer}>
-                <img
-                  src={imagePreviews.illustration3R}
-                  alt="Illustration 3R Preview"
-                  className={styles.imagePreview}
-                />
-                <div className={styles.imageInfo}>
-                  <span className={styles.imageStatus}>активен</span>
-                  <button
-                    type="button"
-                    className={styles.removeButton}
-                    onClick={() => removeImage("illustration3R")}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        ))}
       </fieldset>
 
-      {/* Closing Section */}
-      <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>
-          E. Заключительная фраза (4 языка)
-        </legend>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Русский (closingTextRu)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.closingTextRu}
-            onChange={(e) => handleChange("closingTextRu", e.target.value)}
-            placeholder="Открытки приходят не по расписанию."
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>English (closingTextEn)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.closingTextEn}
-            onChange={(e) => handleChange("closingTextEn", e.target.value)}
-            placeholder="Postcards come not by schedule."
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Deutsch (closingTextDe)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.closingTextDe}
-            onChange={(e) => handleChange("closingTextDe", e.target.value)}
-            placeholder="Postkarten kommen nicht nach Plan."
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Українська (closingTextUk)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.closingTextUk}
-            onChange={(e) => handleChange("closingTextUk", e.target.value)}
-            placeholder="Листівки приходять не за розкладом."
-          />
-        </div>
-      </fieldset>
-
-      {/* Actions */}
-      <div className={styles.actions}>
+      <div style={{ marginTop: 12 }}>
+        <button className="agent-button" onClick={handleSave} disabled={saving}>
+          {saving ? "Сохраняю..." : "Сохранить"}
+        </button>
         <button
-          className={styles.button}
-          onClick={handleSave}
+          className="agent-button"
+          style={{ marginLeft: 8 }}
+          onClick={loadForm}
           disabled={saving}
         >
-          {saving ? "Сохранение..." : "Сохранить форму"}
-        </button>
-        <button className={styles.buttonSecondary} onClick={loadForm}>
           Перезагрузить
         </button>
+        <span style={{ marginLeft: 12 }}>{message}</span>
       </div>
-
-      {message && <div className={styles.message}>{message}</div>}
     </div>
   );
 }
