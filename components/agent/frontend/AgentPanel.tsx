@@ -8,10 +8,10 @@ import { FormRenderer } from "./FormRenderer";
 import { ChildPatternsForm } from "./ChildPatternsForm";
 import { Chat } from "./Chat";
 import { Sidebar } from "./Sidebar";
-import { MarkdownFormPanel } from "@/agent/components/MarkdownFormPanel";
 import { default as ModuleHomeFormPanel } from "@/agent/components/ModuleHomeFormPanel";
 import CollectionHomeFormPanel from "@/agent/components/CollectionHomeFormPanel";
 import LandmarkFormPanel from "@/agent/components/LandmarkFormPanel";
+import CityFormPanel from "@/agent/components/CityFormPanel";
 
 const LOCALES = ["ru", "en", "de", "uk"] as const;
 
@@ -851,7 +851,7 @@ export function AgentPanel() {
             />
           ) : activeForm === "landmarkForm" && selectedLandmarkForm ? (
             selectedLandmarkForm === "city" ? (
-              <MarkdownFormPanel formType="city" />
+              <CityFormPanel />
             ) : selectedLandmarkForm === "module-home" ? (
               <ModuleHomeFormPanel />
             ) : selectedLandmarkForm === "collection-home" ? (
