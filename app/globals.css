@@ -9,6 +9,21 @@ body {
   overflow-x: hidden;
   box-sizing: border-box;
   font-family: "Georgia", "Times New Roman", serif;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+main {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+main::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 *,

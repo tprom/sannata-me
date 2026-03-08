@@ -134,6 +134,25 @@
   grid-template-columns: 300px minmax(0, 1fr);
   gap: 16px;
   padding: 24px;
+  background-color: #f8f2e5;
+  background-image:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 255, 255, 0.46) 0 22%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 82% 76%,
+      rgba(165, 128, 74, 0.06) 0 18%,
+      transparent 50%
+    ),
+    repeating-linear-gradient(
+      -10deg,
+      rgba(255, 255, 255, 0.06) 0,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 7px
+    );
 }
 
 .city-menu {

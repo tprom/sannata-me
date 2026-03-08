@@ -8,7 +8,7 @@ type LocaleCode = "en" | "de" | "ru" | "uk";
 type IllustrationDraft = {
   image: string;
   caption: Record<LocaleCode, string>;
-  size: "small" | "medium" | "large";
+  size: "small" | "medium" | "large" | "threeQuarter" | "compact";
   type: "ketty-drawing" | "photo" | "decor";
   position: "left" | "right" | "center";
   wrap: boolean;
@@ -54,8 +54,26 @@ const encodeMultiline = (value: string): string =>
   value.replace(/\r?\n/g, "\\n");
 
 const parseField = (markdown: string, key: string): string => {
-  const m = markdown.match(new RegExp(`^${key}:[ \\t]*([^\\r\\n]*)$`, "m"));
-  return m ? m[1].trim() : "";
+  for (const rawLine of markdown.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#") || line.startsWith("<!--")) {
+      continue;
+    }
+
+    const separator = line.indexOf(":");
+    if (separator < 0) {
+      continue;
+    }
+
+    const lineKey = line.slice(0, separator).trim();
+    if (lineKey !== key) {
+      continue;
+    }
+
+    return line.slice(separator + 1).trim();
+  }
+
+  return "";
 };
 
 const parseBoolean = (value: string, fallback: boolean): boolean => {
@@ -67,6 +85,16 @@ const parseBoolean = (value: string, fallback: boolean): boolean => {
     return false;
   }
   return fallback;
+};
+
+const normalizeSize = (value: string): IllustrationDraft["size"] => {
+  const normalized = value.trim();
+  if (normalized === "large") return "large";
+  if (normalized === "threeQuarter") return "threeQuarter";
+  if (normalized === "medium") return "medium";
+  if (normalized === "compact") return "compact";
+  if (normalized === "small") return "small";
+  return "medium";
 };
 
 const parseMultilineLegacy = (markdown: string, key: string): string => {
@@ -110,40 +138,36 @@ const parseIllustrations = (markdown: string): IllustrationDraft[] => {
     .map((index) => {
       const prefix = `illustration[${index}]`;
       return {
-        image: parseField(markdown, `${prefix}\\.image`),
+        image: parseField(markdown, `${prefix}.image`),
         caption: {
-          en: parseField(markdown, `${prefix}\\.caption\\.en`),
-          de: parseField(markdown, `${prefix}\\.caption\\.de`),
-          ru: parseField(markdown, `${prefix}\\.caption\\.ru`),
-          uk: parseField(markdown, `${prefix}\\.caption\\.uk`),
+          en: decodeMultiline(parseField(markdown, `${prefix}.caption.en`)),
+          de: decodeMultiline(parseField(markdown, `${prefix}.caption.de`)),
+          ru: decodeMultiline(parseField(markdown, `${prefix}.caption.ru`)),
+          uk: decodeMultiline(parseField(markdown, `${prefix}.caption.uk`)),
         },
-        size:
-          (parseField(
-            markdown,
-            `${prefix}\\.size`,
-          ) as IllustrationDraft["size"]) || "medium",
+        size: normalizeSize(parseField(markdown, `${prefix}.size`)),
         type:
           (parseField(
             markdown,
-            `${prefix}\\.type`,
+            `${prefix}.type`,
           ) as IllustrationDraft["type"]) || "ketty-drawing",
         position:
           (parseField(
             markdown,
-            `${prefix}\\.position`,
+            `${prefix}.position`,
           ) as IllustrationDraft["position"]) || "right",
-        wrap: parseBoolean(parseField(markdown, `${prefix}\\.wrap`), true),
-        shadow: parseBoolean(parseField(markdown, `${prefix}\\.shadow`), false),
-        border: parseBoolean(parseField(markdown, `${prefix}\\.border`), false),
-        rotate: parseField(markdown, `${prefix}\\.rotate`) || "0",
+        wrap: parseBoolean(parseField(markdown, `${prefix}.wrap`), true),
+        shadow: parseBoolean(parseField(markdown, `${prefix}.shadow`), false),
+        border: parseBoolean(parseField(markdown, `${prefix}.border`), false),
+        rotate: parseField(markdown, `${prefix}.rotate`) || "0",
         insertWhere:
           (parseField(
             markdown,
-            `${prefix}\\.insert\\.where`,
+            `${prefix}.insert.where`,
           ) as IllustrationDraft["insertWhere"]) || "after",
         insertParagraph:
-          parseField(markdown, `${prefix}\\.insert\\.paragraph`) || "1",
-        anchor: parseField(markdown, `${prefix}\\.anchor`),
+          parseField(markdown, `${prefix}.insert.paragraph`) || "1",
+        anchor: parseField(markdown, `${prefix}.anchor`),
       };
     })
     .filter((item) => item.image.trim().length > 0);
@@ -214,38 +238,38 @@ export default function ModuleHomeFormPanel() {
 
       setGreeting({
         en:
-          parseLegacyOrNew(markdown, "greeting\\.en", "greetingEn") ||
+          parseLegacyOrNew(markdown, "greeting.en", "greetingEn") ||
           "Hello. My name is Ketty.",
         de:
-          parseLegacyOrNew(markdown, "greeting\\.de", "greetingDe") ||
+          parseLegacyOrNew(markdown, "greeting.de", "greetingDe") ||
           "Hallo. Mein Name ist Ketty.",
         ru:
-          parseLegacyOrNew(markdown, "greeting\\.ru", "greetingRu") ||
+          parseLegacyOrNew(markdown, "greeting.ru", "greetingRu") ||
           "Привет. Меня зовут Кетти.",
         uk:
-          parseLegacyOrNew(markdown, "greeting\\.uk", "greetingUk") ||
+          parseLegacyOrNew(markdown, "greeting.uk", "greetingUk") ||
           "Привiт. Мене звуть Кеттi.",
       });
 
       setDescription({
-        en: parseLegacyOrNew(markdown, "description\\.en", "contentEn"),
-        de: parseLegacyOrNew(markdown, "description\\.de", "contentDe"),
-        ru: parseLegacyOrNew(markdown, "description\\.ru", "contentRu"),
-        uk: parseLegacyOrNew(markdown, "description\\.uk", "contentUk"),
+        en: parseLegacyOrNew(markdown, "description.en", "contentEn"),
+        de: parseLegacyOrNew(markdown, "description.de", "contentDe"),
+        ru: parseLegacyOrNew(markdown, "description.ru", "contentRu"),
+        uk: parseLegacyOrNew(markdown, "description.uk", "contentUk"),
       });
 
       setInvitation({
         en:
-          parseLegacyOrNew(markdown, "invitation\\.en", "closingTextEn") ||
+          parseLegacyOrNew(markdown, "invitation.en", "closingTextEn") ||
           "Postcards come not by schedule.",
         de:
-          parseLegacyOrNew(markdown, "invitation\\.de", "closingTextDe") ||
+          parseLegacyOrNew(markdown, "invitation.de", "closingTextDe") ||
           "Postkarten kommen nicht nach Plan.",
         ru:
-          parseLegacyOrNew(markdown, "invitation\\.ru", "closingTextRu") ||
+          parseLegacyOrNew(markdown, "invitation.ru", "closingTextRu") ||
           "Открытки приходят не по расписанию.",
         uk:
-          parseLegacyOrNew(markdown, "invitation\\.uk", "closingTextUk") ||
+          parseLegacyOrNew(markdown, "invitation.uk", "closingTextUk") ||
           "Листiвки приходять не за розкладом.",
       });
 
@@ -508,6 +532,29 @@ export default function ModuleHomeFormPanel() {
             }}
           />
         </div>
+        {stampImage && (
+          <div className={styles.field}>
+            <img
+              src={stampImage}
+              alt="Марка"
+              style={{
+                maxWidth: 220,
+                width: "100%",
+                height: "auto",
+                borderRadius: 6,
+              }}
+            />
+            <div style={{ marginTop: 8 }}>
+              <button
+                type="button"
+                className="agent-button"
+                onClick={() => setStampImage("")}
+              >
+                Удалить марку из формы
+              </button>
+            </div>
+          </div>
+        )}
 
         {illustrations.map((item, index) => (
           <div
@@ -546,6 +593,29 @@ export default function ModuleHomeFormPanel() {
                 }}
               />
             </div>
+            {item.image && (
+              <div className={styles.field}>
+                <img
+                  src={item.image}
+                  alt={`Иллюстрация #${index + 1}`}
+                  style={{
+                    maxWidth: 280,
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: 6,
+                  }}
+                />
+                <div style={{ marginTop: 8 }}>
+                  <button
+                    type="button"
+                    className="agent-button"
+                    onClick={() => updateIllustration(index, { image: "" })}
+                  >
+                    Удалить изображение из формы
+                  </button>
+                </div>
+              </div>
+            )}
 
             {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
               <div className={styles.field} key={`caption-${index}-${locale}`}>
@@ -571,9 +641,11 @@ export default function ModuleHomeFormPanel() {
                   })
                 }
               >
-                <option value="small">Маленький</option>
-                <option value="medium">Средний</option>
-                <option value="large">Большой</option>
+                <option value="small">Маленький (30%)</option>
+                <option value="compact">Уменьшенный (40%)</option>
+                <option value="medium">Средний (50%)</option>
+                <option value="threeQuarter">Крупный (75%)</option>
+                <option value="large">Большой (100%)</option>
               </select>
             </div>
 

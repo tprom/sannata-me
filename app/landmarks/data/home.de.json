@@ -25,9 +25,9 @@
       "visible": true,
       "payload": {
         "title": "",
-        "text": "Ich weiß nicht, wo du gerade bist,\r\naber ich habe beschlossen, dir zu schreiben.\r\n\r\nIch gehe gern durch Städte.\r\nManchmal lange.\r\nManchmal nur ein kleines Stück.\r\nIch weiß nicht immer, wohin ich gehe.\r\nManchmal wähle ich einen Ort,\r\nweil er einen schönen Namen hat.\r\nManchmal, weil dort eine seltsame Treppe steht.\r\nManchmal, weil der Regen beginnt\r\nund es sich anfühlt, als würde er mich rufen.\r\nIch schaue nicht wie Erwachsene.\r\nIch schaue auf Risse, auf Schatten,\r\nauf Fenster, die etwas zu wissen scheinen.\r\nIch höre zu, wie ein Ort klingt.\r\nManche Orte flüstern.\r\nManche schweigen.\r\nUnd manche beginnen sofort zu erzählen.\r\nWenn ich an einen sehr schönen Ort komme,\r\nbleibe ich zuerst stehen.\r\nDann gehe ich einmal herum.\r\nDann berühre ich ihn mit meinem Blick.\r\nManchmal habe ich nichts zu sagen.\r\nDann merke ich mir einfach,\r\nwie der Morgen gerochen hat\r\nund welche Farbe der Himmel zwischen den Häusern hatte.\r\nUnd dann schreibe ich eine Postkarte.\r\nKeine lange.\r\nNicht über alles.\r\nNur über das,\r\nwas bei mir geblieben ist.\r\nManchmal sind es Worte.\r\nManchmal fast ein Gedicht.\r\nManchmal nur ein Gefühl,\r\ndas ich nicht verlieren möchte.\r\nIch werde weiterreisen.\r\nOhne Route.\r\nOhne richtige Antworten.\r\nUnd jedes Mal,\r\nwenn mich ein Ort berührt,\r\nbekommst du eine Postkarte von mir.",
+        "text": "Ich weiß nicht, wo du gerade bist,\naber ich habe beschlossen, dir zu schreiben.\n\nIch gehe gern durch Städte.\nManchmal lange.\nManchmal nur ein kleines Stück.\nIch weiß nicht immer, wohin ich gehe.\nManchmal wähle ich einen Ort,\nweil er einen schönen Namen hat.\nManchmal, weil dort eine seltsame Treppe steht.\nManchmal, weil der Regen beginnt\nund es sich anfühlt, als würde er mich rufen.\nIch schaue nicht wie Erwachsene.\nIch schaue auf Risse, auf Schatten,\nauf Fenster, die etwas zu wissen scheinen.\nIch höre zu, wie ein Ort klingt.\nManche Orte flüstern.\nManche schweigen.\nUnd manche beginnen sofort zu erzählen.\nWenn ich an einen sehr schönen Ort komme,\nbleibe ich zuerst stehen.\nDann gehe ich einmal herum.\nDann berühre ich ihn mit meinem Blick.\nManchmal habe ich nichts zu sagen.\nDann merke ich mir einfach,\nwie der Morgen gerochen hat\nund welche Farbe der Himmel zwischen den Häusern hatte.\nUnd dann schreibe ich eine Postkarte.\nKeine lange.\nNicht über alles.\nNur über das,\nwas bei mir geblieben ist.\nManchmal sind es Worte.\nManchmal fast ein Gedicht.\nManchmal nur ein Gefühl,\ndas ich nicht verlieren möchte.\nIch werde weiterreisen.\nOhne Route.\nOhne richtige Antworten.\nUnd jedes Mal,\nwenn mich ein Ort berührt,\nbekommst du eine Postkarte von mir.",
         "illustrationLeft": "",
-        "illustrationRight": "/uploads/module-home/illustration1R-1772566361555.png"
+        "illustrationRight": "/uploads/module-home/module-illustration-0-1773002309825.png"
       }
     },
     {
@@ -37,7 +37,7 @@
       "payload": {
         "title": "",
         "text": "",
-        "illustrationLeft": "/uploads/module-home/illustration2L-1772566391266.png",
+        "illustrationLeft": "/uploads/module-home/module-illustration-1-1773002403622.png",
         "illustrationRight": ""
       }
     },
@@ -49,7 +49,7 @@
         "title": "",
         "text": "",
         "illustrationLeft": "",
-        "illustrationRight": "/uploads/module-home/illustration3R-1772566444610.png"
+        "illustrationRight": "/uploads/module-home/module-illustration-2-1773002477518.png"
       }
     },
     {
@@ -63,17 +63,17 @@
   ],
   "mediaRefs": {
     "hero": [
-      "/uploads/module-home/stampImage-1772449138482.png"
+      "/uploads/module-home/module-stamp-1773002243932.png"
     ],
     "sections": [
-      "/uploads/module-home/illustration1R-1772566361555.png",
-      "/uploads/module-home/illustration2L-1772566391266.png",
-      "/uploads/module-home/illustration3R-1772566444610.png"
+      "/uploads/module-home/module-illustration-0-1773002309825.png",
+      "/uploads/module-home/module-illustration-1-1773002403622.png",
+      "/uploads/module-home/module-illustration-2-1773002477518.png"
     ]
   },
   "audit": {
     "createdAt": "2026-03-03T20:05:56.463Z",
-    "updatedAt": "2026-03-06T17:31:18.760Z",
+    "updatedAt": "2026-03-08T20:47:39.829Z",
     "updatedBy": "agent-form"
   },
   "navigation": {
@@ -85,6 +85,89 @@
         "pageId": "76082300-04f3-4623-b152-403353807dff",
         "title": "Landmarks",
         "slug": "landmarks"
+      }
+    ]
+  },
+  "moduleHomeContract": {
+    "greeting": {
+      "ru": "Привет. Это я, Кетти.",
+      "en": "Hello. It’s me, Ketty.\n",
+      "de": "Hallo. Ich bin’s, Ketty.",
+      "uk": "Привіт. Це я, Кетті."
+    },
+    "description": {
+      "ru": "Я не знаю, где ты сейчас, \nно я решила писать тебе.\n\nЯ люблю ходить по городам.\nИногда — долго.\nИногда — совсем чуть чуть.\nЯ не всегда знаю, куда иду.\nИногда я выбираю место, потому что у него красивое имя.\nИногда — потому что там странная лестница.\nИногда — потому что пошёл дождь, и он будто позвал меня.\nЯ смотрю не как взрослые.\nЯ смотрю на трещины, на тени, на окна, которые будто что то знают.\nЯ слушаю, как звучит место.\nНекоторые места шепчут.\nНекоторые молчат.\nА некоторые сразу начинают рассказывать.\nКогда я прихожу в очень красивое место,\nя сначала стою.\nПотом обхожу вокруг.\nПотом трогаю взглядом.\nИногда мне нечего сказать.\nТогда я просто запоминаю,\nкак пахло утро\nи какого цвета было небо между домами.\nА потом я пишу открытку.\nНе длинную.\nНе про всё.\nТолько про то,\nчто осталось со мной.\nИногда это слова.\nИногда — почти стих.\nИногда — просто чувство,\nкоторое я не хочу потерять.\nЯ буду путешествовать дальше.\nБез маршрута.\nБез правильных ответов.\nИ каждый раз,\nкогда место меня тронет,\nты получишь от меня открытку.\n\n",
+      "en": "I don’t know where you are right now,\nbut I decided to write to you.\n\nI love walking through cities.\nSometimes for a long time.\nSometimes just a little.\nI don’t always know where I’m going.\nSometimes I choose a place because it has a beautiful name.\nSometimes because there’s a strange staircase.\nSometimes because the rain starts\nand it feels as if it’s calling me.\nI don’t look the way adults do.\nI look at cracks, at shadows,\nat windows that seem to know something.\nI listen to how a place sounds.\nSome places whisper.\nSome stay silent.\nAnd some begin to tell their stories right away.\nWhen I arrive at a very beautiful place,\nI stand still first.\nThen I walk around it.\nThen I touch it with my eyes.\nSometimes I have nothing to say.\nThen I simply remember\nhow the morning smelled\nand what color the sky was between the houses.\nAnd then I write a postcard.\nNot a long one.\nNot about everything.\nOnly about what stayed with me.\nSometimes it becomes words.\nSometimes almost a poem.\nSometimes just a feeling\nI don’t want to lose.\nI will keep traveling.\nWithout a route.\nWithout the “right” answers.\nAnd every time a place touches me,\nyou will receive a postcard from me.\n",
+      "de": "Ich weiß nicht, wo du gerade bist,\naber ich habe beschlossen, dir zu schreiben.\n\nIch gehe gern durch Städte.\nManchmal lange.\nManchmal nur ein kleines Stück.\nIch weiß nicht immer, wohin ich gehe.\nManchmal wähle ich einen Ort,\nweil er einen schönen Namen hat.\nManchmal, weil dort eine seltsame Treppe steht.\nManchmal, weil der Regen beginnt\nund es sich anfühlt, als würde er mich rufen.\nIch schaue nicht wie Erwachsene.\nIch schaue auf Risse, auf Schatten,\nauf Fenster, die etwas zu wissen scheinen.\nIch höre zu, wie ein Ort klingt.\nManche Orte flüstern.\nManche schweigen.\nUnd manche beginnen sofort zu erzählen.\nWenn ich an einen sehr schönen Ort komme,\nbleibe ich zuerst stehen.\nDann gehe ich einmal herum.\nDann berühre ich ihn mit meinem Blick.\nManchmal habe ich nichts zu sagen.\nDann merke ich mir einfach,\nwie der Morgen gerochen hat\nund welche Farbe der Himmel zwischen den Häusern hatte.\nUnd dann schreibe ich eine Postkarte.\nKeine lange.\nNicht über alles.\nNur über das,\nwas bei mir geblieben ist.\nManchmal sind es Worte.\nManchmal fast ein Gedicht.\nManchmal nur ein Gefühl,\ndas ich nicht verlieren möchte.\nIch werde weiterreisen.\nOhne Route.\nOhne richtige Antworten.\nUnd jedes Mal,\nwenn mich ein Ort berührt,\nbekommst du eine Postkarte von mir.\n",
+      "uk": "Я не знаю, де ти зараз,\nале я вирішила написати тобі.\n\nЯ люблю ходити містами.\nІноді — довго.\nІноді — зовсім трішки.\nЯ не завжди знаю, куди йду.\nІноді я обираю місце,\nбо в нього гарне ім’я.\nІноді — бо там дивні сходи.\nІноді — бо пішов дощ,\nі здалося, що він мене покликав.\nЯ дивлюся не так, як дорослі.\nЯ дивлюся на тріщини, на тіні,\nна вікна, які ніби щось знають.\nЯ слухаю, як звучить місце.\nДеякі місця шепочуть.\nДеякі мовчать.\nА деякі починають розповідати одразу.\nКоли я приходжу в дуже гарне місце,\nя спершу стою.\nПотім обходжу навколо.\nПотім торкаюся його поглядом.\nІноді мені нічого сказати.\nТоді я просто запам’ятовую,\nяк пахнув ранок\nі якого кольору було небо між будинками.\nА потім я пишу листівку.\nНе довгу.\nНе про все.\nЛише про те,\nщо залишилося зі мною.\nІноді це слова.\nІноді — майже вірш.\nІноді — просто відчуття,\nяке я не хочу загубити.\nЯ подорожуватиму далі.\nБез маршруту.\nБез правильних відповідей.\nІ щоразу,\nколи місце торкнеться мене,\nти отримаєш від мене листівку.\n"
+    },
+    "invitation": {
+      "ru": "Открытки приходят не по расписанию.",
+      "en": "Postcards don’t follow schedules.",
+      "de": "Postkarten kommen nicht nach Plan.",
+      "uk": "Листівки не приходять за розкладом."
+    },
+    "stampImage": "/uploads/module-home/module-stamp-1773002243932.png",
+    "illustrations": [
+      {
+        "image": "/uploads/module-home/module-illustration-0-1773002309825.png",
+        "caption": {
+          "ru": "",
+          "en": "",
+          "de": "",
+          "uk": ""
+        },
+        "size": "medium",
+        "type": "ketty-drawing",
+        "position": "right",
+        "wrap": true,
+        "shadow": true,
+        "border": false,
+        "rotate": 3,
+        "insert": {
+          "where": "after",
+          "paragraph": 1
+        }
+      },
+      {
+        "image": "/uploads/module-home/module-illustration-1-1773002403622.png",
+        "caption": {
+          "ru": "",
+          "en": "",
+          "de": "",
+          "uk": ""
+        },
+        "size": "medium",
+        "type": "ketty-drawing",
+        "position": "left",
+        "wrap": true,
+        "shadow": true,
+        "border": false,
+        "rotate": -3,
+        "insert": {
+          "where": "after",
+          "paragraph": 4
+        }
+      },
+      {
+        "image": "/uploads/module-home/module-illustration-2-1773002477518.png",
+        "caption": {
+          "ru": "",
+          "en": "",
+          "de": "",
+          "uk": ""
+        },
+        "size": "medium",
+        "type": "ketty-drawing",
+        "position": "right",
+        "wrap": true,
+        "shadow": true,
+        "border": false,
+        "rotate": 3,
+        "insert": {
+          "where": "before",
+          "paragraph": 5
+        }
       }
     ]
   }

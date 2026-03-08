@@ -42,6 +42,14 @@
 .universalContent {
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.universalContent::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 .universalStack {
