@@ -16,25 +16,34 @@ export default function CityPageContent({ content, lang }: Props) {
   const illustrations = content.illustrations ?? [];
 
   const paragraphs = (description || "")
-    .split(/\n{2,}/)
+    .split(/\n+/)
     .map((part) => part.trim())
     .filter(Boolean);
 
   const fallbackParagraphs =
     paragraphs.length > 0 ? paragraphs : description ? [description] : [];
 
+  const totalParagraphs = Math.max(1, fallbackParagraphs.length);
+
+  const clampParagraph = (value: number): number => {
+    if (!Number.isFinite(value)) return 1;
+    if (value < 1) return 1;
+    if (value > totalParagraphs) return totalParagraphs;
+    return value;
+  };
+
   const illustrationsBefore = (paragraphIndex: number) =>
     illustrations.filter(
       (item) =>
         item.insert?.where === "before" &&
-        item.insert?.paragraph === paragraphIndex,
+        clampParagraph(item.insert?.paragraph ?? 1) === paragraphIndex,
     );
 
   const illustrationsAfter = (paragraphIndex: number) =>
     illustrations.filter(
       (item) =>
         item.insert?.where === "after" &&
-        item.insert?.paragraph === paragraphIndex,
+        clampParagraph(item.insert?.paragraph ?? 1) === paragraphIndex,
     );
 
   const illustrationsWithoutInsert = illustrations.filter(

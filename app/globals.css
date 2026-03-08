@@ -36,6 +36,8 @@ a {
   width: min(100%, 1040px);
   margin: 0 auto;
   padding: 0 16px 24px;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
 }
 
 .city-page-panorama {
@@ -77,15 +79,15 @@ a {
 }
 
 .illustration-size-small {
-  max-width: 220px;
+  max-width: 180px;
 }
 
 .illustration-size-medium {
-  max-width: 340px;
+  max-width: 270px;
 }
 
 .illustration-size-large {
-  max-width: 520px;
+  max-width: 540px;
 }
 
 .illustration-position-left {
@@ -124,4 +126,18 @@ a {
   margin-top: 6px;
   font-size: 12px;
   opacity: 0.82;
+}
+
+/* Hide scroll ribbons in city menu blocks while preserving layout */
+.city-menu-list {
+  scrollbar-width: none;
+}
+
+.city-menu-list::-webkit-scrollbar {
+  display: none;
+}
+
+.city-menu-label {
+  overflow: hidden;
+  max-height: none;
 }
