@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import "@/components/modules/landmarks/styles.css";
 import styles from "./ModuleHomePage.module.css";
@@ -28,6 +28,23 @@ interface ModuleHomePageProps {
 }
 
 export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
+  const [modalImage, setModalImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!modalImage) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setModalImage(null);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [modalImage]);
+
   const hero = envelope.hero;
   const sections = envelope.sections || [];
   const heroImageFromMedia = envelope.mediaRefs?.hero?.[0];
@@ -76,6 +93,32 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
   const rightImages = blocks
     .map((block) => block.payload?.illustrationRight)
     .filter(isValidImageSrc);
+
+  const renderZoomableIllustration = (
+    key: string,
+    src: string,
+    alt: string,
+    className: string,
+    style?: React.CSSProperties,
+  ) => (
+    <span key={key} className={className} style={style}>
+      <button
+        type="button"
+        className={styles.illustrationZoomButton}
+        onClick={() => setModalImage(src)}
+        aria-label="Открыть иллюстрацию в увеличенном размере"
+      >
+        <Image
+          src={src}
+          alt={alt}
+          width={240}
+          height={240}
+          unoptimized={src.startsWith("/")}
+          className={styles.illustrationImage}
+        />
+      </button>
+    </span>
+  );
 
   return (
     <div className={styles.moduleHomePage}>
@@ -131,37 +174,23 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
 
                           if (isValidImageSrc(leftSrc)) {
                             result.push(
-                              <span
-                                key="img-1L"
-                                className={styles.illustrationLeft}
-                              >
-                                <Image
-                                  src={leftSrc}
-                                  alt="Illustration 1L"
-                                  width={240}
-                                  height={240}
-                                  unoptimized={leftSrc.startsWith("/")}
-                                  className={styles.illustrationImage}
-                                />
-                              </span>,
+                              renderZoomableIllustration(
+                                "img-1L",
+                                leftSrc,
+                                "Illustration 1L",
+                                styles.illustrationLeft,
+                              ),
                             );
                           }
                           if (isValidImageSrc(rightSrc)) {
                             result.push(
-                              <span
-                                key="img-1R"
-                                className={styles.illustrationRight}
-                                style={{ top: "122px" }}
-                              >
-                                <Image
-                                  src={rightSrc}
-                                  alt="Illustration 1R"
-                                  width={240}
-                                  height={240}
-                                  unoptimized={rightSrc.startsWith("/")}
-                                  className={styles.illustrationImage}
-                                />
-                              </span>,
+                              renderZoomableIllustration(
+                                "img-1R",
+                                rightSrc,
+                                "Illustration 1R",
+                                styles.illustrationRight,
+                                { top: "122px" },
+                              ),
                             );
                           }
                         }
@@ -173,20 +202,13 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
 
                           if (isValidImageSrc(rightSrc)) {
                             result.push(
-                              <span
-                                key="img-2R"
-                                className={styles.illustrationRight}
-                                style={{ top: "520px" }}
-                              >
-                                <Image
-                                  src={rightSrc}
-                                  alt="Illustration 2R"
-                                  width={240}
-                                  height={240}
-                                  unoptimized={rightSrc.startsWith("/")}
-                                  className={styles.illustrationImage}
-                                />
-                              </span>,
+                              renderZoomableIllustration(
+                                "img-2R",
+                                rightSrc,
+                                "Illustration 2R",
+                                styles.illustrationRight,
+                                { top: "520px" },
+                              ),
                             );
                           }
                         }
@@ -197,19 +219,12 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
 
                           if (isValidImageSrc(leftSrc)) {
                             result.push(
-                              <span
-                                key="img-2L"
-                                className={styles.illustrationLeft}
-                              >
-                                <Image
-                                  src={leftSrc}
-                                  alt="Illustration 2L"
-                                  width={240}
-                                  height={240}
-                                  unoptimized={leftSrc.startsWith("/")}
-                                  className={styles.illustrationImage}
-                                />
-                              </span>,
+                              renderZoomableIllustration(
+                                "img-2L",
+                                leftSrc,
+                                "Illustration 2L",
+                                styles.illustrationLeft,
+                              ),
                             );
                           }
                         }
@@ -222,37 +237,23 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
 
                           if (isValidImageSrc(leftSrc)) {
                             result.push(
-                              <span
-                                key="img-3L"
-                                className={styles.illustrationLeft}
-                              >
-                                <Image
-                                  src={leftSrc}
-                                  alt="Illustration 3L"
-                                  width={240}
-                                  height={240}
-                                  unoptimized={leftSrc.startsWith("/")}
-                                  className={styles.illustrationImage}
-                                />
-                              </span>,
+                              renderZoomableIllustration(
+                                "img-3L",
+                                leftSrc,
+                                "Illustration 3L",
+                                styles.illustrationLeft,
+                              ),
                             );
                           }
                           if (isValidImageSrc(rightSrc)) {
                             result.push(
-                              <span
-                                key="img-3R"
-                                className={styles.illustrationRight}
-                                style={{ top: "886px" }}
-                              >
-                                <Image
-                                  src={rightSrc}
-                                  alt="Illustration 3R"
-                                  width={240}
-                                  height={240}
-                                  unoptimized={rightSrc.startsWith("/")}
-                                  className={styles.illustrationImage}
-                                />
-                              </span>,
+                              renderZoomableIllustration(
+                                "img-3R",
+                                rightSrc,
+                                "Illustration 3R",
+                                styles.illustrationRight,
+                                { top: "886px" },
+                              ),
                             );
                           }
                         }
@@ -289,6 +290,30 @@ export default function ModuleHomePage({ envelope }: ModuleHomePageProps) {
 
         {hero?.kicker && <p className={styles.kickerBottom}>{hero.kicker}</p>}
       </div>
+
+      {modalImage && (
+        <div
+          className={styles.illustrationModal}
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setModalImage(null)}
+        >
+          <button
+            type="button"
+            className={styles.illustrationModalClose}
+            onClick={() => setModalImage(null)}
+            aria-label="Закрыть"
+          >
+            Закрыть
+          </button>
+          <img
+            src={modalImage}
+            alt="Увеличенная иллюстрация"
+            className={styles.illustrationModalImage}
+            onClick={(event) => event.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }
