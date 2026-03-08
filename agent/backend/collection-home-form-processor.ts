@@ -8,7 +8,7 @@ type LocaleCode = (typeof LOCALES)[number];
 type IllustrationDraft = {
   image: string;
   caption: Record<LocaleCode, string>;
-  size: "small" | "medium" | "large";
+  size: "small" | "medium" | "large" | "threeQuarter" | "compact";
   type: "ketty-drawing" | "photo" | "decor";
   position: "left" | "right" | "center";
   wrap: boolean;
@@ -63,6 +63,16 @@ const clampRotate = (value: number): number => {
   if (value < -10) return -10;
   if (value > 10) return 10;
   return value;
+};
+
+const normalizeSize = (value: unknown): IllustrationDraft["size"] => {
+  const normalized = normalize(value);
+  if (normalized === "large") return "large";
+  if (normalized === "threeQuarter") return "threeQuarter";
+  if (normalized === "medium") return "medium";
+  if (normalized === "compact") return "compact";
+  if (normalized === "small") return "small";
+  return "medium";
 };
 
 const parseFlatFields = (markdown: string): Record<string, string> => {
@@ -134,7 +144,7 @@ export const parseCollectionHomeForm = (
           ru: decodeMultiline(normalize(block["caption.ru"])),
           uk: decodeMultiline(normalize(block["caption.uk"])),
         },
-        size: (normalize(block.size) as IllustrationDraft["size"]) || "medium",
+        size: normalizeSize(block.size),
         type:
           (normalize(block.type) as IllustrationDraft["type"]) ||
           "ketty-drawing",

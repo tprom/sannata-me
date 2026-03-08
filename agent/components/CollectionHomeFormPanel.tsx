@@ -18,7 +18,7 @@ const localeNames: Record<LocaleCode, string> = {
 type IllustrationDraft = {
   image: string;
   caption: Record<LocaleCode, string>;
-  size: "small" | "medium" | "large";
+  size: "small" | "medium" | "large" | "threeQuarter" | "compact";
   type: "ketty-drawing" | "photo" | "decor";
   position: "left" | "right" | "center";
   wrap: boolean;
@@ -53,8 +53,26 @@ const createIllustration = (): IllustrationDraft => ({
 });
 
 const parseField = (markdown: string, key: string): string => {
-  const m = markdown.match(new RegExp(`^${key}:[ \\t]*([^\\r\\n]*)$`, "m"));
-  return m ? m[1].trim() : "";
+  for (const rawLine of markdown.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#") || line.startsWith("<!--")) {
+      continue;
+    }
+
+    const separator = line.indexOf(":");
+    if (separator < 0) {
+      continue;
+    }
+
+    const lineKey = line.slice(0, separator).trim();
+    if (lineKey !== key) {
+      continue;
+    }
+
+    return line.slice(separator + 1).trim();
+  }
+
+  return "";
 };
 
 const decodeMultiline = (value: string): string => value.replace(/\\n/g, "\n");
@@ -72,6 +90,16 @@ const parseBoolean = (value: string, fallback: boolean): boolean => {
   return fallback;
 };
 
+const normalizeSize = (value: string): IllustrationDraft["size"] => {
+  const normalized = value.trim();
+  if (normalized === "large") return "large";
+  if (normalized === "threeQuarter") return "threeQuarter";
+  if (normalized === "medium") return "medium";
+  if (normalized === "compact") return "compact";
+  if (normalized === "small") return "small";
+  return "medium";
+};
+
 const parseIllustrations = (markdown: string): IllustrationDraft[] => {
   const indexSet = new Set<number>();
   const pattern = /illustration\[(\d+)\]\.[a-zA-Z0-9.]+:[ \t]*([^\r\n]*)$/gm;
@@ -83,40 +111,34 @@ const parseIllustrations = (markdown: string): IllustrationDraft[] => {
   return indices.map((index) => {
     const prefix = `illustration[${index}]`;
     return {
-      image: parseField(markdown, `${prefix}\\.image`),
+      image: parseField(markdown, `${prefix}.image`),
       caption: {
-        en: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.en`)),
-        de: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.de`)),
-        ru: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.ru`)),
-        uk: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.uk`)),
+        en: decodeMultiline(parseField(markdown, `${prefix}.caption.en`)),
+        de: decodeMultiline(parseField(markdown, `${prefix}.caption.de`)),
+        ru: decodeMultiline(parseField(markdown, `${prefix}.caption.ru`)),
+        uk: decodeMultiline(parseField(markdown, `${prefix}.caption.uk`)),
       },
-      size:
-        (parseField(
-          markdown,
-          `${prefix}\\.size`,
-        ) as IllustrationDraft["size"]) || "medium",
+      size: normalizeSize(parseField(markdown, `${prefix}.size`)),
       type:
-        (parseField(
-          markdown,
-          `${prefix}\\.type`,
-        ) as IllustrationDraft["type"]) || "ketty-drawing",
+        (parseField(markdown, `${prefix}.type`) as IllustrationDraft["type"]) ||
+        "ketty-drawing",
       position:
         (parseField(
           markdown,
-          `${prefix}\\.position`,
+          `${prefix}.position`,
         ) as IllustrationDraft["position"]) || "right",
-      wrap: parseBoolean(parseField(markdown, `${prefix}\\.wrap`), true),
-      shadow: parseBoolean(parseField(markdown, `${prefix}\\.shadow`), false),
-      border: parseBoolean(parseField(markdown, `${prefix}\\.border`), false),
-      rotate: parseField(markdown, `${prefix}\\.rotate`) || "0",
+      wrap: parseBoolean(parseField(markdown, `${prefix}.wrap`), true),
+      shadow: parseBoolean(parseField(markdown, `${prefix}.shadow`), false),
+      border: parseBoolean(parseField(markdown, `${prefix}.border`), false),
+      rotate: parseField(markdown, `${prefix}.rotate`) || "0",
       insertWhere:
         (parseField(
           markdown,
-          `${prefix}\\.insert\\.where`,
+          `${prefix}.insert.where`,
         ) as IllustrationDraft["insertWhere"]) || "after",
       insertParagraph:
-        parseField(markdown, `${prefix}\\.insert\\.paragraph`) || "1",
-      anchor: parseField(markdown, `${prefix}\\.anchor`),
+        parseField(markdown, `${prefix}.insert.paragraph`) || "1",
+      anchor: parseField(markdown, `${prefix}.anchor`),
     };
   });
 };
@@ -174,24 +196,24 @@ export default function CollectionHomeFormPanel(_props: Props) {
       setPanorama(parseField(md, "panorama"));
 
       setGreeting({
-        en: decodeMultiline(parseField(md, "greeting\\.en")),
-        de: decodeMultiline(parseField(md, "greeting\\.de")),
-        ru: decodeMultiline(parseField(md, "greeting\\.ru")),
-        uk: decodeMultiline(parseField(md, "greeting\\.uk")),
+        en: decodeMultiline(parseField(md, "greeting.en")),
+        de: decodeMultiline(parseField(md, "greeting.de")),
+        ru: decodeMultiline(parseField(md, "greeting.ru")),
+        uk: decodeMultiline(parseField(md, "greeting.uk")),
       });
 
       setDescription({
-        en: decodeMultiline(parseField(md, "description\\.en")),
-        de: decodeMultiline(parseField(md, "description\\.de")),
-        ru: decodeMultiline(parseField(md, "description\\.ru")),
-        uk: decodeMultiline(parseField(md, "description\\.uk")),
+        en: decodeMultiline(parseField(md, "description.en")),
+        de: decodeMultiline(parseField(md, "description.de")),
+        ru: decodeMultiline(parseField(md, "description.ru")),
+        uk: decodeMultiline(parseField(md, "description.uk")),
       });
 
       setInvitation({
-        en: decodeMultiline(parseField(md, "invitation\\.en")),
-        de: decodeMultiline(parseField(md, "invitation\\.de")),
-        ru: decodeMultiline(parseField(md, "invitation\\.ru")),
-        uk: decodeMultiline(parseField(md, "invitation\\.uk")),
+        en: decodeMultiline(parseField(md, "invitation.en")),
+        de: decodeMultiline(parseField(md, "invitation.de")),
+        ru: decodeMultiline(parseField(md, "invitation.ru")),
+        uk: decodeMultiline(parseField(md, "invitation.uk")),
       });
 
       setIllustrations(parseIllustrations(md));
@@ -535,6 +557,20 @@ export default function CollectionHomeFormPanel(_props: Props) {
                 }
               />
             </div>
+            {item.image && (
+              <div className={styles.field}>
+                <img
+                  src={item.image}
+                  alt={`Иллюстрация #${index + 1}`}
+                  style={{
+                    maxWidth: 280,
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: 6,
+                  }}
+                />
+              </div>
+            )}
             {(["en", "de", "ru", "uk"] as LocaleCode[]).map((locale) => (
               <div className={styles.field} key={`ill-cap-${index}-${locale}`}>
                 <label
@@ -558,9 +594,11 @@ export default function CollectionHomeFormPanel(_props: Props) {
                   })
                 }
               >
-                <option value="small">Маленький</option>
-                <option value="medium">Средний</option>
-                <option value="large">Большой</option>
+                <option value="small">Маленький (30%)</option>
+                <option value="compact">Уменьшенный (40%)</option>
+                <option value="medium">Средний (50%)</option>
+                <option value="threeQuarter">Крупный (75%)</option>
+                <option value="large">Большой (100%)</option>
               </select>
             </div>
             <div className={styles.field}>

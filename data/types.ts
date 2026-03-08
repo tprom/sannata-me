@@ -6,7 +6,12 @@ export type LanguageCode = "en" | "de" | "ru" | "uk";
 export type LocalizedString = Record<LanguageCode, string>;
 
 /** Размер иллюстрации */
-export type IllustrationSize = "small" | "medium" | "large";
+export type IllustrationSize =
+  | "small"
+  | "medium"
+  | "large"
+  | "threeQuarter"
+  | "compact";
 
 /** Тип иллюстрации */
 export type IllustrationType = "ketty-drawing" | "photo" | "decor";

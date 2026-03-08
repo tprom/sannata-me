@@ -35,6 +35,9 @@ illustration[0].caption.de:
 illustration[0].caption.ru:
 illustration[0].caption.uk:
 illustration[0].size: medium
+
+# Допустимые значения размера: large (100%), threeQuarter (75%), medium (50%), compact (40%), small (30%)
+
 illustration[0].type: ketty-drawing
 illustration[0].position: right
 illustration[0].wrap: true

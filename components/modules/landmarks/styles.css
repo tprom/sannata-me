@@ -161,6 +161,13 @@
   overflow-x: hidden;
   min-height: 0;
   flex: 1;
+  scrollbar-width: none;
+}
+
+.city-menu-list::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .city-menu-item {
@@ -297,8 +304,8 @@
   overflow-wrap: anywhere;
   word-break: break-word;
   line-height: 1.25;
-  max-height: 96px;
-  overflow: auto;
+  max-height: none;
+  overflow: hidden;
 }
 
 .city-menu-nail {
@@ -367,8 +374,8 @@
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
-  max-height: 96px;
-  overflow: auto;
+  max-height: none;
+  overflow: hidden;
   min-height: 40px;
   max-width: 260px;
   transform: rotate(var(--landmark-angle, 0deg));
@@ -378,6 +385,12 @@
     box-shadow 0.2s ease,
     filter 0.2s ease,
     transform 0.2s ease;
+}
+
+.landmark-list-link::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .city-menu-link,
