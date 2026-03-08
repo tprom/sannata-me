@@ -124,13 +124,7 @@ export default async function CityPage({ params }: Params) {
       />
       <div className="city-content">
         {cityData.pageContent ? (
-          <>
-            <CityPageContent content={cityData.pageContent} lang={lang} />
-            <CollectionSectionsRenderer
-              envelope={envelope}
-              heroDescription={cityMeta.shortDescription}
-            />
-          </>
+          <CityPageContent content={cityData.pageContent} lang={lang} />
         ) : (
           <CollectionSectionsRenderer
             envelope={envelope}

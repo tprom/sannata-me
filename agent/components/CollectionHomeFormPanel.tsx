@@ -57,6 +57,10 @@ const parseField = (markdown: string, key: string): string => {
   return m ? m[1].trim() : "";
 };
 
+const decodeMultiline = (value: string): string => value.replace(/\\n/g, "\n");
+const encodeMultiline = (value: string): string =>
+  value.replace(/\r?\n/g, "\\n");
+
 const parseBoolean = (value: string, fallback: boolean): boolean => {
   const normalized = value.trim().toLowerCase();
   if (normalized === "true" || normalized === "1" || normalized === "yes") {
@@ -81,10 +85,10 @@ const parseIllustrations = (markdown: string): IllustrationDraft[] => {
     return {
       image: parseField(markdown, `${prefix}\\.image`),
       caption: {
-        en: parseField(markdown, `${prefix}\\.caption\\.en`),
-        de: parseField(markdown, `${prefix}\\.caption\\.de`),
-        ru: parseField(markdown, `${prefix}\\.caption\\.ru`),
-        uk: parseField(markdown, `${prefix}\\.caption\\.uk`),
+        en: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.en`)),
+        de: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.de`)),
+        ru: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.ru`)),
+        uk: decodeMultiline(parseField(markdown, `${prefix}\\.caption\\.uk`)),
       },
       size:
         (parseField(
@@ -170,24 +174,24 @@ export default function CollectionHomeFormPanel(_props: Props) {
       setPanorama(parseField(md, "panorama"));
 
       setGreeting({
-        en: parseField(md, "greeting\\.en"),
-        de: parseField(md, "greeting\\.de"),
-        ru: parseField(md, "greeting\\.ru"),
-        uk: parseField(md, "greeting\\.uk"),
+        en: decodeMultiline(parseField(md, "greeting\\.en")),
+        de: decodeMultiline(parseField(md, "greeting\\.de")),
+        ru: decodeMultiline(parseField(md, "greeting\\.ru")),
+        uk: decodeMultiline(parseField(md, "greeting\\.uk")),
       });
 
       setDescription({
-        en: parseField(md, "description\\.en"),
-        de: parseField(md, "description\\.de"),
-        ru: parseField(md, "description\\.ru"),
-        uk: parseField(md, "description\\.uk"),
+        en: decodeMultiline(parseField(md, "description\\.en")),
+        de: decodeMultiline(parseField(md, "description\\.de")),
+        ru: decodeMultiline(parseField(md, "description\\.ru")),
+        uk: decodeMultiline(parseField(md, "description\\.uk")),
       });
 
       setInvitation({
-        en: parseField(md, "invitation\\.en"),
-        de: parseField(md, "invitation\\.de"),
-        ru: parseField(md, "invitation\\.ru"),
-        uk: parseField(md, "invitation\\.uk"),
+        en: decodeMultiline(parseField(md, "invitation\\.en")),
+        de: decodeMultiline(parseField(md, "invitation\\.de")),
+        ru: decodeMultiline(parseField(md, "invitation\\.ru")),
+        uk: decodeMultiline(parseField(md, "invitation\\.uk")),
       });
 
       setIllustrations(parseIllustrations(md));
@@ -225,28 +229,36 @@ export default function CollectionHomeFormPanel(_props: Props) {
 
     lines.push("## 3. Приветствие Кетти");
     lines.push("");
-    lines.push(`greeting.en: ${greeting.en}`);
-    lines.push(`greeting.de: ${greeting.de}`);
-    lines.push(`greeting.ru: ${greeting.ru}`);
-    lines.push(`greeting.uk: ${greeting.uk}`);
+    lines.push(`greeting.en: ${encodeMultiline(greeting.en)}`);
+    lines.push(`greeting.de: ${encodeMultiline(greeting.de)}`);
+    lines.push(`greeting.ru: ${encodeMultiline(greeting.ru)}`);
+    lines.push(`greeting.uk: ${encodeMultiline(greeting.uk)}`);
     lines.push("");
 
     lines.push("## 4. Описание (восприятие Кетти)");
     lines.push("");
-    lines.push(`description.en: ${description.en}`);
-    lines.push(`description.de: ${description.de}`);
-    lines.push(`description.ru: ${description.ru}`);
-    lines.push(`description.uk: ${description.uk}`);
+    lines.push(`description.en: ${encodeMultiline(description.en)}`);
+    lines.push(`description.de: ${encodeMultiline(description.de)}`);
+    lines.push(`description.ru: ${encodeMultiline(description.ru)}`);
+    lines.push(`description.uk: ${encodeMultiline(description.uk)}`);
     lines.push("");
 
     lines.push("## 5. Иллюстрации (динамический список)");
     lines.push("");
     illustrations.forEach((item, index) => {
       lines.push(`illustration[${index}].image: ${item.image}`);
-      lines.push(`illustration[${index}].caption.en: ${item.caption.en}`);
-      lines.push(`illustration[${index}].caption.de: ${item.caption.de}`);
-      lines.push(`illustration[${index}].caption.ru: ${item.caption.ru}`);
-      lines.push(`illustration[${index}].caption.uk: ${item.caption.uk}`);
+      lines.push(
+        `illustration[${index}].caption.en: ${encodeMultiline(item.caption.en)}`,
+      );
+      lines.push(
+        `illustration[${index}].caption.de: ${encodeMultiline(item.caption.de)}`,
+      );
+      lines.push(
+        `illustration[${index}].caption.ru: ${encodeMultiline(item.caption.ru)}`,
+      );
+      lines.push(
+        `illustration[${index}].caption.uk: ${encodeMultiline(item.caption.uk)}`,
+      );
       lines.push(`illustration[${index}].size: ${item.size}`);
       lines.push(`illustration[${index}].type: ${item.type}`);
       lines.push(`illustration[${index}].position: ${item.position}`);
@@ -264,10 +276,10 @@ export default function CollectionHomeFormPanel(_props: Props) {
 
     lines.push("## 6. Приглашение Кетти");
     lines.push("");
-    lines.push(`invitation.en: ${invitation.en}`);
-    lines.push(`invitation.de: ${invitation.de}`);
-    lines.push(`invitation.ru: ${invitation.ru}`);
-    lines.push(`invitation.uk: ${invitation.uk}`);
+    lines.push(`invitation.en: ${encodeMultiline(invitation.en)}`);
+    lines.push(`invitation.de: ${encodeMultiline(invitation.de)}`);
+    lines.push(`invitation.ru: ${encodeMultiline(invitation.ru)}`);
+    lines.push(`invitation.uk: ${encodeMultiline(invitation.uk)}`);
     lines.push("");
 
     return lines.join("\n");
@@ -425,6 +437,34 @@ export default function CollectionHomeFormPanel(_props: Props) {
             onChange={(e) => handlePanoramaUpload(e.target.files?.[0] ?? null)}
           />
         </div>
+        {panorama && (
+          <div className={styles.field}>
+            <img
+              src={panorama}
+              alt="Панорама города"
+              style={{ maxWidth: "100%", height: "auto", borderRadius: 6 }}
+            />
+            <div
+              style={{
+                marginTop: 8,
+                display: "flex",
+                gap: 8,
+                flexWrap: "wrap",
+              }}
+            >
+              <button
+                type="button"
+                className="agent-button"
+                onClick={() => setPanorama("")}
+              >
+                Удалить изображение из формы
+              </button>
+              <span style={{ fontSize: 12, color: "#666" }}>
+                Файл на сервере не удаляется, очищается только ссылка в форме.
+              </span>
+            </div>
+          </div>
+        )}
       </fieldset>
 
       <fieldset className={styles.fieldset}>

@@ -28,6 +28,9 @@ const toScalarString = (value: unknown): string => {
   return "";
 };
 
+const encodeMultiline = (value: string): string =>
+  value.replace(/\r?\n/g, "\\n");
+
 const pickLocalized = (value: unknown) => {
   const record = asRecord(value);
   return {
@@ -65,18 +68,18 @@ const buildCollectionHomeMarkdownFromData = (
 
   lines.push("## 3. Приветствие Кетти");
   lines.push("");
-  lines.push(`greeting.en: ${greeting.en}`);
-  lines.push(`greeting.de: ${greeting.de}`);
-  lines.push(`greeting.ru: ${greeting.ru}`);
-  lines.push(`greeting.uk: ${greeting.uk}`);
+  lines.push(`greeting.en: ${encodeMultiline(greeting.en)}`);
+  lines.push(`greeting.de: ${encodeMultiline(greeting.de)}`);
+  lines.push(`greeting.ru: ${encodeMultiline(greeting.ru)}`);
+  lines.push(`greeting.uk: ${encodeMultiline(greeting.uk)}`);
   lines.push("");
 
   lines.push("## 4. Описание (восприятие Кетти)");
   lines.push("");
-  lines.push(`description.en: ${description.en}`);
-  lines.push(`description.de: ${description.de}`);
-  lines.push(`description.ru: ${description.ru}`);
-  lines.push(`description.uk: ${description.uk}`);
+  lines.push(`description.en: ${encodeMultiline(description.en)}`);
+  lines.push(`description.de: ${encodeMultiline(description.de)}`);
+  lines.push(`description.ru: ${encodeMultiline(description.ru)}`);
+  lines.push(`description.uk: ${encodeMultiline(description.uk)}`);
   lines.push("");
 
   lines.push("## 5. Иллюстрации (динамический список)");
@@ -87,10 +90,18 @@ const buildCollectionHomeMarkdownFromData = (
     const insert = asRecord(block.insert);
 
     lines.push(`illustration[${index}].image: ${pickText(block.image)}`);
-    lines.push(`illustration[${index}].caption.en: ${caption.en}`);
-    lines.push(`illustration[${index}].caption.de: ${caption.de}`);
-    lines.push(`illustration[${index}].caption.ru: ${caption.ru}`);
-    lines.push(`illustration[${index}].caption.uk: ${caption.uk}`);
+    lines.push(
+      `illustration[${index}].caption.en: ${encodeMultiline(caption.en)}`,
+    );
+    lines.push(
+      `illustration[${index}].caption.de: ${encodeMultiline(caption.de)}`,
+    );
+    lines.push(
+      `illustration[${index}].caption.ru: ${encodeMultiline(caption.ru)}`,
+    );
+    lines.push(
+      `illustration[${index}].caption.uk: ${encodeMultiline(caption.uk)}`,
+    );
     lines.push(
       `illustration[${index}].size: ${toScalarString(block.size) || "medium"}`,
     );
@@ -124,10 +135,10 @@ const buildCollectionHomeMarkdownFromData = (
 
   lines.push("## 6. Приглашение Кетти");
   lines.push("");
-  lines.push(`invitation.en: ${invitation.en}`);
-  lines.push(`invitation.de: ${invitation.de}`);
-  lines.push(`invitation.ru: ${invitation.ru}`);
-  lines.push(`invitation.uk: ${invitation.uk}`);
+  lines.push(`invitation.en: ${encodeMultiline(invitation.en)}`);
+  lines.push(`invitation.de: ${encodeMultiline(invitation.de)}`);
+  lines.push(`invitation.ru: ${encodeMultiline(invitation.ru)}`);
+  lines.push(`invitation.uk: ${encodeMultiline(invitation.uk)}`);
   lines.push("");
 
   return lines.join("\n");

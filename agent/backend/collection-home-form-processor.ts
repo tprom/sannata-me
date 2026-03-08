@@ -41,6 +41,8 @@ const emptyLocalized = (): Record<LocaleCode, string> => ({
 const normalize = (value: unknown): string =>
   typeof value === "string" ? value.trim() : "";
 
+const decodeMultiline = (value: string): string => value.replace(/\\n/g, "\n");
+
 const parseBoolean = (value: unknown, fallback: boolean): boolean => {
   const normalized = normalize(value).toLowerCase();
   if (normalized === "true" || normalized === "1" || normalized === "yes") {
@@ -87,9 +89,13 @@ export const parseCollectionHomeForm = (
   const invitation = emptyLocalized();
 
   for (const locale of LOCALES) {
-    greeting[locale] = normalize(fields[`greeting.${locale}`]);
-    description[locale] = normalize(fields[`description.${locale}`]);
-    invitation[locale] = normalize(fields[`invitation.${locale}`]);
+    greeting[locale] = decodeMultiline(normalize(fields[`greeting.${locale}`]));
+    description[locale] = decodeMultiline(
+      normalize(fields[`description.${locale}`]),
+    );
+    invitation[locale] = decodeMultiline(
+      normalize(fields[`invitation.${locale}`]),
+    );
   }
 
   const byIndex = new Map<number, Record<string, string>>();
@@ -123,10 +129,10 @@ export const parseCollectionHomeForm = (
       const item: IllustrationDraft = {
         image,
         caption: {
-          en: normalize(block["caption.en"]),
-          de: normalize(block["caption.de"]),
-          ru: normalize(block["caption.ru"]),
-          uk: normalize(block["caption.uk"]),
+          en: decodeMultiline(normalize(block["caption.en"])),
+          de: decodeMultiline(normalize(block["caption.de"])),
+          ru: decodeMultiline(normalize(block["caption.ru"])),
+          uk: decodeMultiline(normalize(block["caption.uk"])),
         },
         size: (normalize(block.size) as IllustrationDraft["size"]) || "medium",
         type:

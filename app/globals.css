@@ -30,3 +30,98 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+/* City page (new collection-home contract) */
+.city-page-content {
+  width: min(100%, 1040px);
+  margin: 0 auto;
+  padding: 0 16px 24px;
+}
+
+.city-page-panorama {
+  margin: 12px 0 20px;
+}
+
+.city-page-panorama-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.city-page-greeting,
+.city-page-invitation p,
+.city-page-description p {
+  white-space: pre-line;
+  line-height: 1.55;
+}
+
+.city-page-description::after,
+.city-page-illustrations::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.illustration-block {
+  margin: 10px 0;
+}
+
+.illustration-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.illustration-size-small {
+  max-width: 220px;
+}
+
+.illustration-size-medium {
+  max-width: 340px;
+}
+
+.illustration-size-large {
+  max-width: 520px;
+}
+
+.illustration-position-left {
+  margin-right: auto;
+}
+
+.illustration-position-right {
+  margin-left: auto;
+}
+
+.illustration-position-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.illustration-wrap.illustration-position-left {
+  float: left;
+  margin: 6px 16px 10px 0;
+}
+
+.illustration-wrap.illustration-position-right {
+  float: right;
+  margin: 6px 0 10px 16px;
+}
+
+.illustration-shadow {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.illustration-border {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 4px;
+}
+
+.illustration-caption {
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.82;
+}
