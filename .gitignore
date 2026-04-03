@@ -27,7 +27,8 @@ Thumbs.db
 !.vscode/extensions.json
 
 # Local generated artifacts
-public/uploads/module-home/
+public/uploads/module-home/*
+!public/uploads/module-home/portal-home-right-illustration-1-1773414100747.jpg
 agent/backend/landmark-data/
 agent/backend/landmark-data.json
 *.tsbuildinfo
