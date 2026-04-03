@@ -1,7 +1,11 @@
 import { spawn } from "child_process";
+import { createRequire } from "module";
 import net from "net";
-import { chromium } from "@playwright/test";
-import type { Browser } from "@playwright/test";
+
+type Browser = {
+  newPage: () => Promise<any>;
+  close: () => Promise<void>;
+};
 
 type SmokeCheck = {
   test: string;
@@ -12,6 +16,35 @@ type SmokeCheck = {
 const DEFAULT_PORT = Number(process.env.SMOKE_AGENT_UI_PORT ?? "3101");
 const START_TIMEOUT_MS = 120000;
 const POLL_INTERVAL_MS = 1500;
+const require = createRequire(import.meta.url);
+
+const getChromium = () => {
+  try {
+    const playwrightTest = require("@playwright/test") as {
+      chromium?: { launch: (options: { headless: boolean }) => Promise<Browser> };
+    };
+    if (playwrightTest.chromium) {
+      return playwrightTest.chromium;
+    }
+  } catch {
+    // try playwright package fallback
+  }
+
+  try {
+    const playwright = require("playwright") as {
+      chromium?: { launch: (options: { headless: boolean }) => Promise<Browser> };
+    };
+    if (playwright.chromium) {
+      return playwright.chromium;
+    }
+  } catch {
+    // handled by error below
+  }
+
+  throw new Error(
+    "Не найден Playwright. Установите @playwright/test или playwright для smoke-теста.",
+  );
+};
 
 const canListenOnPort = async (port: number): Promise<boolean> => {
   return await new Promise<boolean>((resolve) => {
@@ -145,6 +178,7 @@ const runSmoke = async (): Promise<void> => {
 
     const targetUrl = `${baseUrl}/ru/agent`;
 
+    const chromium = getChromium();
     browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
 
