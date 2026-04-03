@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "collection-home",
+  "pageId": "fa99b367-e909-417c-af65-e556a4b2224e",
+  "slug": "munich",
+  "locale": "ru",
+  "translationGroupId": "tg_landmarks_collection_home_munich",
+  "meta": {
+    "title": "Мюнхен",
+    "subtitle": "",
+    "tags": [
+      "landmarks",
+      "city",
+      "munich"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "image": "/uploads/module-home/city-panorama-1773169846174.jpg",
+    "headline": "Мюнхен",
+    "subheadline": "",
+    "kicker": "Sannata"
+  },
+  "sections": [],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/city-panorama-1773169846174.jpg"
+    ],
+    "sections": [
+      "/uploads/module-home/city-illustration-0-1773170458118.jpg",
+      "/uploads/module-home/city-illustration-1-1773170507415.jpg",
+      "/uploads/module-home/city-illustration-2-1773170554819.jpg"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-04-03T16:29:10.834Z",
+    "updatedAt": "2026-04-03T17:36:18.508Z",
+    "updatedBy": "agent-form"
+  }
+}

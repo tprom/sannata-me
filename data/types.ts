@@ -6,7 +6,12 @@ export type LanguageCode = "en" | "de" | "ru" | "uk";
 export type LocalizedString = Record<LanguageCode, string>;
 
 /** Размер иллюстрации */
-export type IllustrationSize = "small" | "medium" | "large";
+export type IllustrationSize =
+  | "small"
+  | "compact"
+  | "medium"
+  | "threeQuarter"
+  | "large";
 
 /** Тип иллюстрации */
 export type IllustrationType = "ketty-drawing" | "photo" | "decor";
@@ -50,6 +55,8 @@ export interface IllustrationBlock {
 export interface CityPageContent {
   /** Приветствие — отображается в самом верху страницы */
   greeting?: LocalizedString;
+  /** Панорама города — верхнее изображение страницы */
+  panorama?: string;
   /** Описание города — текстовый блок без изображений */
   description?: LocalizedString;
   /** Список иллюстраций (динамический) */

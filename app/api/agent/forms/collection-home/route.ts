@@ -54,6 +54,38 @@ const buildCollectionHomeMarkdownFromData = (
     ? pageContent.illustrations
     : [];
 
+  const descriptionBlocks = (() => {
+    const hasDirect = [description.en, description.de, description.ru, description.uk].some(
+      (value) => value.length > 0,
+    );
+    if (!hasDirect) {
+      return [] as Array<Record<"en" | "de" | "ru" | "uk", string>>;
+    }
+
+    const splitByLocale = {
+      en: description.en.split(/\n\s*\n/).map((item) => item.trim()),
+      de: description.de.split(/\n\s*\n/).map((item) => item.trim()),
+      ru: description.ru.split(/\n\s*\n/).map((item) => item.trim()),
+      uk: description.uk.split(/\n\s*\n/).map((item) => item.trim()),
+    };
+
+    const maxLen = Math.max(
+      splitByLocale.en.length,
+      splitByLocale.de.length,
+      splitByLocale.ru.length,
+      splitByLocale.uk.length,
+    );
+
+    return Array.from({ length: maxLen }, (_, index) => ({
+      en: splitByLocale.en[index] || "",
+      de: splitByLocale.de[index] || "",
+      ru: splitByLocale.ru[index] || "",
+      uk: splitByLocale.uk[index] || "",
+    })).filter((block) =>
+      Boolean(block.en || block.de || block.ru || block.uk),
+    );
+  })();
+
   const lines: string[] = [];
   lines.push("# Форма страницы города (collection-home)");
   lines.push("");
@@ -81,6 +113,16 @@ const buildCollectionHomeMarkdownFromData = (
   lines.push(`description.de: ${encodeMultiline(description.de)}`);
   lines.push(`description.ru: ${encodeMultiline(description.ru)}`);
   lines.push(`description.uk: ${encodeMultiline(description.uk)}`);
+  lines.push("");
+  lines.push("# 4.1 Динамические текстовые блоки");
+  lines.push("");
+  descriptionBlocks.forEach((block, index) => {
+    lines.push(`descriptionBlock[${index}].en: ${encodeMultiline(block.en)}`);
+    lines.push(`descriptionBlock[${index}].de: ${encodeMultiline(block.de)}`);
+    lines.push(`descriptionBlock[${index}].ru: ${encodeMultiline(block.ru)}`);
+    lines.push(`descriptionBlock[${index}].uk: ${encodeMultiline(block.uk)}`);
+    lines.push("");
+  });
   lines.push("");
 
   lines.push("## 5. Иллюстрации (динамический список)");

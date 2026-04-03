@@ -897,6 +897,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 8px 56px 28px;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
@@ -923,6 +924,253 @@
   width: 0;
   height: 0;
   display: none;
+}
+
+.city-page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  min-width: 0;
+  color: #2d2419;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.75;
+}
+
+.city-page-panorama,
+.city-page-greeting,
+.city-page-description,
+.city-page-invitation {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.city-page-panorama {
+  padding: 0;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.city-page-panorama-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  object-position: top center;
+  background: #fff;
+}
+
+.city-page-greeting,
+.city-page-description,
+.city-page-invitation {
+  padding: 0;
+}
+
+.city-page-greeting p,
+.city-page-invitation p {
+  margin: 0;
+  line-height: inherit;
+}
+
+.city-page-description {
+  display: block;
+}
+
+.city-page-description::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.city-paragraph-group {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.city-page-paragraph {
+  margin: 0 0 10px;
+  line-height: inherit;
+  white-space: pre-line;
+}
+
+.city-page-illustrations {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.city-page-illustrations-only,
+.city-page-illustrations-trailing {
+  margin-top: 4px;
+}
+
+.illustration-block {
+  margin: 0;
+  width: auto;
+  max-width: 100%;
+}
+
+.illustration-size-small {
+  width: min(20%, 200px);
+}
+
+.illustration-size-compact {
+  width: min(26%, 250px);
+}
+
+.illustration-size-medium {
+  width: min(32%, 300px);
+}
+
+.illustration-size-three-quarter {
+  width: min(50%, 460px);
+}
+
+.illustration-size-large {
+  width: min(68%, 620px);
+}
+
+.illustration-image-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.illustration-position-left {
+  margin-right: auto;
+}
+
+.illustration-position-right {
+  margin-left: auto;
+}
+
+.illustration-position-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.illustration-wrap.illustration-position-left {
+  float: left;
+  margin: 0 16px 10px 0;
+}
+
+.illustration-wrap.illustration-position-right {
+  float: right;
+  margin: 0 0 10px 16px;
+}
+
+.illustration-wrap.illustration-position-center {
+  float: none;
+  margin: 0 auto 10px auto;
+}
+
+.illustration-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.illustration-shadow .illustration-img {
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+}
+
+.illustration-border .illustration-img {
+  border: 1px solid #d6d6dd;
+}
+
+.illustration-caption {
+  margin-top: 8px;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.illustration-type-ketty-drawing .illustration-img {
+  background: #fffdf7;
+}
+
+.illustration-type-photo .illustration-img {
+  background: #ffffff;
+}
+
+.illustration-type-decor .illustration-img {
+  background: #f8fafc;
+}
+
+.illustration-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.illustration-modal-content {
+  max-width: min(1100px, 95vw);
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.illustration-modal-close {
+  align-self: flex-end;
+}
+
+.illustration-modal-image {
+  max-width: min(1100px, 95vw);
+  max-height: calc(92vh - 70px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  background: #fff;
+}
+
+.illustration-modal-caption {
+  margin: 0;
+  color: #f8fafc;
+  text-align: center;
+  max-width: min(900px, 90vw);
+}
+
+@media (max-width: 900px) {
+  .city-content {
+    padding: 0;
+  }
+
+  .illustration-size-small,
+  .illustration-size-compact,
+  .illustration-size-medium,
+  .illustration-size-three-quarter,
+  .illustration-size-large {
+    width: 100%;
+  }
+
+  .illustration-wrap.illustration-position-left,
+  .illustration-wrap.illustration-position-right,
+  .illustration-wrap.illustration-position-center {
+    float: none;
+    margin: 0;
+  }
 }
 
 .city-zone-1 {

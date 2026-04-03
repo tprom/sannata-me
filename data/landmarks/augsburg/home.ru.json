@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "collection-home",
+  "pageId": "05a69923-08c4-4004-bb08-9164bdd1f240",
+  "slug": "augsburg",
+  "locale": "ru",
+  "translationGroupId": "tg_landmarks_collection_home_augsburg",
+  "meta": {
+    "title": "Аугсбург",
+    "subtitle": "",
+    "tags": [
+      "landmarks",
+      "city",
+      "augsburg"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "image": "/uploads/module-home/city-panorama-1772912774217.png",
+    "headline": "Аугсбург",
+    "subheadline": "",
+    "kicker": "Sannata"
+  },
+  "sections": [],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/city-panorama-1772912774217.png"
+    ],
+    "sections": [
+      "/uploads/module-home/city-illustration-0-1772992816763.png",
+      "/uploads/module-home/city-illustration-2-1773000674494.png",
+      "/uploads/module-home/city-illustration-2-1773000823402.png"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-04-03T16:54:24.936Z",
+    "updatedAt": "2026-04-03T17:35:31.346Z",
+    "updatedBy": "agent-form"
+  }
+}

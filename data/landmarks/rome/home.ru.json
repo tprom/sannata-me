@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "collection-home",
+  "pageId": "8e14868e-9565-4751-8d30-9862f441a698",
+  "slug": "rome",
+  "locale": "ru",
+  "translationGroupId": "tg_landmarks_collection_home_rome",
+  "meta": {
+    "title": "Рим",
+    "subtitle": "",
+    "tags": [
+      "landmarks",
+      "city",
+      "rome"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "image": "/uploads/module-home/city-panorama-1773249779820.jpg",
+    "headline": "Рим",
+    "subheadline": "",
+    "kicker": "Sannata"
+  },
+  "sections": [],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/city-panorama-1773249779820.jpg"
+    ],
+    "sections": [
+      "/uploads/module-home/city-illustration-0-1773250453086.jpg",
+      "/uploads/module-home/city-illustration-1-1773250527710.jpg",
+      "/uploads/module-home/city-illustration-2-1773250606137.jpg",
+      "/uploads/module-home/city-illustration-3-1773250642390.jpg"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-04-03T16:45:35.057Z",
+    "updatedAt": "2026-04-03T17:33:02.106Z",
+    "updatedBy": "agent-form"
+  }
+}

@@ -9,7 +9,7 @@ import { ChildPatternsForm } from "./ChildPatternsForm";
 import { Chat } from "./Chat";
 import { Sidebar } from "./Sidebar";
 import { default as ModuleHomeFormPanel } from "@/agent/components/ModuleHomeFormPanel";
-import CollectionHomeFormPanel from "@/agent/components/CollectionHomeFormPanel";
+import CollectionHomeFormPanel from "@/agent/components/CollectionHomeFormPanel.tsx";
 import LandmarkFormPanel from "@/agent/components/LandmarkFormPanel";
 import CityFormPanel from "@/agent/components/CityFormPanel.tsx";
 import PortalHomeFormPanel from "@/agent/components/PortalHomeFormPanel";

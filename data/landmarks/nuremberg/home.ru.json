@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.1.0",
+  "moduleKey": "landmarks",
+  "pageKind": "collection-home",
+  "pageId": "a4e36985-b59a-4a6b-8740-2306d17c05de",
+  "slug": "nuremberg",
+  "locale": "ru",
+  "translationGroupId": "tg_landmarks_collection_home_nuremberg",
+  "meta": {
+    "title": "Нюрнберг",
+    "subtitle": "",
+    "tags": [
+      "landmarks",
+      "city",
+      "nuremberg"
+    ],
+    "status": "published"
+  },
+  "hero": {
+    "image": "/uploads/module-home/city-panorama-1773171266468.jpg",
+    "headline": "Нюрнберг",
+    "subheadline": "",
+    "kicker": "Sannata"
+  },
+  "sections": [],
+  "mediaRefs": {
+    "hero": [
+      "/uploads/module-home/city-panorama-1773171266468.jpg"
+    ],
+    "sections": [
+      "/uploads/module-home/city-illustration-0-1773172962100.jpg",
+      "/uploads/module-home/city-illustration-1-1773173002546.jpg",
+      "/uploads/module-home/city-illustration-2-1773173038099.jpg"
+    ]
+  },
+  "audit": {
+    "createdAt": "2026-04-03T17:16:54.557Z",
+    "updatedAt": "2026-04-03T17:34:26.299Z",
+    "updatedBy": "agent-form"
+  }
+}
