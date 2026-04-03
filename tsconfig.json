@@ -12,7 +12,6 @@
     "strictPropertyInitialization": false,
     "noImplicitThis": false,
     "useUnknownInCatchVariables": false,
-    "alwaysStrict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -25,7 +24,6 @@
     "jsx": "preserve",
     "incremental": true,
 
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     },

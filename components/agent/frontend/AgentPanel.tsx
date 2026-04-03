@@ -11,7 +11,7 @@ import { Sidebar } from "./Sidebar";
 import { default as ModuleHomeFormPanel } from "@/agent/components/ModuleHomeFormPanel";
 import CollectionHomeFormPanel from "@/agent/components/CollectionHomeFormPanel";
 import LandmarkFormPanel from "@/agent/components/LandmarkFormPanel";
-import CityFormPanel from "@/agent/components/CityFormPanel";
+import CityFormPanel from "@/agent/components/CityFormPanel.tsx";
 import PortalHomeFormPanel from "@/agent/components/PortalHomeFormPanel";
 
 const LOCALES = ["ru", "en", "de", "uk"] as const;

@@ -363,7 +363,7 @@ function PreviewItemSections({
         greeting={postcardSection.payload.greeting}
         stampImage={postcardSection.payload.stampImage}
         contentFile={postcardSection.payload.contentFile}
-        footer={postcardSection.payload.footer}
+        farewell={postcardSection.payload.footer}
         invitation={
           postcardSection.payload.invitation ||
           (postcardSection.payload as Record<string, unknown>).bookInvite ||

@@ -3,12 +3,12 @@ import fs from "fs/promises";
 import path from "path";
 import {
   buildCityFormMarkdown,
-  deleteCityById,
   parseCityForm,
   processCityForm,
 } from "@/agent/backend/city-form-processor";
 import {
   listCityOptions,
+  saveCitiesRegistry,
   loadCitiesRegistry,
 } from "@/agent/backend/cities-registry";
 import { ensureAgentApiAccess } from "@/lib/security/agent-auth";
@@ -78,7 +78,22 @@ export async function DELETE(request: Request) {
   }
 
   try {
-    const result = await deleteCityById(cityId);
+    const cities = await loadCitiesRegistry();
+    const target = cities.find((item) => item.cityId === cityId);
+    if (!target) {
+      return NextResponse.json(
+        {
+          ok: false,
+          message: "Город с указанным cityId не найден.",
+        },
+        { status: 404 },
+      );
+    }
+
+    const nextCities = cities.filter((item) => item.cityId !== cityId);
+    await saveCitiesRegistry(nextCities);
+
+    const result = { cityId: target.cityId, slug: target.slug };
     return NextResponse.json({
       ok: true,
       message: `Город ${result.slug} удалён из реестра.`,

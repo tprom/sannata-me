@@ -120,6 +120,14 @@ export default async function LandmarkSlugPage({ params }: Params) {
         invitation?: Record<string, string>;
         invitationBookLink?: Record<string, string>;
       };
+      gallery?: {
+        items?: Array<{
+          file?: string;
+          alt?: string;
+          savedFile?: string;
+          fileName?: string;
+        }>;
+      };
       images?: {
         stamp?: {
           file?: string;
@@ -219,7 +227,7 @@ const buildGallery = async (input: {
   if (formGalleryImages.length > 0) {
     return {
       images: formGalleryImages,
-      source: "formData",
+      source: "legacy",
     };
   }
 
