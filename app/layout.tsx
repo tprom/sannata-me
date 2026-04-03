@@ -1,12 +1,12 @@
 import "./globals.css";
 import "@/components/agent/frontend/styles.css";
-import type { Metadata } from "next";
+import { Suspense } from "react";
+import type { Metadata, Viewport } from "next";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 
 export const metadata: Metadata = {
   title: "SANNATA.me",
   description: "Portal",
-  themeColor: "#1f4d7a",
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#1f4d7a",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -46,7 +50,9 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        <AnalyticsProvider />
+        <Suspense fallback={null}>
+          <AnalyticsProvider />
+        </Suspense>
       </body>
     </html>
   );

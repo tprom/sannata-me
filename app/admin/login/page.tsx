@@ -1,11 +1,11 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 type State = "idle" | "loading" | "error";
 
-export default function AdminLoginPage() {
+function AdminLoginContent() {
   const searchParams = useSearchParams();
   const nextPath = useMemo(() => {
     const raw = searchParams.get("next") || "/agent";
@@ -125,5 +125,13 @@ export default function AdminLoginPage() {
         </form>
       </section>
     </main>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <AdminLoginContent />
+    </Suspense>
   );
 }
