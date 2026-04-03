@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "crypto";
 
 interface OldLandmarkData {
   meta: {
@@ -61,7 +61,7 @@ function convertOldToNew(
   const cityName = oldData.meta.city[locale] || oldData.meta.city["en"] || "";
   const landmarkName = oldData.meta.landmark;
   const slug = oldData.meta.landmarkSlug;
-  const pageId = uuidv4();
+  const pageId = randomUUID();
   const translationGroupId = `tg_${oldData.meta.alias}`;
 
   // Кажущийся hero

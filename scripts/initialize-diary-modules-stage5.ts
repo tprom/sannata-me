@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "crypto";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -104,7 +104,7 @@ function createDiaryModuleHome(
   config: DiaryConfig,
   locale: string,
 ): DiaryEnvelope {
-  const pageId = uuidv4();
+  const pageId = randomUUID();
   const translationGroupId = `tg_${config.moduleKey}_home`;
 
   const envelope: DiaryEnvelope = {
@@ -233,7 +233,7 @@ function createDiaryEntry(
   entryNum: number,
   locale: string,
 ): DiaryEnvelope {
-  const pageId = uuidv4();
+  const pageId = randomUUID();
   const date = new Date(Date.now() - (config.entryCount - entryNum) * 86400000);
   const dateStr = date.toISOString().split("T")[0];
   const translationGroupId = `tg_${config.moduleKey}_entry_${entryNum}`;
