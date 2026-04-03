@@ -6,6 +6,7 @@ import {
   loadCitiesRegistry,
   saveCitiesRegistry,
 } from "@/agent/backend/cities-registry";
+import { ensureAgentApiAccess } from "@/lib/security/agent-auth";
 
 const normalizeSlug = (value: string) =>
   value
@@ -252,7 +253,11 @@ const validateUniversalSections = (
         }
       }
 
-      const optionalPostcardFields = ["bookInvite", "bookLink"];
+      const optionalPostcardFields = [
+        "farewell",
+        "invitation",
+        "invitationBookLink",
+      ];
       for (const field of optionalPostcardFields) {
         const value = section.payload[field];
         if (value !== undefined && typeof value !== "string") {
@@ -600,6 +605,9 @@ const mergePromptsRecord = (
 };
 
 export async function GET(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   const { searchParams } = new URL(request.url);
 
   const city = searchParams.get("city")?.trim() ?? "";
@@ -675,6 +683,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   const body = (await request.json()) as RequestBody;
   const cityId = body.cityId?.trim() ?? "";
   const city = {

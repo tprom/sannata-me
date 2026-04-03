@@ -5,6 +5,7 @@ import { Orchestrator_LandmarkPostcard } from "../../../../orchestrator/Orchestr
 import { GenerateImage } from "@/skills/GenerateImage";
 import { ReadLandmarkData } from "@/skills/ReadLandmarkData";
 import { resolveGalleryPipelineConfig } from "@/lib/image/pipelineConfig";
+import { ensureAgentApiAccess } from "@/lib/security/agent-auth";
 
 type RequestBody = {
   citySlug?: string;
@@ -20,6 +21,9 @@ const buildOrchestrator = () => {
 };
 
 export async function POST(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   const body = (await request.json()) as RequestBody;
   const citySlug = body.citySlug?.trim() ?? "";
   const landmarkSlug = body.landmarkSlug?.trim() ?? "";

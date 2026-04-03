@@ -9,9 +9,9 @@ export default function PostcardLayout({
   greeting,
   stampImage,
   contentFile,
-  footer,
-  bookInvite,
-  bookLink,
+  farewell,
+  invitation,
+  invitationBookLink,
   gallery,
   gallerySource,
   style,
@@ -20,9 +20,10 @@ export default function PostcardLayout({
   const resolvedGreeting = greeting ?? view?.greeting ?? "";
   const resolvedStampImage = stampImage ?? view?.stampImage ?? null;
   const resolvedContentFile = contentFile ?? view?.contentFile ?? "";
-  const resolvedFooter = footer ?? view?.footer ?? "";
-  const resolvedBookInvite = bookInvite ?? view?.bookInvite ?? "";
-  const resolvedBookLink = bookLink ?? view?.bookLink ?? "";
+  const resolvedFarewell = farewell ?? view?.farewell ?? view?.footer ?? "";
+  const resolvedInvitation = invitation ?? view?.invitation ?? "";
+  const resolvedInvitationBookLink =
+    invitationBookLink ?? view?.invitationBookLink ?? "";
   const showGallerySource =
     process.env.NODE_ENV !== "production" &&
     (gallerySource === "generated" || gallerySource === "legacy");
@@ -34,9 +35,9 @@ export default function PostcardLayout({
           greeting={resolvedGreeting}
           stampImage={resolvedStampImage}
           contentFile={resolvedContentFile}
-          footer={resolvedFooter}
-          bookInvite={resolvedBookInvite}
-          bookLink={resolvedBookLink}
+          farewell={resolvedFarewell}
+          invitation={resolvedInvitation}
+          invitationBookLink={resolvedInvitationBookLink}
         />
       </section>
       <aside className={styles.filmstripColumn}>

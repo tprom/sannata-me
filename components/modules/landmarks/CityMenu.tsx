@@ -23,6 +23,13 @@ type Props = {
 
 const CITY_ANGLE_PATTERN = [1.5, -2, 3.5, -1.5, 2.5, -1, 3] as const;
 
+const MENU_TITLE: Record<string, string> = {
+  ru: "Города",
+  en: "Cities",
+  de: "Stadte",
+  uk: "Міста",
+};
+
 const getCityAngle = (index: number): number => {
   return CITY_ANGLE_PATTERN[index % CITY_ANGLE_PATTERN.length];
 };
@@ -37,6 +44,7 @@ export default function CityMenu({
 }: Props) {
   const router = useRouter();
   const prefix = lang ? `/${lang}${basePath}` : basePath;
+  const menuTitle = MENU_TITLE[lang ?? ""] ?? MENU_TITLE.ru;
 
   useEffect(() => {
     if (!activeCity) return;
@@ -59,12 +67,12 @@ export default function CityMenu({
 
   return (
     <aside className="city-menu">
-      <h3>Города</h3>
+      <h3>{menuTitle}</h3>
       <ul className="city-menu-list">
         {cities.map((city, index) => {
           const isActive = activeCity === city.slug;
           const angle = getCityAngle(index);
-          const cityHref = isActive ? `${prefix}` : `${prefix}/${city.slug}`;
+          const cityHref = `${prefix}/${city.slug}`;
           const cityStyle = {
             "--city-angle": `${angle}deg`,
           } as CSSProperties;

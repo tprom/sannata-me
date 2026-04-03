@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import {
   buildCityFormMarkdown,
+  deleteCityById,
   parseCityForm,
   processCityForm,
 } from "@/agent/backend/city-form-processor";
@@ -10,12 +11,16 @@ import {
   listCityOptions,
   loadCitiesRegistry,
 } from "@/agent/backend/cities-registry";
+import { ensureAgentApiAccess } from "@/lib/security/agent-auth";
 
 type RequestBody = {
   markdown?: string;
 };
 
 export async function GET(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   const filePath = path.join(process.cwd(), "agent", "forms", "city-form.md");
 
   try {
@@ -31,14 +36,8 @@ export async function GET(request: Request) {
       null;
 
     const options = await listCityOptions();
-    const optionsText = options.length
-      ? options
-          .map((item) => `- ${item.cityId} | ${item.label} (${item.slug})`)
-          .join("\n")
-      : "- справочник городов пуст";
-
     const base = selectedCity ? buildCityFormMarkdown(selectedCity) : template;
-    const content = `${base}\n## F. Справочник городов (read-only)\n${optionsText}\n`;
+    const content = `${base}\n`;
 
     return NextResponse.json({
       ok: true,
@@ -61,7 +60,46 @@ export async function GET(request: Request) {
   }
 }
 
+export async function DELETE(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
+  const { searchParams } = new URL(request.url);
+  const cityId = searchParams.get("cityId")?.trim() ?? "";
+
+  if (!cityId) {
+    return NextResponse.json(
+      {
+        ok: false,
+        message: "Для удаления передайте cityId в query-параметре.",
+      },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const result = await deleteCityById(cityId);
+    return NextResponse.json({
+      ok: true,
+      message: `Город ${result.slug} удалён из реестра.`,
+      data: result,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        ok: false,
+        message:
+          error instanceof Error ? error.message : "Не удалось удалить город.",
+      },
+      { status: 400 },
+    );
+  }
+}
+
 export async function POST(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   const body = (await request.json()) as RequestBody;
 
   if (!body.markdown) {

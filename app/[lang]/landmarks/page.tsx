@@ -18,7 +18,7 @@ type Params = {
 export default async function ModulePage({ params }: Params) {
   const { lang } = await params;
   const basePath = path.join(process.cwd(), "data", "landmarks");
-  const cities = await listCities(basePath);
+  const cities = await listCities(basePath, lang);
 
   // Try to load new module home page (localized envelope)
   const envelopePath = path.join(
@@ -74,7 +74,9 @@ export default async function ModulePage({ params }: Params) {
 
 const listCities = async (
   basePath: string,
+  lang: string,
 ): Promise<Array<{ city: string; slug: string; count: number }>> => {
+  const registryNames = await loadCityRegistryNames(lang);
   const entries = await fs.readdir(basePath, { withFileTypes: true });
   const cityDirs = entries.filter(
     (entry) => entry.isDirectory() && !isHiddenDir(entry.name),
@@ -91,10 +93,22 @@ const listCities = async (
       const cityData = hasData
         ? await readJson(
             path.join(cityPath, "data.json"),
-            {} as { meta?: { title?: string } },
+            {} as {
+              meta?: {
+                title?: string | Record<string, string>;
+                city?: string | Record<string, string>;
+              };
+            },
           )
         : { meta: { title: toTitle(slug) } };
-      const title = cityData.meta?.title || toTitle(slug);
+      const localizedTitle =
+        resolveLocalizedValue(cityData.meta?.title, lang) ??
+        resolveLocalizedValue(cityData.meta?.city, lang);
+      const title =
+        registryNames[slug] ??
+        localizedTitle ??
+        (await resolveCityNameFromLandmarkMeta(basePath, slug, lang)) ??
+        toTitle(slug);
 
       return { city: title, slug, count: landmarkCount };
     }),
@@ -105,6 +119,82 @@ const listCities = async (
     slug: string;
     count: number;
   }>;
+};
+
+const resolveLocalizedValue = (
+  value: string | Record<string, string> | undefined,
+  lang: string,
+): string | null => {
+  if (!value) return null;
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed || null;
+  }
+  const localized = value[lang] ?? value.en ?? value.ru ?? value.de ?? value.uk;
+  if (typeof localized !== "string") return null;
+  const trimmed = localized.trim();
+  return trimmed || null;
+};
+
+const resolveCityNameFromLandmarkMeta = async (
+  basePath: string,
+  citySlug: string,
+  lang: string,
+): Promise<string | null> => {
+  const cityPath = path.join(basePath, citySlug);
+  const entries = await fs.readdir(cityPath, { withFileTypes: true });
+  const dirEntries = entries.filter((entry) => entry.isDirectory());
+
+  for (const entry of dirEntries) {
+    const dataPath = path.join(cityPath, entry.name, "data.json");
+    const hasData = await fileExists(dataPath);
+    if (!hasData) continue;
+
+    const data = await readJson(
+      dataPath,
+      {} as { meta?: { city?: string | Record<string, string> } },
+    );
+    const localized = resolveLocalizedValue(data.meta?.city, lang);
+    if (localized) return localized;
+  }
+
+  return null;
+};
+
+const loadCityRegistryNames = async (
+  lang: string,
+): Promise<Record<string, string>> => {
+  const registry = await readJson(
+    path.join(process.cwd(), "data", "cities.json"),
+    [] as Array<{
+      slug?: string;
+      name?: Record<string, string>;
+      city?: string;
+    }>,
+  );
+
+  const result: Record<string, string> = {};
+  for (const item of registry) {
+    const slug = typeof item.slug === "string" ? item.slug.trim() : "";
+    if (!slug) continue;
+    const localized =
+      item.name?.[lang] ??
+      item.name?.en ??
+      item.name?.ru ??
+      item.name?.de ??
+      item.name?.uk;
+    const value =
+      typeof localized === "string" && localized.trim()
+        ? localized.trim()
+        : typeof item.city === "string" && item.city.trim()
+          ? item.city.trim()
+          : "";
+    if (value) {
+      result[slug] = value;
+    }
+  }
+
+  return result;
 };
 
 const listLandmarkDirs = async (cityPath: string): Promise<string[]> => {

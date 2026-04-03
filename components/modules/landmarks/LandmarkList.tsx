@@ -31,15 +31,64 @@ export default function LandmarkList({
 }: Props) {
   const prefix = lang ? `/${lang}${basePath}` : basePath;
   const [preview, setPreview] = useState<LandmarkItem | null>(null);
+  const [previewPosition, setPreviewPosition] = useState<{
+    top: number;
+    left: number;
+  } | null>(null);
+
+  const handleMouseEnter = (
+    item: LandmarkItem,
+    event: React.MouseEvent<HTMLLIElement>,
+  ) => {
+    const rowRect = event.currentTarget.getBoundingClientRect();
+    const menuRect = event.currentTarget
+      .closest(".city-menu")
+      ?.getBoundingClientRect();
+
+    const previewWidth = 280;
+    const previewHeight = 220;
+    const horizontalGap = 8;
+    const viewportPadding = 8;
+
+    const targetLeft = menuRect
+      ? menuRect.right + horizontalGap
+      : rowRect.right + horizontalGap;
+
+    const minTop = viewportPadding + previewHeight / 2;
+    const maxTop = window.innerHeight - viewportPadding - previewHeight / 2;
+    const unclampedTop = rowRect.top + rowRect.height / 2;
+    const targetTop = Math.min(maxTop, Math.max(minTop, unclampedTop));
+
+    setPreview(item);
+    setPreviewPosition({
+      top: targetTop,
+      left: targetLeft,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setPreview(null);
+    setPreviewPosition(null);
+  };
 
   const previewImage = preview
     ? (preview.hero ?? preview.cover ?? preview.thumbnail ?? "")
     : "";
 
   const previewPortal =
-    preview && previewImage && typeof document !== "undefined"
+    preview &&
+    previewImage &&
+    previewPosition &&
+    typeof document !== "undefined"
       ? createPortal(
-          <div className="landmark-preview-portal">
+          <div
+            className="landmark-preview-portal"
+            style={{
+              top: `${previewPosition.top}px`,
+              left: `${previewPosition.left}px`,
+              transform: "translateY(-50%)",
+            }}
+          >
             <LandmarkPreview
               title={preview.title}
               shortDescription={preview.shortDescription ?? ""}
@@ -59,8 +108,8 @@ export default function LandmarkList({
             <li
               key={item.slug}
               className="city-menu-item landmark-item"
-              onMouseEnter={() => setPreview(item)}
-              onMouseLeave={() => setPreview(null)}
+              onMouseEnter={(event) => handleMouseEnter(item, event)}
+              onMouseLeave={handleMouseLeave}
             >
               {/* v2.7: миниатюра рядом с названием */}
               {item.thumbnail ? (

@@ -46,9 +46,10 @@ export type SectionPayload =
       greeting: string;
       stampImage: string;
       contentFile: string;
+      farewell?: string;
+      invitation?: string;
+      invitationBookLink?: string;
       footer: string;
-      bookInvite?: string;
-      bookLink?: string;
     }
   | {
       kind: "cta";

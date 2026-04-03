@@ -1,0 +1,179 @@
+{
+  "schemaVersion": "2.0.0",
+  "visual": {
+    "image": "/images/castle.png",
+    "divider": "/images/divider.png",
+    "brand": "SANNATA.me"
+  },
+  "leftPage": {
+    "motto": {
+      "ru": "sannata.me  — пространство тишины и рождения историй",
+      "en": "sannata.me — a space of silence where stories are born",
+      "de": "sannata.me — ein Raum der Stille, in dem Geschichten entstehen",
+      "uk": "sannata.me — простір тиші, у якому народжуються історії"
+    },
+    "mottoStyle": {
+      "tone": "italic",
+      "sizeAdjust": 0
+    },
+    "title": {
+      "ru": "",
+      "en": "",
+      "de": "",
+      "uk": ""
+    },
+    "textBlocks": [
+      {
+        "text": {
+          "ru": "Иногда миру не хватает не новых слов, а паузы между ними.\nsannata.me  — это место, где такая пауза становится домом.",
+          "en": "Sometimes the world doesn’t need more words — it needs the pause between them.  \nsannata.me is the place where such a pause becomes a home.",
+          "de": "Manchmal braucht die Welt nicht mehr Worte, sondern die Pause zwischen ihnen.  \nsannata.me ist der Ort, an dem diese Pause ein Zuhause findet.",
+          "uk": "Іноді світові бракує не нових слів,  а паузи між ними.  \nsannata.me — це місце, де така пауза стає домом."
+        },
+        "kind": "paragraph",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      },
+      {
+        "text": {
+          "ru": "Здесь тишина — не пустота, а живая среда.\nВ ней рождаются легенды, рисунки, города, которые можно не только увидеть, но и почувствовать.\nЭто портал, в котором можно остановиться, перевести дыхание и позволить истории прийти самой.",
+          "en": "Here, silence is not emptiness but a living medium.  \nWithin it, legends, drawings, and cities are born — not only to be seen, but to be felt.  \nIt is a portal where you can stop, breathe, and allow the story to come on its own.",
+          "de": "Hier ist Stille keine Leere, sondern ein lebendiges Medium.  \nIn ihr entstehen Legenden, Zeichnungen und Städte —  nicht nur zum Sehen, sondern zum Spüren.  \nEs ist ein Portal, in dem man anhalten, durchatmen  und der Geschichte erlauben kann, von selbst zu kommen.",
+          "uk": "Тут тиша — не порожнеча, а жива стихія.  \nУ ній народжуються легенди, малюнки й міста — не лише для того, щоб їх побачити, а щоб відчути.  \nЦе портал, у якому можна зупинитися, перевести подих і дозволити історії прийти самій."
+        },
+        "kind": "paragraph",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      },
+      {
+        "text": {
+          "ru": "Каждый модуль — как отдельная глава книги: одна рассказывает о городах, другая — о людях, третья — о легендах, но все они связаны одной нитью — тишиной, из которой всё начинается.",
+          "en": "Each module is a chapter of a book: one speaks of cities, another of people, a third of legends — all connected by a single thread: the silence from which everything begins.",
+          "de": "Jedes Modul ist wie ein Kapitel eines Buches:  eines erzählt von Städten, ein anderes von Menschen,  ein drittes von Legenden — und alle sind durch einen Faden verbunden: die Stille, aus der alles beginnt.",
+          "uk": "Кожен модуль — мов окрема глава книги: одна розповідає про міста, інша — про людей, третя — про легенди, і всі вони поєднані однією ниткою — тишею, з якої все починається."
+        },
+        "kind": "paragraph",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      },
+      {
+        "text": {
+          "ru": "Если ты чувствуешь, что тебе нужно не ещё больше шума, а пространство между звуками — ты уже внутри sannata.me.",
+          "en": "If you feel you need not more noise, but the space between sounds — you are already inside sannata.me.",
+          "de": "Wenn du spürst, dass du nicht noch mehr Lärm brauchst,  sondern den Raum zwischen den Klängen — bist du bereits in sannata.me angekommen.",
+          "uk": "Якщо ти відчуваєш, що тобі потрібен не ще більший шум, а простір між звуками — ти вже всередині sannata.me."
+        },
+        "kind": "quote",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      }
+    ],
+    "illustrations": []
+  },
+  "rightPage": {
+    "title": {
+      "ru": "Легенда о sannata",
+      "en": "The Legend of sannata",
+      "de": "Die Legende von sannata",
+      "uk": "Легенда про sannata"
+    },
+    "textBlocks": [
+      {
+        "text": {
+          "ru": "Говорят, что в древние времена, когда мир ещё учился различать шум и покой, появилось слово, которое не принадлежало ни людям, ни богам.\nЕго шептали ветры, когда стихали.\nЕго знали танцоры, когда замирали перед новым движением.\nЭто слово было Sannata.",
+          "en": "They say that in ancient times, when the world was still learning to distinguish noise from stillness, a word appeared — belonging neither to humans nor to gods.  \nThe winds whispered it when they grew quiet.  \nDancers knew it in the moment before a new movement.  \nThat word was \"Sannata\".",
+          "de": "Man erzählt, dass in uralten Zeiten, als die Welt erst lernte, Lärm von Ruhe zu unterscheiden, ein Wort erschien — weder den Menschen noch den Göttern gehörend.  \nDie Winde flüsterten es, wenn sie verstummten.  \nTänzer kannten es im Augenblick vor einer neuen Bewegung.  \nDieses Wort war \"Sannata\".",
+          "uk": "Кажуть, що в давні часи, коли світ лише вчився розрізняти шум і спокій, з’явилося слово, яке не належало ні людям, ні богам.  \nЙого шепотіли вітри, коли стихали.  \nЙого знали танцівники в мить перед новим рухом.  \nЦе слово було \"Sannata\"."
+        },
+        "kind": "paragraph",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      },
+      {
+        "text": {
+          "ru": "На языке санскрита оно означало тишину — не пустую, а живую.\nТишину, в которой собирается дыхание перед первым словом.\nТишину, в которой художник видит ещё не сделанный штрих.\nТишину, в которой сердце слышит себя.",
+          "en": "In Sanskrit, it meant silence — not empty, but alive.  \nA silence where breath gathers before the first word.  \nA silence where an artist sees the stroke not yet drawn.  \nA silence where the heart hears itself.",
+          "de": "Im Sanskrit bedeutete es Stille — nicht leer, sondern lebendig.  \nEine Stille, in der sich der Atem vor dem ersten Wort sammelt.  \nEine Stille, in der der Künstler den noch ungezogenen Strich sieht.  \nEine Stille, in der das Herz sich selbst hört.",
+          "uk": "Санскритом воно означало тишу — не порожню, а живу.  \nТишу, в якій збирається подих перед першим словом.  \nТишу, в якій митець бачить штрих, що ще не народився.  \nТишу, у якій серце чує саме себе."
+        },
+        "kind": "paragraph",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      },
+      {
+        "text": {
+          "ru": "Но у этого слова был и второй смысл.\nВ танце \"sannata\" называли движение‑переход, тот миг, когда танцор словно замирает, но внутри этого замирания рождается следующий жест.\nЭто была тишина, которая движется.\nПокой, который ведёт вперёд.",
+          "en": "But the word had a second meaning.  \nIn dance, \"sannata\" was the transition — the instant when the dancer seems to freeze, yet within that stillness the next gesture is already forming.  \nIt was silence in motion.  \nStillness that leads forward.",
+          "de": "Doch das Wort hatte eine zweite Bedeutung.  \nIm Tanz nannte man \"sannata\" die Übergangsbewegung — den Moment, in dem der Tänzer wie erstarrt wirkt, doch im Inneren bereits die nächste Geste entsteht.  \nEs war eine Stille, die sich bewegt.  \nEine Ruhe, die vorwärts führt.",
+          "uk": "Але це слово мало й другий сенс.  \nУ танці \"sannata\" називали перехідний рух — мить, коли танцівник ніби завмирає, але всередині цього завмирання вже народжується наступний жест.  \nЦе була тиша, що рухається.  \nСпокій, який веде вперед."
+        },
+        "kind": "paragraph",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      },
+      {
+        "text": {
+          "ru": "Так Sannata стал символом начала.\nМомента между “ещё нет” и “уже да”.\nПаузы, в которой рождается вдохновение.",
+          "en": "Thus Sannata became a symbol of beginnings — the moment between “not yet” and “already yes,” the pause where inspiration is born.",
+          "de": "So wurde Sannata zum Symbol des Anfangs — des Augenblicks zwischen „noch nicht“ und „schon ja“, der Pause, in der Inspiration geboren wird.",
+          "uk": "Так Sannata стала символом початку — моменту між «ще ні» і «вже так», паузи, у якій народжується натхнення."
+        },
+        "kind": "paragraph",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      },
+      {
+        "text": {
+          "ru": "Говорят, что если долго вслушиваться в тишину, можно услышать, как она делает свой первый шаг.\nИ тогда начинается история.",
+          "en": "They say that if you listen long enough to silence, you can hear it take its first step.  \nAnd that is when the story begins.",
+          "de": "Man sagt, wer lange genug in die Stille lauscht, kann hören, wie sie ihren ersten Schritt macht.  \nUnd dann beginnt die Geschichte.",
+          "uk": "Кажуть, якщо довго слухати тишу, можна почути, як вона робить свій перший крок.  \nІ тоді починається історія."
+        },
+        "kind": "quote",
+        "tone": "normal",
+        "align": "left",
+        "spacing": "compact",
+        "sizeAdjust": 0
+      }
+    ],
+    "illustrations": [
+      {
+        "image": "/uploads/module-home/portal-home-right-illustration-1-1773414100747.jpg",
+        "caption": {
+          "ru": "",
+          "en": "",
+          "de": "",
+          "uk": ""
+        },
+        "size": "small-30",
+        "type": "ketty-drawing",
+        "position": "right",
+        "insert": {
+          "where": "after",
+          "paragraph": 1
+        },
+        "rotate": 2,
+        "anchor": "",
+        "wrap": true,
+        "shadow": true,
+        "border": false
+      }
+    ]
+  }
+}

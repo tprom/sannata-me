@@ -17,9 +17,10 @@ type PostcardView = {
   greeting: string;
   stampImage: string;
   contentFile: string;
+  farewell?: string;
+  invitation?: string;
+  invitationBookLink?: string;
   footer: string;
-  bookInvite?: string;
-  bookLink?: string;
 };
 
 const SCHEMA_VERSION = "1.1.0";
@@ -277,9 +278,10 @@ export const adaptLandmarksItemToEnvelope = (input: {
           greeting: input.view.greeting,
           stampImage: input.view.stampImage,
           contentFile: input.view.contentFile,
+          farewell: input.view.farewell ?? input.view.footer,
+          invitation: input.view.invitation,
+          invitationBookLink: input.view.invitationBookLink,
           footer: input.view.footer,
-          bookInvite: input.view.bookInvite,
-          bookLink: input.view.bookLink,
         },
       },
       {

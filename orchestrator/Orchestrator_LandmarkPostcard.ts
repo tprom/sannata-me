@@ -42,6 +42,8 @@ type LandmarkDataV3 = {
   prompts?: {
     greeting?: string | Partial<Record<Language, string>>;
     footer?: string | Partial<Record<Language, string>>;
+    invitation?: string | Partial<Record<Language, string>>;
+    invitationBookLink?: string | Partial<Record<Language, string>>;
     bookInvite?: string | Partial<Record<Language, string>>;
     bookLink?: string | Partial<Record<Language, string>>;
   };
@@ -109,8 +111,8 @@ export class Orchestrator_LandmarkPostcard {
             normalized.illustrations,
           ),
           footer: normalized.footer[lang],
-          bookInvite: normalized.bookInvite[lang],
-          bookLink: normalized.bookLink[lang],
+          invitation: normalized.invitation[lang],
+          invitationBookLink: normalized.invitationBookLink[lang],
         };
       }
 
@@ -251,8 +253,12 @@ const normalizeData = (raw: unknown) => {
     },
     greeting: resolvePromptByLang(data.prompts?.greeting, "greeting"),
     footer: resolvePromptByLang(data.prompts?.footer, "footer"),
-    bookInvite: resolveOptionalPromptByLang(data.prompts?.bookInvite),
-    bookLink: resolveOptionalPromptByLang(data.prompts?.bookLink),
+    invitation: resolveOptionalPromptByLang(
+      data.prompts?.invitation ?? data.prompts?.bookInvite,
+    ),
+    invitationBookLink: resolveOptionalPromptByLang(
+      data.prompts?.invitationBookLink ?? data.prompts?.bookLink,
+    ),
     stampImage:
       data.postcardGraphics?.stamp?.isActive &&
       typeof data.postcardGraphics?.stamp?.savedFile === "string"

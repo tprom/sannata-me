@@ -63,18 +63,16 @@ const run = async (): Promise<void> => {
     });
 
     const landmarkValid = [
-      "## B. Малые текстовые поля",
       "cityId: city_augsburg",
+      "landmarkMode: create",
       "landmark: Smoke Landmark",
       "landmarkSlug:",
-      'greeting: "Привет"',
-      'footer: "Футер"',
-      'stampPrompt: "Промпт"',
-      "## C. Изображения",
-      "imageSlots: 2",
-      "commonImagePrompt:",
-      "image1File:",
-      "image1Prompt:",
+      'greeting.ru: "Привет"',
+      'content.ru: "Основной текст"',
+      'invitation.ru: "Футер"',
+      'stamp.prompt: "Промпт"',
+      "illustration[0].file:",
+      "illustration[0].prompt:",
     ].join("\n");
 
     const landmarkOk = await processLandmarkForm(landmarkValid);
@@ -88,8 +86,8 @@ const run = async (): Promise<void> => {
     let invalidError = "";
     try {
       const landmarkInvalid = [
-        "## B. Малые текстовые поля",
         "cityId: city_unknown",
+        "landmarkMode: create",
         "landmark: Broken Landmark",
         "landmarkSlug:",
       ].join("\n");

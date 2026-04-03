@@ -43,13 +43,16 @@ export default async function LandmarkSlugPage({ params }: Params) {
   const { lang, city, slug } = await params;
   const basePath = path.join(process.cwd(), "data", "landmarks");
 
-  const cities = await listCities(basePath);
+  const cities = await listCities(basePath, lang);
 
-  const menuLandmarks = await listLandmarks(basePath, city);
+  const menuLandmarks = await listLandmarks(basePath, city, lang);
   const menuLandmarkItems: LandmarkItem[] = menuLandmarks.map((item) => ({
     slug: item.slug,
     title: item.title ?? item.slug,
     thumbnail: item.thumbnail,
+    shortDescription: item.shortDescription,
+    hero: item.hero,
+    cover: item.cover,
   }));
 
   const view = await loadJson(
@@ -59,8 +62,6 @@ export default async function LandmarkSlugPage({ params }: Params) {
       stampImage: string;
       contentFile: string;
       footer: string;
-      bookInvite?: string;
-      bookLink?: string;
     },
   );
 
@@ -73,8 +74,6 @@ export default async function LandmarkSlugPage({ params }: Params) {
         stampImage: string;
         contentFile: string;
         footer: string;
-        bookInvite?: string;
-        bookLink?: string;
       },
     ));
 
@@ -85,8 +84,6 @@ export default async function LandmarkSlugPage({ params }: Params) {
       prompts?: {
         greeting?: string | Record<string, string>;
         footer?: string | Record<string, string>;
-        bookInvite?: string | Record<string, string>;
-        bookLink?: string | Record<string, string>;
       };
       postcardGraphics?: {
         stamp?: {
@@ -106,11 +103,42 @@ export default async function LandmarkSlugPage({ params }: Params) {
     },
   );
 
+  const formData = await loadJson(
+    path.join(
+      process.cwd(),
+      "agent",
+      "backend",
+      "landmark-data",
+      city,
+      `${slug}.json`,
+    ),
+    null as null | {
+      postcard?: {
+        greeting?: Record<string, string>;
+        content?: Record<string, string>;
+        farewell?: Record<string, string>;
+        invitation?: Record<string, string>;
+        invitationBookLink?: Record<string, string>;
+      };
+      images?: {
+        stamp?: {
+          file?: string;
+        };
+        items?: Array<{
+          file?: string;
+          position?: string;
+          insertParagraph?: string | number;
+        }>;
+      };
+    },
+  );
+
   const resolvedView = resolveLandmarkView({
     lang,
     city,
     slug,
     data,
+    formData,
     fallbackView,
   });
 
@@ -119,6 +147,7 @@ export default async function LandmarkSlugPage({ params }: Params) {
     city,
     slug,
     data,
+    formData,
   });
 
   const gallery = galleryData.images;
@@ -165,36 +194,36 @@ const buildGallery = async (input: {
   data: {
     gallery?: { items?: Array<{ fileName?: string; savedFile?: string }> };
   } | null;
+  formData?: { gallery?: { items?: Array<any> } };
 }): Promise<{
   images: Array<{ src: string; alt: string }>;
   source: "generated" | "legacy";
 }> => {
-  const generated = await readJson(
-    path.join(input.basePath, input.city, input.slug, "gallery.generated.json"),
-    null as null | {
-      items?: Array<{
-        index: number;
-        status: "completed" | "waiting_manual" | "failed";
-        outputPath: string;
-      }>;
-    },
-  );
+  // Новый источник: formData.gallery.items
+  const formGalleryItems = input.formData?.gallery?.items ?? [];
+  const formGalleryImages = formGalleryItems
+    .map((item, index) => {
+      const file = item.file || item.savedFile || item.fileName;
+      if (!file) return null;
+      const src =
+        file.startsWith("/") || /^https?:\/\//i.test(file)
+          ? file
+          : file.startsWith("images/") || file.startsWith("gallery/")
+            ? `/data/landmarks/${input.city}/${input.slug}/${file}`
+            : `/data/landmarks/${input.city}/${input.slug}/images/${file}`;
+      const alt = item.alt || item.fileName || `Gallery ${index + 1}`;
+      return { src, alt };
+    })
+    .filter(Boolean);
 
-  const generatedImages = (generated?.items ?? [])
-    .filter((item) => item.status === "completed" && item.outputPath)
-    .map((item, index) => ({
-      src: normalizeGalleryPath(item.outputPath, input.city, input.slug),
-      alt: `Gallery ${typeof item.index === "number" ? item.index + 1 : index + 1}`,
-    }))
-    .filter((item) => Boolean(item.src));
-
-  if (generatedImages.length > 0) {
+  if (formGalleryImages.length > 0) {
     return {
-      images: generatedImages,
-      source: "generated",
+      images: formGalleryImages,
+      source: "formData",
     };
   }
 
+  // Fallback: legacy data.json
   const legacyItems = input.data?.gallery?.items ?? [];
   const legacyImages = legacyItems
     .map((item, index) => {
@@ -238,11 +267,16 @@ type LandmarkIndexItem = {
   slug: string;
   title?: string;
   thumbnail?: string;
+  shortDescription?: string;
+  hero?: string;
+  cover?: string;
 };
 
 const listCities = async (
   basePath: string,
+  lang: string,
 ): Promise<Array<{ city: string; slug: string; count: number }>> => {
+  const registryNames = await loadCityRegistryNames(lang);
   const entries = await fs.readdir(basePath, { withFileTypes: true });
   const cityDirs = entries.filter(
     (entry) => entry.isDirectory() && !isHiddenDir(entry.name),
@@ -252,17 +286,29 @@ const listCities = async (
     cityDirs.map(async (entry) => {
       const slug = entry.name;
       const cityPath = path.join(basePath, slug);
-      const landmarkCount = (await listLandmarks(basePath, slug)).length;
+      const landmarkCount = (await listLandmarks(basePath, slug, lang)).length;
       const hasData = await fileExists(path.join(cityPath, "data.json"));
       if (!hasData && landmarkCount === 0) return null;
 
       const cityData = hasData
         ? await readJson(
             path.join(cityPath, "data.json"),
-            {} as { meta?: { title?: string } },
+            {} as {
+              meta?: {
+                title?: string | Record<string, string>;
+                city?: string | Record<string, string>;
+              };
+            },
           )
         : { meta: { title: toTitle(slug) } };
-      const title = cityData.meta?.title || toTitle(slug);
+      const localizedTitle =
+        resolveLocalizedValue(cityData.meta?.title, lang) ??
+        resolveLocalizedValue(cityData.meta?.city, lang);
+      const title =
+        registryNames[slug] ??
+        localizedTitle ??
+        (await resolveCityNameFromLandmarkMeta(basePath, slug, lang)) ??
+        toTitle(slug);
 
       return { city: title, slug, count: landmarkCount };
     }),
@@ -278,6 +324,7 @@ const listCities = async (
 const listLandmarks = async (
   basePath: string,
   citySlug: string,
+  lang: string,
 ): Promise<LandmarkIndexItem[]> => {
   const cityPath = path.join(basePath, citySlug);
   const entries = await fs.readdir(cityPath, { withFileTypes: true });
@@ -290,16 +337,226 @@ const listLandmarks = async (
       const hasData = await fileExists(dataPath);
       if (!hasData) return null;
 
-      const data = await readJson(dataPath, {} as Record<string, unknown>);
+      const data = await readJson(
+        dataPath,
+        {} as {
+          meta?: {
+            title?: string | Record<string, string>;
+            landmark?: string | Record<string, string>;
+          };
+          title?: string;
+          landmark?: string | Record<string, string>;
+          blocks?: { passport?: string };
+          shortDescription?: string;
+          hero?: string;
+          cover?: string;
+          content?:
+            | Array<{ type?: string; src?: string }>
+            | Record<string, string>
+            | string;
+          images?: { items?: Array<{ fileName?: string; savedFile?: string }> };
+          gallery?: {
+            items?: Array<{ fileName?: string; savedFile?: string }>;
+          };
+        },
+      );
       if (isArchivedLandmarkData(data)) {
         return null;
       }
 
-      return { slug: entry.name };
+      const title = resolveLandmarkTitle({
+        data,
+        lang,
+        fallback: toTitle(entry.name),
+      });
+      const thumbnail = resolveLandmarkThumbnail({
+        data,
+        city: citySlug,
+        slug: entry.name,
+      });
+
+      return {
+        slug: entry.name,
+        title,
+        thumbnail,
+        shortDescription: data.shortDescription,
+        hero: data.hero,
+        cover: data.cover,
+      };
     }),
   );
 
   return landmarks.filter(Boolean) as LandmarkIndexItem[];
+};
+
+const resolveLocalizedValue = (
+  value: string | Record<string, string> | undefined,
+  lang: string,
+): string | null => {
+  if (!value) return null;
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed || null;
+  }
+  const localized = value[lang] ?? value.en ?? value.ru ?? value.de ?? value.uk;
+  if (typeof localized !== "string") return null;
+  const trimmed = localized.trim();
+  return trimmed || null;
+};
+
+const resolveCityNameFromLandmarkMeta = async (
+  basePath: string,
+  citySlug: string,
+  lang: string,
+): Promise<string | null> => {
+  const cityPath = path.join(basePath, citySlug);
+  const entries = await fs.readdir(cityPath, { withFileTypes: true });
+  const dirEntries = entries.filter((entry) => entry.isDirectory());
+
+  for (const entry of dirEntries) {
+    const dataPath = path.join(cityPath, entry.name, "data.json");
+    const hasData = await fileExists(dataPath);
+    if (!hasData) continue;
+
+    const data = await readJson(
+      dataPath,
+      {} as { meta?: { city?: string | Record<string, string> } },
+    );
+    const localized = resolveLocalizedValue(data.meta?.city, lang);
+    if (localized) return localized;
+  }
+
+  return null;
+};
+
+const resolveLandmarkTitle = (input: {
+  data: {
+    meta?: {
+      title?: string | Record<string, string>;
+      landmark?: string | Record<string, string>;
+    };
+    title?: string;
+    landmark?: string | Record<string, string>;
+    blocks?: { passport?: string };
+  };
+  lang: string;
+  fallback: string;
+}): string => {
+  const localizedMetaTitle = resolveLocalizedValue(
+    input.data.meta?.title,
+    input.lang,
+  );
+  if (localizedMetaTitle) return capitalizeFirst(localizedMetaTitle);
+
+  const localizedMetaLandmark = resolveLocalizedValue(
+    input.data.meta?.landmark,
+    input.lang,
+  );
+  if (localizedMetaLandmark) return capitalizeFirst(localizedMetaLandmark);
+
+  const localizedLandmark = resolveLocalizedValue(
+    input.data.landmark,
+    input.lang,
+  );
+  if (localizedLandmark) return capitalizeFirst(localizedLandmark);
+
+  if (input.data.title) return capitalizeFirst(input.data.title);
+  const passportTitle = extractPassportTitle(input.data.blocks?.passport ?? "");
+  return capitalizeFirst(passportTitle || input.fallback);
+};
+
+const loadCityRegistryNames = async (
+  lang: string,
+): Promise<Record<string, string>> => {
+  const registry = await readJson(
+    path.join(process.cwd(), "data", "cities.json"),
+    [] as Array<{
+      slug?: string;
+      name?: Record<string, string>;
+      city?: string;
+    }>,
+  );
+
+  const result: Record<string, string> = {};
+  for (const item of registry) {
+    const slug = typeof item.slug === "string" ? item.slug.trim() : "";
+    if (!slug) continue;
+    const localized =
+      item.name?.[lang] ??
+      item.name?.en ??
+      item.name?.ru ??
+      item.name?.de ??
+      item.name?.uk;
+    const value =
+      typeof localized === "string" && localized.trim()
+        ? localized.trim()
+        : typeof item.city === "string" && item.city.trim()
+          ? item.city.trim()
+          : "";
+    if (value) {
+      result[slug] = value;
+    }
+  }
+
+  return result;
+};
+
+const capitalizeFirst = (value: string): string => {
+  const trimmed = value.trim();
+  if (!trimmed) return value;
+  return trimmed.charAt(0).toLocaleUpperCase() + trimmed.slice(1);
+};
+
+const resolveLandmarkThumbnail = (input: {
+  data: {
+    hero?: string;
+    cover?: string;
+    content?:
+      | Array<{ type?: string; src?: string }>
+      | Record<string, string>
+      | string;
+    images?: { items?: Array<{ fileName?: string; savedFile?: string }> };
+    gallery?: { items?: Array<{ fileName?: string; savedFile?: string }> };
+  };
+  city: string;
+  slug: string;
+}): string => {
+  if (input.data.hero) return input.data.hero;
+  if (input.data.cover) return input.data.cover;
+
+  const contentImage = Array.isArray(input.data.content)
+    ? (input.data.content.find((item) => item.type === "image")?.src ?? "")
+    : "";
+  if (contentImage) return contentImage;
+
+  const firstGalleryImage = input.data.gallery?.items?.[0];
+  const galleryFileName =
+    firstGalleryImage?.savedFile ?? firstGalleryImage?.fileName;
+  if (galleryFileName) {
+    if (galleryFileName.startsWith("/")) return galleryFileName;
+    return `/data/landmarks/${input.city}/${input.slug}/${galleryFileName}`;
+  }
+
+  const firstImage = input.data.images?.items?.[0];
+  const fileName = firstImage?.savedFile ?? firstImage?.fileName;
+  if (fileName) {
+    if (fileName.startsWith("/")) return fileName;
+    return `/data/landmarks/${input.city}/${input.slug}/images/${fileName}`;
+  }
+
+  return "";
+};
+
+const extractPassportTitle = (passport: string): string => {
+  for (const line of passport.split(/\r?\n/)) {
+    const trimmed = line.replace(/^[\s•o\t]+/i, "").trim();
+    if (!trimmed) continue;
+    const [key, value] = trimmed.split(":").map((part) => part.trim());
+    if (key === "Официальное название" && value) {
+      return value;
+    }
+  }
+  return "";
 };
 
 const readJson = async <T,>(filePath: string, fallback: T): Promise<T> => {
@@ -386,8 +643,6 @@ const resolveLandmarkView = (input: {
     prompts?: {
       greeting?: string | Record<string, string>;
       footer?: string | Record<string, string>;
-      bookInvite?: string | Record<string, string>;
-      bookLink?: string | Record<string, string>;
     };
     postcardGraphics?: {
       stamp?: {
@@ -402,23 +657,74 @@ const resolveLandmarkView = (input: {
       };
     };
   } | null;
+  formData: {
+    postcard?: {
+      greeting?: Record<string, string>;
+      content?: Record<string, string>;
+      farewell?: Record<string, string>;
+      invitation?: Record<string, string>;
+      invitationBookLink?: Record<string, string>;
+    };
+    images?: {
+      stamp?: {
+        file?: string;
+      };
+      items?: Array<{
+        file?: string;
+        position?: string;
+        insertParagraph?: string | number;
+      }>;
+    };
+  } | null;
   fallbackView: {
     greeting: string;
     stampImage: string;
     contentFile: string;
     footer: string;
-    bookInvite?: string;
-    bookLink?: string;
   } | null;
 }): {
   greeting: string;
   stampImage: string;
   contentFile: string;
+  farewell?: string;
+  invitation?: string;
+  invitationBookLink?: string;
   footer: string;
-  bookInvite?: string;
-  bookLink?: string;
 } | null => {
   const fallback = input.fallbackView;
+  const greetingFromForm = readLocalized(
+    input.formData?.postcard?.greeting,
+    input.lang,
+  );
+  const contentFromForm = readLocalized(
+    input.formData?.postcard?.content,
+    input.lang,
+  );
+  const farewellFromForm = readLocalized(
+    input.formData?.postcard?.farewell,
+    input.lang,
+  );
+  const invitationFromForm = readLocalizedExact(
+    input.formData?.postcard?.invitation,
+    input.lang,
+  );
+  const invitationBookLinkFromForm = readLocalizedExact(
+    input.formData?.postcard?.invitationBookLink,
+    input.lang,
+  );
+
+  const contentWithFormIllustrations = injectIllustrationsFromFormData({
+    content: contentFromForm,
+    city: input.city,
+    slug: input.slug,
+    items: input.formData?.images?.items,
+  });
+
+  const stampImageFromForm =
+    typeof input.formData?.images?.stamp?.file === "string"
+      ? input.formData.images.stamp.file.trim()
+      : "";
+
   const contentFromData = readLocalized(input.data?.content, input.lang);
   const greetingFromData = readLocalizedPrompt(
     input.data?.prompts?.greeting,
@@ -426,14 +732,6 @@ const resolveLandmarkView = (input: {
   );
   const footerFromData = readLocalizedPrompt(
     input.data?.prompts?.footer,
-    input.lang,
-  );
-  const bookInviteFromData = readLocalizedPrompt(
-    input.data?.prompts?.bookInvite,
-    input.lang,
-  );
-  const bookLinkFromData = readLocalizedPrompt(
-    input.data?.prompts?.bookLink,
     input.lang,
   );
 
@@ -454,21 +752,28 @@ const resolveLandmarkView = (input: {
   });
 
   const greeting =
+    greetingFromForm ||
     greetingFromData ||
     fallback?.greeting ||
     PROMPT_DEFAULTS.greeting[
       input.lang as keyof typeof PROMPT_DEFAULTS.greeting
     ] ||
     PROMPT_DEFAULTS.greeting.en;
-  const contentFile = contentWithIllustrations || fallback?.contentFile || "";
-  const footer =
+  const contentFile =
+    contentWithFormIllustrations ||
+    contentWithIllustrations ||
+    fallback?.contentFile ||
+    "";
+  const farewell =
+    farewellFromForm ||
     footerFromData ||
     fallback?.footer ||
     PROMPT_DEFAULTS.footer[input.lang as keyof typeof PROMPT_DEFAULTS.footer] ||
     PROMPT_DEFAULTS.footer.en;
-  const bookInvite = bookInviteFromData || fallback?.bookInvite || "";
-  const bookLink = bookLinkFromData || fallback?.bookLink || "";
-  const rawStampImage = stampImage || fallback?.stampImage || "";
+  const invitation = invitationFromForm;
+  const invitationBookLink = invitationBookLinkFromForm;
+  const rawStampImage =
+    stampImageFromForm || stampImage || fallback?.stampImage || "";
 
   const resolvedContentFile = normalizeIllustrationPaths({
     contentFile,
@@ -484,10 +789,10 @@ const resolveLandmarkView = (input: {
   if (
     !greeting &&
     !resolvedContentFile &&
-    !footer &&
-    !resolvedStampImage &&
-    !bookInvite &&
-    !bookLink
+    !farewell &&
+    !invitation &&
+    !invitationBookLink &&
+    !resolvedStampImage
   ) {
     return fallback;
   }
@@ -496,10 +801,74 @@ const resolveLandmarkView = (input: {
     greeting,
     stampImage: resolvedStampImage,
     contentFile: resolvedContentFile,
-    footer,
-    bookInvite,
-    bookLink,
+    farewell,
+    invitation,
+    invitationBookLink,
+    footer: farewell,
   };
+};
+
+const injectIllustrationsFromFormData = (input: {
+  content: string;
+  city: string;
+  slug: string;
+  items:
+    | Array<{
+        file?: string;
+        position?: string;
+        insertParagraph?: string | number;
+      }>
+    | undefined;
+}): string => {
+  if (!input.content) return "";
+  if (input.content.includes("[[illustration:")) return input.content;
+
+  const items = Array.isArray(input.items) ? input.items : [];
+  if (items.length === 0) return input.content;
+
+  const markersByParagraph = new Map<number, string[]>();
+
+  items.forEach((item) => {
+    const rawFile = typeof item?.file === "string" ? item.file.trim() : "";
+    if (!rawFile) return;
+
+    const sideRaw =
+      typeof item?.position === "string"
+        ? item.position.trim().toLowerCase()
+        : "left";
+    const side = sideRaw === "right" ? "right" : "left";
+
+    const paragraphRaw =
+      typeof item?.insertParagraph === "number"
+        ? item.insertParagraph
+        : Number.parseInt(String(item?.insertParagraph ?? "1"), 10);
+    const paragraph =
+      Number.isFinite(paragraphRaw) && paragraphRaw > 0 ? paragraphRaw : 1;
+
+    const normalizedSrc = normalizeMediaPath({
+      src: rawFile,
+      city: input.city,
+      slug: input.slug,
+    });
+    if (!normalizedSrc) return;
+
+    const marker = `[[illustration:${normalizedSrc}|${side}]]`;
+    const existing = markersByParagraph.get(paragraph) ?? [];
+    existing.push(marker);
+    markersByParagraph.set(paragraph, existing);
+  });
+
+  if (markersByParagraph.size === 0) return input.content;
+
+  const paragraphs = splitContentToParagraphs(input.content);
+  return paragraphs
+    .map((paragraph, index) => {
+      const paragraphNumber = index + 1;
+      const markers = markersByParagraph.get(paragraphNumber) ?? [];
+      if (markers.length === 0) return paragraph;
+      return `${paragraph}\n\n${markers.join("\n")}`;
+    })
+    .join("\n\n");
 };
 
 const readLocalized = (
@@ -507,7 +876,7 @@ const readLocalized = (
   lang: string,
 ): string => {
   if (typeof value === "string") {
-    return value.trim();
+    return value;
   }
 
   if (!value || typeof value !== "object") {
@@ -516,23 +885,39 @@ const readLocalized = (
 
   const byLang = value[lang];
   if (typeof byLang === "string" && byLang.trim()) {
-    return byLang.trim();
+    return byLang;
   }
 
   const ru = value.ru;
   if (typeof ru === "string" && ru.trim()) {
-    return ru.trim();
+    return ru;
   }
 
   const en = value.en;
   if (typeof en === "string" && en.trim()) {
-    return en.trim();
+    return en;
   }
 
   const first = Object.values(value).find(
     (item) => typeof item === "string" && item.trim(),
   );
-  return typeof first === "string" ? first.trim() : "";
+  return typeof first === "string" ? first : "";
+};
+
+const readLocalizedExact = (
+  value: string | Record<string, string> | undefined,
+  lang: string,
+): string => {
+  if (typeof value === "string") {
+    return lang === "ru" ? value : "";
+  }
+
+  if (!value || typeof value !== "object") {
+    return "";
+  }
+
+  const byLang = value[lang];
+  return typeof byLang === "string" ? byLang : "";
 };
 
 const readLocalizedPrompt = (

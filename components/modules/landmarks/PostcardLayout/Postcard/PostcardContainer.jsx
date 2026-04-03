@@ -6,12 +6,11 @@ export default function PostcardContainer({
   greeting = "",
   stampImage = null,
   contentFile = "",
-  footer = "",
-  bookInvite = "",
-  bookLink = "",
+  farewell = "",
+  invitation = "",
+  invitationBookLink = "",
 }) {
-  const hasBookCta = Boolean(bookInvite?.trim() && bookLink?.trim());
-  const isExternalLink = /^https?:\/\//i.test(bookLink.trim());
+  const isExternalLink = /^https?:\/\//i.test(invitationBookLink.trim());
 
   return (
     <article className={styles.container}>
@@ -25,25 +24,31 @@ export default function PostcardContainer({
         <div className={styles.contentZone}>
           <PostcardText text={contentFile} />
         </div>
-        <div className={styles.footerZone}>{footer}</div>
-        {hasBookCta ? (
-          <div className={styles.bookCtaZone}>
-            <span className={styles.bookInviteText}>{bookInvite}</span>
-            <span className={styles.bookArrow} aria-hidden="true">
-              ⟶
-            </span>
-            <a
-              className={styles.bookButton}
-              href={bookLink}
-              {...(isExternalLink
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-            >
-              <span className={styles.bookButtonIcon} aria-hidden="true">
-                📖
-              </span>
-              <span>Открыть книгу</span>
-            </a>
+
+        {farewell ? (
+          <div className={styles.farewellZone}>{farewell}</div>
+        ) : null}
+
+        {invitation || invitationBookLink ? (
+          <div className={styles.invitationZone}>
+            {invitation ? <span>{invitation}</span> : null}
+
+            {invitationBookLink ? (
+              <a
+                className={styles.bookLink}
+                href={invitationBookLink}
+                {...(isExternalLink
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                <span className={styles.bookArrow} aria-hidden="true">
+                  →
+                </span>
+                <span className={styles.bookIcon} aria-hidden="true">
+                  📖
+                </span>
+              </a>
+            ) : null}
           </div>
         ) : null}
       </div>

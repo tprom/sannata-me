@@ -11,6 +11,7 @@ type LandmarkFormType =
 type SidebarProps = {
   selectedLandmarkForm: LandmarkFormType | null;
   onSelectLandmarkForm: (formType: LandmarkFormType) => void;
+  onOpenPortalHomeForm: () => void;
   onCreateBook: () => void;
   onCreateChildPatterns: () => void;
 };
@@ -18,11 +19,19 @@ type SidebarProps = {
 export function Sidebar({
   selectedLandmarkForm,
   onSelectLandmarkForm,
+  onOpenPortalHomeForm,
   onCreateBook,
   onCreateChildPatterns,
 }: SidebarProps) {
   return (
     <aside className="agent-sidebar">
+      <h3>Формы портала</h3>
+      <button className="agent-button" onClick={onOpenPortalHomeForm}>
+        Главная страница портала
+      </button>
+
+      <div className="sidebar-divider" />
+
       <LandmarksFormSelector
         selectedForm={selectedLandmarkForm}
         onSelectForm={onSelectLandmarkForm}

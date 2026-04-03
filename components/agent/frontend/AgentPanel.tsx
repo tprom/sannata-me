@@ -8,10 +8,11 @@ import { FormRenderer } from "./FormRenderer";
 import { ChildPatternsForm } from "./ChildPatternsForm";
 import { Chat } from "./Chat";
 import { Sidebar } from "./Sidebar";
-import { FormPanel } from "@/agent/components/FormPanel";
-import { MarkdownFormPanel } from "@/agent/components/MarkdownFormPanel";
 import { default as ModuleHomeFormPanel } from "@/agent/components/ModuleHomeFormPanel";
 import CollectionHomeFormPanel from "@/agent/components/CollectionHomeFormPanel";
+import LandmarkFormPanel from "@/agent/components/LandmarkFormPanel";
+import CityFormPanel from "@/agent/components/CityFormPanel";
+import PortalHomeFormPanel from "@/agent/components/PortalHomeFormPanel";
 
 const LOCALES = ["ru", "en", "de", "uk"] as const;
 
@@ -69,7 +70,7 @@ export function AgentPanel() {
   const [selectedLandmarkForm, setSelectedLandmarkForm] =
     useState<LandmarkFormType | null>(null);
   const [activeForm, setActiveForm] = useState<
-    "landmark" | "childPatterns" | "landmarkForm" | null
+    "landmark" | "childPatterns" | "landmarkForm" | "portalHomeForm" | null
   >(null);
   const [saveStatus, setSaveStatus] = useState<
     "idle" | "saving" | "success" | "error"
@@ -381,8 +382,14 @@ export function AgentPanel() {
     LOCALES.forEach((locale) => {
       const greeting = pickLocalized(promptsRecord.greeting, locale);
       const footer = pickLocalized(promptsRecord.footer, locale);
-      const bookInvite = pickLocalized(promptsRecord.bookInvite, locale);
-      const bookLink = pickLocalized(promptsRecord.bookLink, locale);
+      const invitation = pickLocalized(
+        promptsRecord.invitation ?? promptsRecord.bookInvite,
+        locale,
+      );
+      const invitationBookLink = pickLocalized(
+        promptsRecord.invitationBookLink ?? promptsRecord.bookLink,
+        locale,
+      );
 
       postcardByLocale[locale] = {
         id: `postcard-${locale}`,
@@ -394,8 +401,8 @@ export function AgentPanel() {
           stampImage: "",
           contentFile: `content.${locale}.md`,
           footer,
-          bookInvite,
-          bookLink,
+          invitation,
+          invitationBookLink,
         },
       };
     });
@@ -824,19 +831,13 @@ export function AgentPanel() {
   const handleSelectLandmarkForm = (formType: LandmarkFormType) => {
     setSelectedLandmarkForm(formType);
     setSchema(null);
+    setActiveForm("landmarkForm");
+  };
 
-    if (formType === "landmark-item") {
-      // Для landmark-item используем старую форму FormRenderer
-      setActiveForm("landmark");
-      routeAgentMessage({ skill: "formGenerator" }, engine).then((response) => {
-        if (response.ok) {
-          setSchema(response.data as AgentFormSchema);
-        }
-      });
-    } else {
-      // Для остальных используем новую markdown-форму
-      setActiveForm("landmarkForm");
-    }
+  const handleOpenPortalHomeForm = () => {
+    setSelectedLandmarkForm(null);
+    setSchema(null);
+    setActiveForm("portalHomeForm");
   };
 
   const handleCreateChildPatterns = () => {
@@ -849,6 +850,7 @@ export function AgentPanel() {
       <Sidebar
         selectedLandmarkForm={selectedLandmarkForm}
         onSelectLandmarkForm={handleSelectLandmarkForm}
+        onOpenPortalHomeForm={handleOpenPortalHomeForm}
         onCreateBook={handleCreateBook}
         onCreateChildPatterns={handleCreateChildPatterns}
       />
@@ -861,13 +863,17 @@ export function AgentPanel() {
               statusMessage={childStatusMessage}
               isSubmitting={childSaveStatus === "saving"}
             />
+          ) : activeForm === "portalHomeForm" ? (
+            <PortalHomeFormPanel />
           ) : activeForm === "landmarkForm" && selectedLandmarkForm ? (
             selectedLandmarkForm === "city" ? (
-              <FormPanel />
+              <CityFormPanel />
             ) : selectedLandmarkForm === "module-home" ? (
               <ModuleHomeFormPanel />
             ) : selectedLandmarkForm === "collection-home" ? (
               <CollectionHomeFormPanel />
+            ) : selectedLandmarkForm === "landmark-item" ? (
+              <LandmarkFormPanel />
             ) : null
           ) : activeForm === "landmark" ? (
             <FormRenderer

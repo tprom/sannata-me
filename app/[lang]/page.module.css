@@ -1,0 +1,436 @@
+.homePage {
+  height: calc(100vh - 44px);
+  height: calc(100dvh - 44px);
+  margin-top: 44px;
+  box-sizing: border-box;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, #d5d5d7 0%, #cfcfd1 100%);
+}
+
+.bookShell {
+  width: min(1320px, 100%);
+  height: min(800px, 100%);
+  max-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #ececee;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+}
+
+.bookShell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 14px);
+  width: 28px;
+  background: linear-gradient(
+    90deg,
+    rgba(188, 188, 190, 0.95) 0%,
+    rgba(158, 158, 161, 0.9) 50%,
+    rgba(188, 188, 190, 0.95) 100%
+  );
+  box-shadow:
+    inset 0 0 8px rgba(120, 120, 122, 0.45),
+    0 0 20px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.bookPageLeft,
+.bookPageRight {
+  padding: 24px 52px 30px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.bookPageLeft::-webkit-scrollbar,
+.bookPageRight::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.bookPageLeft {
+  background: #f8f8f9;
+  box-shadow:
+    inset -14px 0 24px rgba(0, 0, 0, 0.12),
+    inset 0 0 2px rgba(0, 0, 0, 0.14);
+}
+
+.bookPageRight {
+  background: #f8f8f9;
+  box-shadow:
+    inset 14px 0 24px rgba(0, 0, 0, 0.12),
+    inset 0 0 2px rgba(0, 0, 0, 0.14);
+}
+
+.leftPageGrid {
+  display: grid;
+  grid-template-rows: auto minmax(144px, 37.8%) minmax(0, 1fr);
+  gap: 10px;
+  min-height: 100%;
+  height: 100%;
+}
+
+.mottoBlock {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.mottoLine {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(15px, 0.95vw, 20px);
+  line-height: 1.3;
+  color: #6a6a6d;
+  font-style: italic;
+}
+
+.mottoBold {
+  font-weight: 700;
+}
+
+.mottoItalic {
+  font-style: italic;
+}
+
+.mottoHighlight {
+  background: rgba(224, 197, 145, 0.4);
+  border-radius: 4px;
+  padding: 0 6px;
+}
+
+.visualBlock {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  gap: 0;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.visualHeroImage {
+  width: min(310px, 76%);
+  max-height: calc(100% - 154px);
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -8px;
+}
+
+.visualHeroImage .dynamicImageTag {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-position: center top;
+}
+
+.visualDividerBottomImage {
+  width: min(220px, 62%);
+  opacity: 0.9;
+}
+
+.leftContentBlock {
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+
+.leftContentBlock::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.rightTextBlock {
+  display: block;
+  min-height: 100%;
+}
+
+.leftContentBlock::after,
+.rightTextBlock::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.dynamicImage {
+  margin: 0;
+  min-width: 0;
+}
+
+.illustrationWrap {
+  max-width: 100%;
+}
+
+.illustrationWrap.alignLeft {
+  float: left;
+  margin: 2px 14px 10px 0;
+}
+
+.illustrationWrap.alignRight {
+  float: right;
+  margin: 2px 0 10px 14px;
+}
+
+.illustrationWrap.alignCenter {
+  float: none;
+  display: block;
+  clear: both;
+  margin: 6px auto 10px;
+}
+
+.bookPageRight .illustrationWrap.alignLeft {
+  margin-left: -28px;
+}
+
+.bookPageRight .illustrationWrap.alignRight {
+  margin-right: -28px;
+}
+
+.illustrationTypeDrawing {
+  filter: saturate(0.95);
+}
+
+.illustrationTypePhoto {
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.illustrationTypeDecor {
+  opacity: 0.92;
+}
+
+.dynamicImageTag {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.dynamicImageSmall {
+  width: min(180px, 88%);
+}
+
+.dynamicImageMedium {
+  width: min(300px, 90%);
+}
+
+.dynamicImageLarge {
+  width: min(430px, 96%);
+}
+
+.imageFrameBorder {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 4px;
+}
+
+.imageFrameShadow {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.dynamicImage figcaption {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+.alignLeft {
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.alignCenter {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignRight {
+  text-align: right;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.brand {
+  margin: 0;
+  text-align: center;
+  width: min(420px, 90%);
+  font-size: clamp(54px, 3.7vw, 72px);
+  line-height: 1;
+  letter-spacing: 0.015em;
+  font-weight: 500;
+  color: #7f5427;
+  font-family: "PT Serif", "Georgia", serif;
+}
+
+.introTitle {
+  margin: 0 0 10px;
+  font-size: clamp(18px, 1.35vw, 26px);
+  line-height: 1.3;
+  font-weight: 600;
+  color: #3f3f42;
+}
+
+.rightTitle {
+  margin: 0 0 14px;
+  font-size: clamp(22px, 1.7vw, 32px);
+  line-height: 1.2;
+  color: #3e3e40;
+}
+
+.blockParagraph,
+.blockLead,
+.blockQuote,
+.blockNote,
+.blockList,
+.blockHeading {
+  margin: 0;
+  color: #3f3f42;
+  white-space: pre-line;
+}
+
+.blockWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.blockIllustrations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.blockIllustrationItem {
+  max-width: 100%;
+}
+
+.blockParagraph {
+  font-size: clamp(16px, 1.05vw, 20px);
+  line-height: 1.45;
+}
+
+.blockLead {
+  font-size: clamp(18px, 1.18vw, 23px);
+  line-height: 1.48;
+}
+
+.blockHeading {
+  font-size: clamp(18px, 1.28vw, 24px);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.blockSizeDown {
+  font-size: 0.92em;
+}
+
+.blockSizeUp {
+  font-size: 1.08em;
+}
+
+.blockQuote {
+  border-left: 3px solid rgba(127, 84, 39, 0.4);
+  padding-left: 12px;
+  font-style: italic;
+}
+
+.blockNote {
+  background: rgba(127, 84, 39, 0.08);
+  border: 1px solid rgba(127, 84, 39, 0.14);
+  border-radius: 6px;
+  padding: 9px 12px;
+}
+
+.blockList {
+  padding-left: 20px;
+}
+
+.blockList li {
+  margin: 0;
+  font-size: clamp(16px, 1.02vw, 19px);
+  line-height: 1.45;
+}
+
+.spacingCompact {
+  margin-bottom: 8px;
+}
+
+.spacingNormal {
+  margin-bottom: 14px;
+}
+
+.spacingRelaxed {
+  margin-bottom: 20px;
+}
+
+.markBold {
+  font-weight: 700;
+}
+
+.markItalic {
+  font-style: italic;
+}
+
+.markHighlight {
+  background: rgba(224, 197, 145, 0.4);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+@media (max-width: 980px) {
+  .homePage {
+    padding: 10px;
+  }
+
+  .bookShell {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .bookShell::before {
+    display: none;
+  }
+
+  .bookPageLeft,
+  .bookPageRight {
+    padding: 16px 22px 20px;
+    max-height: none;
+  }
+
+  .leftPageGrid {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+
+  .brand {
+    font-size: clamp(44px, 8vw, 64px);
+  }
+
+  .dynamicImageLarge {
+    width: min(320px, 94%);
+  }
+
+  .visualHeroImage {
+    max-height: none;
+  }
+}

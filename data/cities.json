@@ -3,12 +3,12 @@
     "cityId": "city_rome",
     "slug": "rome",
     "city": "Rome",
-    "countryId": "country_it",
+    "countryId": "country_italy",
     "countryName": {
-      "en": "it",
-      "de": "",
-      "ru": "",
-      "uk": ""
+      "en": "Italy",
+      "de": "Italien",
+      "ru": "Италия",
+      "uk": "Італія"
     },
     "name": {
       "ru": "Рим",
@@ -28,7 +28,7 @@
       "source": "manual"
     },
     "menu": {
-      "hasMapOption": true,
+      "hasMapOption": false,
       "mapLabel": {
         "ru": "Показать на карте",
         "en": "Show on map",
@@ -46,7 +46,7 @@
         "slug": "coliseum"
       }
     ],
-    "updatedAt": "2026-02-24T12:00:00.000Z"
+    "updatedAt": "2026-03-10T11:00:14.438Z"
   },
   {
     "cityId": "city_augsburg",
@@ -101,12 +101,12 @@
     "cityId": "city_munich",
     "slug": "munich",
     "city": "Munich",
-    "countryId": "country_de",
+    "countryId": "country_germany",
     "countryName": {
-      "en": "de",
-      "de": "",
-      "ru": "",
-      "uk": ""
+      "en": "Germany",
+      "de": "Deutschland",
+      "ru": "Германия",
+      "uk": "Німеччина"
     },
     "name": {
       "ru": "Мюнхен",
@@ -126,7 +126,7 @@
       "source": "manual"
     },
     "menu": {
-      "hasMapOption": true,
+      "hasMapOption": false,
       "mapLabel": {
         "ru": "Показать на карте",
         "en": "Show on map",
@@ -144,7 +144,7 @@
         "slug": "frauenkirche"
       }
     ],
-    "updatedAt": "2026-02-24T12:00:00.000Z"
+    "updatedAt": "2026-03-10T11:05:29.304Z"
   },
   {
     "cityId": "city_nuremberg",
@@ -194,49 +194,5 @@
       }
     ],
     "updatedAt": "2026-02-24T12:00:00.000Z"
-  },
-  {
-    "cityId": "city_testville",
-    "slug": "testville",
-    "city": "Testville",
-    "countryId": "country_testland",
-    "countryName": {
-      "en": "Testland",
-      "de": "Testland",
-      "ru": "????????",
-      "uk": "????????"
-    },
-    "name": {
-      "ru": "?????????",
-      "en": "Testville",
-      "de": "Testville",
-      "uk": "?????????"
-    },
-    "info": {
-      "en": "",
-      "de": "",
-      "ru": "",
-      "uk": ""
-    },
-    "geo": {
-      "lat": 12.34,
-      "lng": 56.78,
-      "source": "manual"
-    },
-    "menu": {
-      "hasMapOption": true,
-      "mapLabel": {
-        "ru": "Показать на карте",
-        "en": "Show on map",
-        "de": "Auf der Karte anzeigen",
-        "uk": "Показати на мапі"
-      }
-    },
-    "status": {
-      "geoReady": true,
-      "isActive": true
-    },
-    "landmarks": [],
-    "updatedAt": "2026-03-05T10:37:21.992Z"
   }
 ]

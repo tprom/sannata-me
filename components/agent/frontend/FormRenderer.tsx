@@ -351,15 +351,29 @@ function PreviewItemSections({
           stampImage: postcardSection.payload.stampImage,
           contentFile: postcardSection.payload.contentFile,
           footer: postcardSection.payload.footer,
-          bookInvite: postcardSection.payload.bookInvite,
-          bookLink: postcardSection.payload.bookLink,
+          invitation:
+            postcardSection.payload.invitation ||
+            (postcardSection.payload as Record<string, unknown>).bookInvite ||
+            "",
+          invitationBookLink:
+            postcardSection.payload.invitationBookLink ||
+            (postcardSection.payload as Record<string, unknown>).bookLink ||
+            "",
         }}
         greeting={postcardSection.payload.greeting}
         stampImage={postcardSection.payload.stampImage}
         contentFile={postcardSection.payload.contentFile}
         footer={postcardSection.payload.footer}
-        bookInvite={postcardSection.payload.bookInvite}
-        bookLink={postcardSection.payload.bookLink}
+        invitation={
+          postcardSection.payload.invitation ||
+          (postcardSection.payload as Record<string, unknown>).bookInvite ||
+          ""
+        }
+        invitationBookLink={
+          postcardSection.payload.invitationBookLink ||
+          (postcardSection.payload as Record<string, unknown>).bookLink ||
+          ""
+        }
         gallery={galleryItems}
         gallerySource={gallerySource}
         style={null}
@@ -551,6 +565,17 @@ const getStringField = (
   return typeof value === "string" ? value : "";
 };
 
+const getFirstStringField = (
+  payload: Record<string, unknown> | null,
+  keys: string[],
+): string => {
+  for (const key of keys) {
+    const value = getStringField(payload, key);
+    if (value) return value;
+  }
+  return "";
+};
+
 const getGalleryItemsFromEnvelope = (
   envelope: UniversalEnvelope | undefined,
 ): Array<{ src: string; alt?: string }> => {
@@ -734,6 +759,8 @@ export function FormRenderer({
             prompts?: {
               greeting?: unknown;
               footer?: unknown;
+              invitation?: unknown;
+              invitationBookLink?: unknown;
               bookInvite?: unknown;
               bookLink?: unknown;
             };
@@ -972,37 +999,69 @@ export function FormRenderer({
             getStringField(ruPostcardPayload, "footer") ||
             readLocalizedPrompt(payload.prompts?.footer, "ru"),
           bookInviteRu:
-            getStringField(ruPostcardPayload, "bookInvite") ||
+            getFirstStringField(ruPostcardPayload, [
+              "invitation",
+              "bookInvite",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitation, "ru") ||
             readLocalizedPrompt(payload.prompts?.bookInvite, "ru"),
           bookLinkRu:
-            getStringField(ruPostcardPayload, "bookLink") ||
+            getFirstStringField(ruPostcardPayload, [
+              "invitationBookLink",
+              "bookLink",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitationBookLink, "ru") ||
             readLocalizedPrompt(payload.prompts?.bookLink, "ru"),
           footerEn:
             getStringField(enPostcardPayload, "footer") ||
             readLocalizedPrompt(payload.prompts?.footer, "en"),
           bookInviteEn:
-            getStringField(enPostcardPayload, "bookInvite") ||
+            getFirstStringField(enPostcardPayload, [
+              "invitation",
+              "bookInvite",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitation, "en") ||
             readLocalizedPrompt(payload.prompts?.bookInvite, "en"),
           bookLinkEn:
-            getStringField(enPostcardPayload, "bookLink") ||
+            getFirstStringField(enPostcardPayload, [
+              "invitationBookLink",
+              "bookLink",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitationBookLink, "en") ||
             readLocalizedPrompt(payload.prompts?.bookLink, "en"),
           footerDe:
             getStringField(dePostcardPayload, "footer") ||
             readLocalizedPrompt(payload.prompts?.footer, "de"),
           bookInviteDe:
-            getStringField(dePostcardPayload, "bookInvite") ||
+            getFirstStringField(dePostcardPayload, [
+              "invitation",
+              "bookInvite",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitation, "de") ||
             readLocalizedPrompt(payload.prompts?.bookInvite, "de"),
           bookLinkDe:
-            getStringField(dePostcardPayload, "bookLink") ||
+            getFirstStringField(dePostcardPayload, [
+              "invitationBookLink",
+              "bookLink",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitationBookLink, "de") ||
             readLocalizedPrompt(payload.prompts?.bookLink, "de"),
           footerUk:
             getStringField(ukPostcardPayload, "footer") ||
             readLocalizedPrompt(payload.prompts?.footer, "uk"),
           bookInviteUk:
-            getStringField(ukPostcardPayload, "bookInvite") ||
+            getFirstStringField(ukPostcardPayload, [
+              "invitation",
+              "bookInvite",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitation, "uk") ||
             readLocalizedPrompt(payload.prompts?.bookInvite, "uk"),
           bookLinkUk:
-            getStringField(ukPostcardPayload, "bookLink") ||
+            getFirstStringField(ukPostcardPayload, [
+              "invitationBookLink",
+              "bookLink",
+            ]) ||
+            readLocalizedPrompt(payload.prompts?.invitationBookLink, "uk") ||
             readLocalizedPrompt(payload.prompts?.bookLink, "uk"),
         }));
 
@@ -1211,13 +1270,13 @@ export function FormRenderer({
         de: textValues.footerDe?.trim() || PROMPT_DEFAULTS.footer.de,
         uk: textValues.footerUk?.trim() || PROMPT_DEFAULTS.footer.uk,
       },
-      bookInvite: {
+      invitation: {
         ru: textValues.bookInviteRu?.trim() || "",
         en: textValues.bookInviteEn?.trim() || "",
         de: textValues.bookInviteDe?.trim() || "",
         uk: textValues.bookInviteUk?.trim() || "",
       },
-      bookLink: {
+      invitationBookLink: {
         ru: textValues.bookLinkRu?.trim() || "",
         en: textValues.bookLinkEn?.trim() || "",
         de: textValues.bookLinkDe?.trim() || "",
@@ -1498,8 +1557,8 @@ export function FormRenderer({
       stampImage: stampPreviewSrc || "",
       contentFile: previewSummary.trim() || "",
       footer: previewFooter.trim() || PROMPT_DEFAULTS.footer[previewLocale],
-      bookInvite: previewBookInvite.trim() || "",
-      bookLink: previewBookLink.trim() || "",
+      invitation: previewBookInvite.trim() || "",
+      invitationBookLink: previewBookLink.trim() || "",
     },
     gallery: previewGalleryItems.map((item) => ({
       src: item.src,

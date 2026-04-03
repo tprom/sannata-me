@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import { ensureAgentApiAccess } from "@/lib/security/agent-auth";
 
 export async function POST(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File;

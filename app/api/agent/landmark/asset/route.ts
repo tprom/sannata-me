@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import { ensureAgentApiAccess } from "@/lib/security/agent-auth";
 
 const normalizeSlug = (value: string) =>
   value
@@ -29,6 +30,9 @@ const getMimeByExt = (ext: string) => {
 };
 
 export async function GET(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   const { searchParams } = new URL(request.url);
   const citySlug = normalizeSlug(searchParams.get("citySlug") ?? "");
   const landmarkSlug = normalizeSlug(searchParams.get("landmarkSlug") ?? "");

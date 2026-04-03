@@ -5,6 +5,7 @@ import {
   extractChildPatterns,
   type ChildDictionary,
 } from "@/skills/extractChildPatterns";
+import { ensureAgentApiAccess } from "@/lib/security/agent-auth";
 
 type RequestBody = {
   text?: string;
@@ -87,6 +88,9 @@ const normalizeDictionary = (data: ChildDictionaryFile): ChildDictionary => {
 };
 
 export async function POST(request: Request) {
+  const denied = await ensureAgentApiAccess(request);
+  if (denied) return denied;
+
   const body = (await request.json()) as RequestBody;
   const text = body.text?.trim() ?? "";
 

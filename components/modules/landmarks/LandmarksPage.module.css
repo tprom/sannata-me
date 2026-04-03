@@ -1,20 +1,24 @@
 .layout {
-  display: flex;
-  height: 100vh;
+  display: grid;
+  grid-template-columns: 336px minmax(0, 1fr);
+  gap: 16px;
+  padding: 0 24px 0;
+  margin-top: 44px;
+  height: calc(100vh - 44px);
+  height: calc(100dvh - 44px);
   overflow: hidden;
-  background: #efeae3;
+  min-height: 0;
+  background: #f3f0eb;
 }
 
 .allowOverflow {
-  overflow: visible;
+  overflow: hidden;
 }
 
 .menuColumn {
-  width: 300px;
-  overflow: visible;
-  background: #fff;
-  border-right: 1px solid #e3ddd3;
-  padding: 24px 18px;
+  width: 336px;
+  overflow: hidden;
+  min-height: 0;
   -ms-overflow-style: none;
   position: relative;
   z-index: 200;
@@ -22,24 +26,32 @@
 
 .menuScroll {
   height: 100%;
+  min-height: 0;
   overflow-y: auto;
-  overflow-x: visible;
+  overflow-x: hidden;
   -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .menuScroll::-webkit-scrollbar {
   width: 0;
   height: 0;
+  display: none;
 }
 
 .contentColumn {
-  flex: 1;
+  min-width: 0;
   overflow: hidden;
+  min-height: 0;
   position: relative;
   z-index: 0;
 }
 
 .universalContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -48,7 +60,34 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 0;
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    margin-top: 44px;
+    height: auto;
+    overflow: visible;
+  }
+
+  .menuColumn {
+    width: auto;
+    overflow: visible;
+  }
+
+  .menuScroll {
+    height: auto;
+    overflow: visible;
+  }
+
+  .contentColumn,
+  .universalContent {
+    overflow: visible;
+  }
 }
 
 .sidebar {

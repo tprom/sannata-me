@@ -26,8 +26,8 @@ export interface OrchestratorLandmarkPostcardOutput {
       stampImage: string;
       contentFile: string;
       footer: string;
-      bookInvite?: string;
-      bookLink?: string;
+      invitation?: string;
+      invitationBookLink?: string;
     }
   >;
   gallery: Array<{

@@ -166,6 +166,6 @@ export interface ViewJson {
   stampImage: string;
   contentFile: string;
   footer: string;
-  bookInvite?: string;
-  bookLink?: string;
+  invitation?: string;
+  invitationBookLink?: string;
 }

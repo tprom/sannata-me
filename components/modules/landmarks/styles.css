@@ -1,21 +1,40 @@
+.landmarks-layout,
+.landmark-page,
+.city-page {
+  background: #f3f0eb;
+}
+
 .landmarks-layout {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 336px 1fr;
   gap: 20px;
-  padding: 24px;
+  padding: 0 24px 0;
+  margin-top: 24px;
+  height: calc(100vh - 24px);
+  height: calc(100dvh - 24px);
+  overflow: hidden;
+  min-height: 0;
 }
 
 .landmark-page {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-columns: 336px minmax(0, 1fr);
   gap: 16px;
-  padding: 24px;
+  padding: 0 24px 0;
+  margin-top: 24px;
+  height: calc(100vh - 24px);
+  height: calc(100dvh - 24px);
+  overflow: hidden;
+  min-height: 0;
 }
 
 .landmark-story {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .landmark-section {
@@ -131,36 +150,140 @@
 
 .city-page {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-columns: 336px minmax(0, 1fr);
   gap: 16px;
-  padding: 24px;
+  padding: 0 24px 0;
+  margin-top: 24px;
+  height: calc(100vh - 24px);
+  height: calc(100dvh - 24px);
+  overflow: hidden;
+  min-height: 0;
 }
 
 .city-menu {
-  border: 1px solid #e1e1e6;
-  border-radius: 12px;
+  border: none;
+  border-radius: 16px;
   padding: 16px;
-  background: #ffffff;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(224, 193, 150, 0) 0,
+      rgba(224, 193, 150, 0) 50%,
+      rgba(224, 193, 150, 0.22) 76%,
+      rgba(243, 240, 235, 0.16) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(219, 187, 142, 0) 0,
+      rgba(219, 187, 142, 0) 10%,
+      rgba(219, 187, 142, 0.25) 36%,
+      rgba(231, 213, 186, 0.1) 66%,
+      rgba(243, 240, 235, 0.08) 100%
+    ),
+    radial-gradient(
+      circle at 88% 6%,
+      rgba(255, 196, 122, 0.24) 0 28%,
+      transparent 56%
+    ),
+    radial-gradient(
+      circle at 6% 82%,
+      rgba(130, 98, 58, 0.12) 0 26%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, #e6cfaa 0%, #d6bb93 48%, #c8ac84 100%);
   position: relative;
   z-index: 40;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
-  height: 680px;
-  align-self: start;
+  height: 100%;
+  min-height: 0;
+  align-self: stretch;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 243, 220, 0.44),
+    inset 0 -14px 20px rgba(109, 73, 38, 0.07),
+    0 8px 16px rgba(52, 36, 20, 0.11);
+}
+
+.city-menu::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 20px;
+  width: 28px;
+  border-radius: 14px;
+  background:
+    radial-gradient(
+      circle at 42% 18%,
+      rgba(255, 232, 193, 0.24) 0 14%,
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 66% 72%,
+      rgba(91, 58, 28, 0.45) 0 10%,
+      transparent 28%
+    ),
+    repeating-linear-gradient(
+      176deg,
+      rgba(70, 45, 24, 0.2) 0 3px,
+      rgba(172, 129, 80, 0.18) 3px 8px,
+      rgba(86, 53, 28, 0.22) 8px 11px
+    ),
+    linear-gradient(180deg, #8e653d 0%, #6f4d2d 56%, #5a3e23 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(66, 44, 24, 0.35),
+    2px 0 0 rgba(255, 235, 201, 0.14),
+    10px 0 16px rgba(59, 36, 18, 0.2);
+  pointer-events: none;
+}
+
+.city-menu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    118deg,
+    rgba(255, 211, 146, 0.12) 0 6px,
+    rgba(255, 190, 111, 0.06) 6px 14px,
+    transparent 14px 24px
+  );
+  pointer-events: none;
+  opacity: 0.22;
+}
+
+.city-menu h3 {
+  margin: 0;
+  padding: 2px 0 6px 44px;
+  color: #3c2715;
+  font-size: 26px;
+  letter-spacing: 0.2px;
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(255, 242, 214, 0.7);
+  position: relative;
+  z-index: 2;
 }
 
 .city-menu-list {
   list-style: none;
-  padding: 0;
+  padding: 2px 2px 0 24px;
   margin: 12px 0 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
   min-height: 0;
   flex: 1;
+  scrollbar-width: none;
+  position: relative;
+  z-index: 2;
+}
+
+.city-menu-list::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .city-menu-item {
@@ -169,7 +292,7 @@
   gap: 8px;
   position: relative;
   z-index: 1;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 /* v2.7: строки меню достопримечательностей */
@@ -183,7 +306,7 @@
 }
 
 .city-menu-item.landmark-item:hover {
-  background: #f3f4f6;
+  background: rgba(121, 88, 54, 0.14);
 }
 
 .city-menu-thumb {
@@ -200,9 +323,7 @@
 }
 
 .landmark-preview {
-  position: absolute;
-  top: 0;
-  left: calc(100% + 12px);
+  position: relative;
   width: min(280px, 70vw);
   padding: 12px;
   border-radius: 12px;
@@ -216,10 +337,8 @@
 
 .landmark-preview-portal {
   position: fixed;
-  z-index: 9999;
+  z-index: 1400;
   pointer-events: none;
-  top: 24px;
-  right: 24px;
 }
 
 .landmark-preview-image {
@@ -238,27 +357,57 @@
 .city-menu-link {
   position: relative;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 10px;
-  width: min(100%, 280px);
-  min-width: min(220px, 100%);
-  min-height: 52px;
-  max-height: 120px;
-  padding: 12px 16px 12px 28px;
-  border-radius: 6px;
+  width: calc(100% + 14px);
+  margin-left: -12px;
+  min-width: 0;
+  min-height: 50px;
+  max-height: none;
+  padding: 9px 12px 9px 28px;
+  border-radius: 8px;
   clip-path: polygon(
     0 0,
-    calc(100% - 18px) 0,
+    calc(100% - 20px) 0,
     100% 50%,
-    calc(100% - 18px) 100%,
+    calc(100% - 20px) 100%,
     0 100%
   );
   text-decoration: none;
-  color: #1f2937;
-  background: #f8f9fb;
+  color: #2f1f11;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 231, 191, 0.18) 0,
+      rgba(255, 231, 191, 0.1) 50%,
+      rgba(103, 66, 34, 0.13) 78%,
+      rgba(83, 52, 27, 0.18) 100%
+    ),
+    radial-gradient(
+      circle at 20% 24%,
+      rgba(255, 228, 181, 0.5) 0 18%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 76% 72%,
+      rgba(109, 70, 36, 0.22) 0 12%,
+      transparent 34%
+    ),
+    repeating-linear-gradient(
+      172deg,
+      rgba(113, 73, 37, 0.2) 0 3px,
+      rgba(232, 194, 146, 0.08) 3px 8px,
+      rgba(92, 57, 29, 0.12) 8px 12px
+    ),
+    linear-gradient(180deg, #d0a56d 0%, #bc8c57 54%, #aa7949 100%);
+  border: 1px solid rgba(105, 69, 37, 0.46);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 242, 209, 0.46),
+    inset 0 -10px 12px rgba(80, 50, 22, 0.14),
+    0 4px 10px rgba(77, 49, 23, 0.18);
   overflow: hidden;
-  transform-origin: 18px 50%;
+  transform-origin: 16px 50%;
   transform: rotate(var(--city-angle, 0deg));
   transition:
     background-color 0.2s ease,
@@ -270,8 +419,11 @@
 
 .city-menu-link:hover {
   transform: rotate(calc(var(--city-angle, 0deg) + 0.3deg));
-  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.16);
-  filter: brightness(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 219, 0.52),
+    inset 0 -10px 12px rgba(86, 56, 28, 0.16),
+    0 10px 16px rgba(70, 42, 18, 0.24);
+  filter: brightness(1.04);
   animation: city-link-sway 220ms ease-out 1;
 }
 
@@ -280,7 +432,30 @@
 }
 
 .city-menu-link.is-active {
-  background: #e6f0ff;
+  background:
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(255, 236, 194, 0.56) 0 18%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 76% 72%,
+      rgba(104, 66, 35, 0.28) 0 13%,
+      transparent 34%
+    ),
+    repeating-linear-gradient(
+      172deg,
+      rgba(113, 73, 37, 0.2) 0 3px,
+      rgba(250, 215, 164, 0.1) 3px 8px,
+      rgba(92, 57, 29, 0.13) 8px 12px
+    ),
+    linear-gradient(180deg, #d8ae74 0%, #c8965f 54%, #b37f4f 100%);
+  border-color: rgba(102, 64, 33, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 243, 215, 0.56),
+    inset 0 -10px 12px rgba(81, 50, 21, 0.2),
+    0 9px 18px rgba(65, 39, 17, 0.28);
+  filter: brightness(1.03);
   font-weight: 600;
 }
 
@@ -293,12 +468,20 @@
 .city-menu-label {
   flex: 1;
   min-width: 0;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+  color: #2f1e10;
+  text-shadow: 0 1px 0 rgba(255, 241, 211, 0.42);
   white-space: normal;
   overflow-wrap: anywhere;
-  word-break: break-word;
-  line-height: 1.25;
-  max-height: 96px;
-  overflow: auto;
+  word-break: normal;
+  hyphens: auto;
+  text-align: center;
+  padding: 0 28px 0 10px;
+  max-height: none;
+  overflow: visible;
 }
 
 .city-menu-nail {
@@ -309,18 +492,32 @@
   height: 10px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  background: #6b7280;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.7) 0 20%,
+    rgba(187, 195, 203, 0.7) 32%,
+    rgba(81, 92, 105, 0.9) 100%
+  );
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.45),
-    0 0 0 1px rgba(17, 24, 39, 0.18);
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    0 0 0 1px rgba(48, 34, 20, 0.35),
+    0 1px 2px rgba(23, 18, 13, 0.3);
 }
 
 .city-menu-count {
   font-size: 12px;
-  color: #6b7280;
-  margin-left: auto;
-  padding-left: 8px;
+  color: #4f341f;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(255, 238, 204, 0.58);
+  border: 1px solid rgba(108, 72, 40, 0.28);
   flex-shrink: 0;
+  font-weight: 600;
 }
 
 .landmarks-info {
@@ -331,7 +528,8 @@
 }
 
 .landmark-list {
-  padding-left: 8px;
+  padding-left: 6px;
+  margin-top: 2px;
   animation: landmark-list-reveal 220ms ease-out;
 }
 
@@ -347,30 +545,58 @@
   margin: 8px 0 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .landmark-list-link {
   display: block;
-  padding: 8px 12px;
-  border-radius: 8px;
+  width: calc(100% + 10px);
+  margin-left: -8px;
+  max-width: none;
+  padding: 9px 12px;
+  border-radius: 7px;
   text-decoration: none;
-  color: #1f2937;
+  color: #2f1e10;
   background:
-    linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%),
-    repeating-linear-gradient(
+    linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.16) 0 6px,
-      rgba(17, 24, 39, 0.04) 6px 12px
+      rgba(255, 236, 201, 0.16) 0,
+      rgba(255, 236, 201, 0.08) 50%,
+      rgba(100, 64, 34, 0.1) 76%,
+      rgba(84, 52, 27, 0.16) 100%
+    ),
+    radial-gradient(
+      circle at 16% 22%,
+      rgba(255, 236, 198, 0.5) 0 20%,
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 82% 70%,
+      rgba(108, 71, 41, 0.2) 0 14%,
+      transparent 34%
+    ),
+    linear-gradient(180deg, #d9b17a 0%, #c79862 54%, #b88556 100%),
+    repeating-linear-gradient(
+      170deg,
+      rgba(116, 78, 44, 0.18) 0 3px,
+      rgba(255, 237, 203, 0.09) 3px 8px,
+      rgba(94, 59, 31, 0.12) 8px 12px
     );
-  border: 1px solid #d1d5db;
+  border: 1px solid rgba(100, 66, 37, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 219, 0.44),
+    inset 0 -9px 11px rgba(82, 53, 26, 0.14),
+    0 4px 9px rgba(78, 49, 23, 0.18);
   white-space: normal;
   overflow-wrap: anywhere;
-  word-break: break-word;
-  max-height: 96px;
-  overflow: auto;
-  min-height: 40px;
-  max-width: 260px;
+  word-break: normal;
+  hyphens: auto;
+  line-height: 1.28;
+  font-size: 15px;
+  font-weight: 600;
+  max-height: none;
+  overflow: visible;
+  min-height: 42px;
   transform: rotate(var(--landmark-angle, 0deg));
   transform-origin: 14px 50%;
   transition:
@@ -378,6 +604,12 @@
     box-shadow 0.2s ease,
     filter 0.2s ease,
     transform 0.2s ease;
+}
+
+.landmark-list-link::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .city-menu-link,
@@ -420,19 +652,90 @@
 
 .landmark-list-link:hover {
   transform: rotate(calc(var(--landmark-angle, 0deg) + 0.12deg));
-  box-shadow: 0 4px 9px rgba(15, 23, 42, 0.1);
-  filter: brightness(1.05);
+  border-color: rgba(108, 72, 40, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 220, 0.4),
+    inset 0 -8px 10px rgba(82, 53, 26, 0.18),
+    0 6px 10px rgba(72, 44, 20, 0.18);
+  filter: brightness(1.02);
   animation: landmark-link-sway 220ms ease-out 1;
 }
 
 .landmark-list-link.is-active {
-  background: #e6f0ff;
+  background:
+    radial-gradient(
+      circle at 16% 22%,
+      rgba(255, 243, 211, 0.58) 0 20%,
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 82% 70%,
+      rgba(99, 64, 35, 0.28) 0 14%,
+      transparent 34%
+    ),
+    linear-gradient(180deg, #e0bb84 0%, #cd9f69 54%, #bb8758 100%),
+    repeating-linear-gradient(
+      170deg,
+      rgba(116, 78, 44, 0.2) 0 3px,
+      rgba(255, 237, 203, 0.11) 3px 8px,
+      rgba(94, 59, 31, 0.13) 8px 12px
+    );
+  border-color: rgba(100, 66, 37, 0.56);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 222, 0.52),
+    inset 0 -9px 11px rgba(82, 53, 26, 0.2),
+    0 8px 12px rgba(67, 40, 17, 0.22);
   font-weight: 600;
 }
 
 .city-menu-item.landmark-item .landmark-list-link.is-active {
-  background: #e6f0ff;
+  background:
+    radial-gradient(
+      circle at 16% 22%,
+      rgba(255, 243, 211, 0.58) 0 20%,
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 82% 70%,
+      rgba(99, 64, 35, 0.28) 0 14%,
+      transparent 34%
+    ),
+    linear-gradient(180deg, #e0bb84 0%, #cd9f69 54%, #bb8758 100%),
+    repeating-linear-gradient(
+      170deg,
+      rgba(116, 78, 44, 0.2) 0 3px,
+      rgba(255, 237, 203, 0.11) 3px 8px,
+      rgba(94, 59, 31, 0.13) 8px 12px
+    );
   font-weight: 600;
+}
+
+.city-menu-link.is-active + .landmark-list {
+  margin-top: 8px;
+}
+
+.landmark-list-items .city-menu-item {
+  animation: landmark-list-reveal 240ms ease-out both;
+}
+
+.landmark-list-items .city-menu-item:nth-child(1) {
+  animation-delay: 20ms;
+}
+
+.landmark-list-items .city-menu-item:nth-child(2) {
+  animation-delay: 55ms;
+}
+
+.landmark-list-items .city-menu-item:nth-child(3) {
+  animation-delay: 90ms;
+}
+
+.landmark-list-items .city-menu-item:nth-child(4) {
+  animation-delay: 125ms;
+}
+
+.landmark-list-items .city-menu-item:nth-child(5) {
+  animation-delay: 160ms;
 }
 
 .landmark-content {
@@ -529,7 +832,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  z-index: 2000;
 }
 
 .landmark-gallery-backdrop {
@@ -594,6 +897,32 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.landmarks-content {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.landmark-story {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.city-content::-webkit-scrollbar,
+.landmarks-content::-webkit-scrollbar,
+.landmark-story::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 .city-zone-1 {
@@ -791,14 +1120,21 @@
 @media (max-width: 900px) {
   .landmark-page {
     grid-template-columns: 1fr;
+    margin-top: 24px;
+    height: auto;
+    overflow: visible;
   }
 
   .landmarks-layout {
     grid-template-columns: 1fr;
+    margin-top: 24px;
+    height: auto;
+    overflow: visible;
   }
 
   .city-menu {
-    height: 560px;
+    height: auto;
+    max-height: none;
   }
 
   .city-menu-link {
@@ -833,6 +1169,15 @@
 
   .city-page {
     grid-template-columns: 1fr;
+    margin-top: 24px;
+    height: auto;
+    overflow: visible;
+  }
+
+  .landmark-story,
+  .city-content,
+  .landmarks-content {
+    overflow: visible;
   }
 
   .landmark-preview {
